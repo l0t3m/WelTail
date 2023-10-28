@@ -28,3 +28,16 @@ def login():
 def signup():
     return render_template("signup.html")
 
+
+
+#################### Test Routes: ####################
+
+@app.route('/users')
+def users():
+    users = []
+
+    for user in db.get_TableDicts():
+        users.append(user)
+
+    return users
+
