@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>WelTail - Log In</title>
+        <title>WelTail - My Feed</title>
 
         <!-- Imports for react to start working -->
         <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -16,13 +16,8 @@
     <body>
 
         <div class="mainContainer">
-            <div class="header">Log In</div>
-
-            <form action="/login" method="post">
-                <input type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <input type="submit" value="Log In"/>
-            </form>
+            <div class="header">This is your feed page</div>
+            <div> {{user_id}} </div>
         </div>
 
     </body>

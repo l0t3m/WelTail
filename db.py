@@ -18,7 +18,7 @@ def query(sql="SELECT * FROM users", filename="weltail.db"):
             row_names.append(get_TableKeys())
         return {"rows":cur.fetchall(), "keys":row_names}
 
-def get_TableKeys(sql="SELECT * FROM users", filename="todolist.sqlite"):
+def get_TableKeys(sql="SELECT * FROM users", filename="weltail.db"):
     with sqlite3.connect(filename) as conn:
         cur = conn.cursor().execute(sql)
         conn.commit()
@@ -47,7 +47,7 @@ def setup(filename="weltail.db"):
     if not os.path.exists('weltail.db'):
         query("""CREATE TABLE IF NOT EXISTS "users" ("user_id" INTEGER PRIMARY KEY,"username" TEXT,"password" TEXT);""", filename)
         query("""CREATE TABLE IF NOT EXISTS "pets" 
-              ("user_id" INTEGER, "pet_id" INTEGER PRIMARY KEY, "pet_species" TEXT, "pet_sex" TEXT, "pet_birthDate" TEXT, "pet_race" TEXT, 
+              ("user_id" INTEGER, "pet_id" INTEGER PRIMARY KEY, "pet_species" TEXT, "pet_name" TEXT, "pet_sex" TEXT, "pet_birthDate" TEXT, "pet_race" TEXT, 
               FOREIGN KEY ("user_id") REFERENCES users ("user_id"));""", filename)
         query("""CREATE TABLE IF NOT EXISTS "activities" 
               ("user_id" INTEGER, "pet_id" INTEGER, "activity_id" INTEGER PRIMARY KEY, "activity_name" TEXT, "activity_repeat" TEXT, "activity_date" TEXT, "activity_time" TEXT,
@@ -58,6 +58,9 @@ def setup(filename="weltail.db"):
 def setup_TestData():
     query("INSERT INTO users (username, password) VALUES ('lotem', '1212')")
     query("INSERT INTO users (username, password) VALUES ('tohar', '5555')")
+
+    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_sex, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Haaaaatol', 'male', 'birthdate', 'Scottish');")
+    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_sex, pet_birthDate, pet_race) VALUES ('2', 'dog', 'Lady', 'female', 'birthdate', 'Malinois');")
 
 
 
