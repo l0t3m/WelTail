@@ -1,29 +1,26 @@
 /***********************************************************************/
 
 :root {
-    --white: #f2f2f2;           /* Text Color */
+    --textBlack: #000000;           /* Text Color - Black */
+    --textWhite: #f2f2f2;           /* Text Color - White */
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18pt;
+    color: var(--textBlack);
 }
 
 .center {
     margin: auto;
     width: 50%;
     padding: 10px;
+    text-align: center;
 }
 
 a {
     text-decoration: none;
-    color: var(--white);
+    color: var(--textBlack);
 }
 
 /***********************************************************************/
-
-
-
-
-
-
