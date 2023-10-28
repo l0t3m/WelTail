@@ -44,7 +44,7 @@ def signup():
 
 @app.route('/feed/<user_id>', methods=['GET'])
 def feed(user_id):
-    return render_template("feed.html", user_id=user_id)
+    return render_template("feed.html")
 
 
 
