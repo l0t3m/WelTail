@@ -29,7 +29,7 @@
             <div class="pets">
 
                 <div class="actions">
-                    <a href={{"/pet/add/{}".format(pets.0.user_id)}}>Add a pet</a>
+                    <a href='{{"/pet/add/{}".format(user.0.user_id)}}'>Add a pet</a>
                 </div>
 
                 {% for pet in pets %}
@@ -64,8 +64,6 @@
                         </div>
                     </div>
 
-                    <div class="separator"></div>
-
                     <div class="right center">
                         <div class="table">
                             <div class="row">
@@ -87,7 +85,8 @@
                 </div>
 
                 <div class="actions">
-                    <a href={{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}>delete</a>
+                    <a href='{{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}'>delete</a>
+                    <a href='{{"/pet/edit/{}/{}".format(pet.user_id, pet.pet_id)}}'>Edit</a>
                 </div>
 
                 <br>

@@ -62,9 +62,9 @@ def setup_TestData():
     query("INSERT INTO users (username, password) VALUES ('lotem', '1212')")
     query("INSERT INTO users (username, password) VALUES ('tohar', '5555')")
 
-    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Haaaaatol', 'male', '1.1.2021', 'Scottish');")
-    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Mini Hatol', 'male', '2.2.2022', 'Turkish');")
-    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('2', 'dog', 'Lady', 'female', 'birthdate', 'Malinois');")
+    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Haaaaatol', 'male', '2000-01-01', 'Scottish');")
+    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Mini Hatol', 'male', '2000-01-01', 'Turkish');")
+    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('2', 'dog', 'Lady', 'female', '2000-01-01', 'Malinois');")
 
 
 

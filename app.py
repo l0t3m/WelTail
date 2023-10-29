@@ -42,7 +42,6 @@ def signup():
         return render_template("signup.html")
     
     db.query(f"INSERT INTO users (username, password) VALUES ('{request.form['username']}', '{request.form['password']}');")
-    
     session['user_id'] = functions.getUserData(request.form['username'])['user_id']
     return redirect(f"/feed/{session['user_id']}")
 
@@ -64,7 +63,7 @@ def profile(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
+        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"), user = db.get_TableDicts(f"SELECT * FROM users WHERE user_id = '{user_id}';"))
     
     return redirect("/profile")
 
@@ -74,6 +73,9 @@ def profile(user_id):
 
 @app.route('/pet/add/<user_id>', methods=['GET','POST'])
 def pet_add(user_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
+
     if request.method == "GET":
         return render_template("addPet.html", user_id = user_id)
     
@@ -83,11 +85,23 @@ def pet_add(user_id):
 
 @app.route('/pet/delete/<user_id>/<pet_id>', methods=['GET'])
 def pet_delete(user_id, pet_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
+
     db.query(f"DELETE FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';")
     return redirect('/profile')
 
 
+@app.route('/pet/edit/<user_id>/<pet_id>', methods=['GET', 'POST'])
+def pet_edit(user_id, pet_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
 
+    if request.method == 'GET':
+        return render_template('editPet.html', pet = db.get_TableDicts(f"SELECT * FROM pets WHERE pet_id = '{pet_id}';"))
+
+    db.query(f"UPDATE pets SET pet_species='{request.form['species']}', pet_name='{request.form['name']}', pet_gender='{request.form['gender']}', pet_birthDate='{request.form['birthDate']}', pet_race='{request.form['species']}' WHERE pet_id='{pet_id}'  ")
+    return redirect('/profile')
 
 
 
