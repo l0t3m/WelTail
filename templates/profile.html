@@ -24,7 +24,13 @@
                 <div>feed</div>
             </a>
 
+            <br>
+
             <div class="pets">
+
+                <div class="actions">
+                    <a href={{"/pet/add/{}".format(pets.0.user_id)}}>Add a pet</a>
+                </div>
 
                 {% for pet in pets %}
                 <div class="petContainer">
@@ -42,8 +48,8 @@
                             </div>
 
                             <div class="row">
-                                <div class="cell">Sex</div>
-                                <div class="cell">{{pet.pet_sex}}</div>
+                                <div class="cell">Gender</div>
+                                <div class="cell">{{pet.pet_gender}}</div>
                             </div>
 
                             <div class="row">
@@ -78,6 +84,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="actions">
+                    <a href={{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}>delete</a>
                 </div>
 
                 <br>

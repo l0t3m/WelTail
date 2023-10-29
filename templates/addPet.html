@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WelTail - Add a Pet</title>
+
+        <!-- Imports for react to start working -->
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- Axios -->
+
+        <!-- My Imports -->
+        <link rel="stylesheet" href="/static/style/default.css">
+        
+    </head>
+    <body>
+
+        <div class="mainContainer">
+            <div class="header">Add a Pet:</div>
+
+            <form action={{"/pet/add/{}".format(user_id)}} method="post">
+                
+                <select name="species" id="species">
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                </select>
+
+                <input type="text" name="name" placeholder="Name"/>
+                
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                
+                <input type="date" name="birthDate" placeholder="Birth Date"/>
+                
+                
+                <input type="text" name="race" placeholder="Race"/>
+                
+                <input type="submit" value="Add pet"/>
+            </form>
+        </div>
+
+    </body>
+</html>

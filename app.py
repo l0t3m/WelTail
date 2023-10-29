@@ -41,7 +41,7 @@ def signup():
     if request.method == 'GET':
         return render_template("signup.html")
     
-    db.query(f"INSERT INTO users (username, password) VALUES ('{request.form['username']}', '{request.form['password']}')")
+    db.query(f"INSERT INTO users (username, password) VALUES ('{request.form['username']}', '{request.form['password']}');")
     
     session['user_id'] = functions.getUserData(request.form['username'])['user_id']
     return redirect(f"/feed/{session['user_id']}")
@@ -64,9 +64,30 @@ def profile(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}'"))
+        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
     
     return redirect("/profile")
+
+
+
+#################### Action Routes: ####################
+
+@app.route('/pet/add/<user_id>', methods=['GET','POST'])
+def pet_add(user_id):
+    if request.method == "GET":
+        return render_template("addPet.html", user_id = user_id)
+    
+    db.query(f"INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name']}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race']}')")
+    return redirect('/profile')
+
+
+@app.route('/pet/delete/<user_id>/<pet_id>', methods=['GET'])
+def pet_delete(user_id, pet_id):
+    db.query(f"DELETE FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';")
+    return redirect('/profile')
+
+
+
 
 
 
