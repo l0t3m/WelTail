@@ -18,6 +18,7 @@ def query(sql="SELECT * FROM users", filename="weltail.db"):
             row_names.append(get_TableKeys())
         return {"rows":cur.fetchall(), "keys":row_names}
 
+
 def get_TableKeys(sql="SELECT * FROM users", filename="weltail.db"):
     with sqlite3.connect(filename) as conn:
         cur = conn.cursor().execute(sql)
@@ -27,6 +28,7 @@ def get_TableKeys(sql="SELECT * FROM users", filename="weltail.db"):
         for row in cur.description:
             row_names.append(row[0])
         return row_names
+
 
 def get_TableDicts(sql="SELECT * FROM users", filename="weltail.db"):
     rows = query(sql, filename)["rows"]
@@ -54,6 +56,7 @@ def setup(filename="weltail.db"):
               FOREIGN KEY ("user_id", "pet_id") REFERENCES pets ("user_id", "pet_id"));""", filename)
         
         setup_TestData()
+
 
 def setup_TestData():
     query("INSERT INTO users (username, password) VALUES ('lotem', '1212')")

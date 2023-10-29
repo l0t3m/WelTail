@@ -18,7 +18,9 @@ app.secret_key = "abc_123"
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("home.html")
+    if session.get('user_id', "") == "":
+        return render_template("home.html")
+    return redirect(f"/feed/{session['user_id']}")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -28,6 +30,7 @@ def login():
 
     for user in db.get_TableDicts("SELECT * FROM users"):
         if user['username'] == request.form['username'] and user['password'] == request.form['password']:
+            session['user_id'] = user['user_id']
             return redirect(f"/feed/{user['user_id']}")
 
     return render_template("login.html")
@@ -39,12 +42,48 @@ def signup():
         return render_template("signup.html")
     
     db.query(f"INSERT INTO users (username, password) VALUES ('{request.form['username']}', '{request.form['password']}')")
-    return redirect(f"/feed/{functions.getUserData(request.form['username'])['user_id']}")
+    
+    session['user_id'] = functions.getUserData(request.form['username'])['user_id']
+    return redirect(f"/feed/{session['user_id']}")
 
 
 @app.route('/feed/<user_id>', methods=['GET'])
 def feed(user_id):
-    return render_template("feed.html")
+    if session.get('user_id', "") == "":
+        return redirect("/")
+    
+    if session['user_id'] == int(user_id):
+        return render_template("feed.html")
+    
+    return redirect("/feed")
+
+
+@app.route('/profile/<user_id>', methods=['GET'])
+def profile(user_id):
+    if session.get('user_id', "") == "":
+        return redirect("/")
+    
+    if session['user_id'] == int(user_id):
+        return render_template("profile.html")
+    
+    return redirect("/profile")
+
+
+
+#################### Redirect Routes: ####################
+
+@app.route('/feed')
+def redirect_feed():
+    if session.get('user_id', "") == "":
+        return redirect("/")
+    return redirect(f"/feed/{session['user_id']}")
+
+
+@app.route('/profile')
+def redirect_profile():
+    if session.get('user_id', "") == "":
+        return redirect("/")
+    return redirect(f"/profile/{session['user_id']}")
 
 
 
