@@ -64,7 +64,7 @@ def profile(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("profile.html")
+        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}'"))
     
     return redirect("/profile")
 

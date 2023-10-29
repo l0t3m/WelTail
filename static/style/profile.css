@@ -1,0 +1,39 @@
+/***********************************************************************/
+
+.table {
+    width: 100%;
+    display: block;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+}
+
+.cell {
+    width: 100%;
+}
+
+/***********************************************************************/
+
+.left, .right {
+    width: 100%;
+}
+
+.petContainer {
+    display: flex;
+
+    border: 0.1px solid black;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.left {
+    border-right: 0.1px solid black;
+}
+
+.right {
+    margin-left: 1%;
+}
+
+/***********************************************************************/

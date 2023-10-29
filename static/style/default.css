@@ -11,6 +11,11 @@ body {
     color: var(--textBlack);
 }
 
+.mainContainer {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 .center {
     margin: auto;
     width: 50%;
@@ -19,8 +24,20 @@ body {
 }
 
 a {
+    font-weight: bold;
     text-decoration: none;
-    color: var(--textBlack);
+    color: blue;
+}
+
+.padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header {
+    font-size: 22pt;
+    font-weight: bold;
 }
 
 /***********************************************************************/
+

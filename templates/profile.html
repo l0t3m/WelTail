@@ -11,12 +11,79 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
+        <link rel="stylesheet" href="/static/style/profile.css">
         
     </head>
     <body>
 
         <div class="mainContainer">
-            <div class="header">This is your profile page</div>
+
+            <div class="header padding">This is your profile page and your pets:</div>
+
+            <a href="/feed" >
+                <div>feed</div>
+            </a>
+
+            <div class="pets">
+
+                {% for pet in pets %}
+                <div class="petContainer">
+
+                    <div class="left center">
+                        <div class="table">
+                            <div class="row">
+                                <div class="cell">Name</div>
+                                <div class="cell">{{pet.pet_name}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Species</div>
+                                <div class="cell">{{pet.pet_species}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Sex</div>
+                                <div class="cell">{{pet.pet_sex}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">BirthDate</div>
+                                <div class="cell">{{pet.pet_birthDate}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Race</div>
+                                <div class="cell">{{pet.pet_race}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="right center">
+                        <div class="table">
+                            <div class="row">
+                                <div class="cell">Feeding Times</div>
+                                <div class="cell">not set</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Grooming Times</div>
+                                <div class="cell">not set</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Exercise Times</div>
+                                <div class="cell">not set</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                {% endfor %}
+
+            </div>
         </div>
 
     </body>
