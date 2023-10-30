@@ -11,18 +11,23 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
+        <link rel="stylesheet" href="/static/style/login.css">
         
     </head>
     <body>
 
         <div class="mainContainer">
-            <div class="header">Sign Up</div>
+            <div class="section">
+                <div class="header center">Sign Up</div>
 
-            <form action="/signup" method="post">
-                <input type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <input type="submit" value="Sign Up"/>
-            </form>
+                <div class="inputs">
+                    <form action="/signup" method="post">
+                        <div class="field username"><input type="text" name="username" placeholder="Username"/></div>
+                        <div class="field password"><input type="password" name="password" placeholder="Password"/></div>
+                        <div class="submit"><input type="submit" value="Sign Up"/></div>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </body>
