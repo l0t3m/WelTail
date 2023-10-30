@@ -79,7 +79,7 @@ def pet_add(user_id):
     if request.method == "GET":
         return render_template("addPet.html", user_id = user_id)
     
-    db.query(f"INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name']}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race']}')")
+    db.query(f"INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name']}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race']}')")
     return redirect('/profile')
 
 
@@ -100,7 +100,7 @@ def pet_edit(user_id, pet_id):
     if request.method == 'GET':
         return render_template('editPet.html', pet = db.get_TableDicts(f"SELECT * FROM pets WHERE pet_id = '{pet_id}';"))
 
-    db.query(f"UPDATE pets SET pet_species='{request.form['species']}', pet_name='{request.form['name']}', pet_gender='{request.form['gender']}', pet_birthDate='{request.form['birthDate']}', pet_race='{request.form['species']}' WHERE pet_id='{pet_id}'  ")
+    db.query(f"UPDATE pets SET species='{request.form['species']}', name='{request.form['name']}', gender='{request.form['gender']}', birthDate='{request.form['birthDate']}', race='{request.form['species']}' WHERE pet_id='{pet_id}'  ")
     return redirect('/profile')
 
 

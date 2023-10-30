@@ -49,7 +49,7 @@ def setup(filename="weltail.db"):
     if not os.path.exists('weltail.db'):
         query("""CREATE TABLE IF NOT EXISTS "users" ("user_id" INTEGER PRIMARY KEY,"username" TEXT,"password" TEXT);""", filename)
         query("""CREATE TABLE IF NOT EXISTS "pets" 
-              ("user_id" INTEGER, "pet_id" INTEGER PRIMARY KEY, "pet_species" TEXT, "pet_name" TEXT, "pet_gender" TEXT, "pet_birthDate" TEXT, "pet_race" TEXT, 
+              ("user_id" INTEGER, "pet_id" INTEGER PRIMARY KEY, "species" TEXT, "name" TEXT, "gender" TEXT, "birthDate" TEXT, "race" TEXT, 
               FOREIGN KEY ("user_id") REFERENCES users ("user_id"));""", filename)
         query("""CREATE TABLE IF NOT EXISTS "activities" 
               ("user_id" INTEGER, "pet_id" INTEGER, "activity_id" INTEGER PRIMARY KEY, "activity_name" TEXT, "activity_repeat" TEXT, "activity_date" TEXT, "activity_time" TEXT,
@@ -62,9 +62,9 @@ def setup_TestData():
     query("INSERT INTO users (username, password) VALUES ('lotem', '1212')")
     query("INSERT INTO users (username, password) VALUES ('tohar', '5555')")
 
-    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Haaaaatol', 'male', '2000-01-01', 'Scottish');")
-    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('1', 'cat', 'Mini Hatol', 'male', '2000-01-01', 'Turkish');")
-    query("INSERT INTO pets (user_id, pet_species, pet_name, pet_gender, pet_birthDate, pet_race) VALUES ('2', 'dog', 'Lady', 'female', '2000-01-01', 'Malinois');")
+    query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('1', 'cat', 'Haaaaatol', 'male', '2000-01-01', 'Scottish');")
+    query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('1', 'cat', 'Mini Hatol', 'male', '2000-01-01', 'Turkish');")
+    query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('2', 'dog', 'Lady', 'female', '2000-01-01', 'Malinois');")
 
 
 

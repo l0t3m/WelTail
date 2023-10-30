@@ -26,7 +26,7 @@
                 <form action="" method="post">
                     <div class="field">
                         <select name="species" id="species">
-                            {% if pet.0.pet_species == 'dog' %}
+                            {% if pet.0.species == 'dog' %}
                                 <option value="dog" selected>Dog</option>
                                 <option value="cat">Cat</option>
                             {% else %}
@@ -37,12 +37,12 @@
                     </div>
 
                     <div class="field">
-                        <input type="text" name="name" placeholder="Name" value="{{pet.0.pet_name}}"/>
+                        <input type="text" name="name" placeholder="Name" value="{{pet.0.name}}"/>
                     </div>
                     
                     <div class="field">
                         <select name="gender" id="gender">
-                            {% if pet.0.pet_gender == 'male' %}
+                            {% if pet.0.gender == 'male' %}
                                 <option value="male" selected>Male</option>
                                 <option value="female">Female</option>
                             {% else %}
@@ -53,11 +53,11 @@
                     </div>
                     
                     <div class="field">
-                        <input type="date" name="birthDate" placeholder="Birth Date" value="{{pet.0.pet_birthDate}}"/>
+                        <input type="date" name="birthDate" placeholder="Birth Date" value="{{pet.0.birthDate}}"/>
                     </div>
                     
                     <div class="field">
-                        <input type="text" name="race" placeholder="Race" value="{{pet.0.pet_race}}"/>
+                        <input type="text" name="race" placeholder="Race" value="{{pet.0.race}}"/>
                     </div>
                     
                     <div class="submit">
