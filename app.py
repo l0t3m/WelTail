@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 
 import db, functions
+import time # temp
 
 
 
@@ -139,3 +140,35 @@ def pets():
         pets.append(pet)
     return pets
 
+
+@app.route('/activities')
+def activities():
+    activities = []
+    for activity in db.get_TableDicts("SELECT * FROM activities"):
+        activities.append(activity)
+    return activities
+
+
+@app.route('/test')
+def test():
+    return str(functions.updateUserAlerts('1'))
+
+
+@app.route('/test2')
+def test2():
+    activities = []
+
+    for user in db.get_TableDicts("SELECT user_id FROM users"):
+        functions.updateUserAlerts(user['user_id'])
+
+    for activity in db.get_TableDicts("SELECT * FROM activities"):
+        secondsLeft = functions.generateCountdown(int(activity['nextAlert']))
+
+        tempd = {
+            "NAME" : activity['name'],
+            "seconds left" : secondsLeft,
+            "minutes left" : secondsLeft // 60 if secondsLeft > 60 else "less than a minute",
+        }
+        activities.append(tempd)
+
+    return activities

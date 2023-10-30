@@ -1,6 +1,6 @@
 #################### Imports: ####################
 
-import sqlite3, os
+import sqlite3, os, functions
 
 
 
@@ -52,7 +52,8 @@ def setup(filename="weltail.db"):
               ("user_id" INTEGER, "pet_id" INTEGER PRIMARY KEY, "species" TEXT, "name" TEXT, "gender" TEXT, "birthDate" TEXT, "race" TEXT, 
               FOREIGN KEY ("user_id") REFERENCES users ("user_id"));""", filename)
         query("""CREATE TABLE IF NOT EXISTS "activities" 
-              ("user_id" INTEGER, "pet_id" INTEGER, "activity_id" INTEGER PRIMARY KEY, "activity_name" TEXT, "activity_repeat" TEXT, "activity_date" TEXT, "activity_time" TEXT,
+              ("user_id" INTEGER, "pet_id" INTEGER, "activity_id" INTEGER PRIMARY KEY, 
+              "name" TEXT, "repeat" INT, "nextAlert" TEXT, "repeatInterval" TEXT,
               FOREIGN KEY ("user_id", "pet_id") REFERENCES pets ("user_id", "pet_id"));""", filename)
         
         setup_TestData()
@@ -66,6 +67,7 @@ def setup_TestData():
     query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('1', 'cat', 'Mini Hatol', 'male', '2000-01-01', 'Turkish');")
     query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('2', 'dog', 'Lady', 'female', '2000-01-01', 'Malinois');")
 
-
-
-
+    query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '1 hour timer', 0, '{functions.generate_firstAlert(60)}', '3200');")
+    query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '10 minutes', 1, '1577829600', '600');")
+    query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '5 minutes', 1, '1577829600', '300');")
+    query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '5 minutes', 0, '1577829600', '300');")
