@@ -53,8 +53,8 @@ def feed(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("feed.html")
-    
+        return render_template("feed.html", activities = db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {user_id}"))
+
     return redirect("/feed")
 
 
@@ -124,6 +124,24 @@ def redirect_profile():
 
 
 #################### Test Routes: ####################
+
+@app.route('/myUser')
+def myUser():
+    if session.get('user_id', "") == "":
+        return ""
+    return str(session['user_id'])
+
+
+@app.route('/myActivities')
+def myActivities():
+    if session.get('user_id', "") == "":
+        return ""
+    
+    activities = []
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']}"):
+        activities.append(activity)
+    return activities
+
 
 @app.route('/users')
 def users():

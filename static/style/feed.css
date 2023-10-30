@@ -1,0 +1,14 @@
+.activityContainer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.row {
+    display: flex;
+    width: 50%;
+}
+
+.cell {
+    width: 100%;
+}
+
