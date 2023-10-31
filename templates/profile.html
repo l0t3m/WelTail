@@ -12,33 +12,29 @@
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
         <link rel="stylesheet" href="/static/style/profile.css">
-        
     </head>
     <body>
 
         <div class="mainContainer">
 
-            <div class="header padding">This is your profile page and your pets:</div>
+            <div class="container navbar">
+                <div class="navCell"><a href="/feed">Your feed</a></div>
+                <div class="navCell"><a href="/profile">Your profile</a></div>
+                <div class="navCell"><a href="/logout">Logout</a></div>
+            </div>
 
-            <a href="/feed" >
-                <div>feed</div>
-            </a>
+            <div class="container">
+                <div class="header padding">You are at your profile page.</div>
+                <div class="header padding">Your pets:</div>
+            </div>
 
-            <br>
-
-            <div class="pets">
-
-                <div class="container">
-                    <div class="">Navbar:</div>
-                    <div><a href="/profile">Your feed</a></div>
-                    <div><a href="/profile">Your profile</a></div>
-                </div>
-
-                <div class="header padding">You are at your feed page.</div>
-
+            <div class="container">
                 <div class="actions">
                     <a href='{{"/pet/add/{}".format(user.0.user_id)}}'>Add a pet</a>
                 </div>
+            </div>
+
+            <div class="container pets">
 
                 {% for pet in pets %}
                 <div class="petContainer">

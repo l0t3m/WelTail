@@ -14,8 +14,6 @@ function ShowPage(props) {
 
     return (
         <div className="container">
-            <div>This is the feed container</div>
-
             <div>user_id - {user_id} </div>
 
             {activities.map((activity) => 

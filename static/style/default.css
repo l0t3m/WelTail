@@ -40,3 +40,18 @@ a {
 }
 
 /***********************************************************************/
+
+.navbar {
+    padding: 1%;
+    display: flex;
+}
+
+.navCell {
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+}
+
+.navCell > a {
+    font-weight: 800;
+}

@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 
 import db, functions
-import time # temp
 
 
 
@@ -67,6 +66,14 @@ def profile(user_id):
         return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"), user = db.get_TableDicts(f"SELECT * FROM users WHERE user_id = '{user_id}';"))
     
     return redirect("/profile")
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    if session.get('user_id', "") == "":
+        return redirect("/")
+    session.clear()
+    return redirect("/")
 
 
 
