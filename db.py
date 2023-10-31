@@ -70,4 +70,5 @@ def setup_TestData():
     query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '1 hour timer', 0, '{functions.generate_firstAlert(60)}', '3200');")
     query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '10 minutes', 1, '1577829600', '600');")
     query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '5 minutes', 1, '1577829600', '300');")
+    query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '10 seconds', 1, '1577829600', '10');")
     query(f"INSERT INTO activities (user_id, pet_id, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', '5 minutes', 0, '1577829600', '300');")

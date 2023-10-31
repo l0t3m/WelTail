@@ -6,6 +6,8 @@ function ShowPage(props) {
         axios.get('/myUser').then((response)=>{
             setUser_id(response.data);
         });
+
+        // Add in interval!
         axios.get('/myActivities').then((response)=>{
             setActivities(response.data);
         });
@@ -18,21 +20,6 @@ function ShowPage(props) {
 
             {activities.map((activity) => 
                 <div className="activityContainer">
-                    <div className="row">
-                        <div className="cell">userid</div>
-                        <div className="cell">{activity.user_id}</div>
-                    </div>
-
-                    <div className="row">
-                        <div className="cell">petid</div>
-                        <div className="cell">{activity.pet_id}</div>
-                    </div>
-
-                    <div className="row">
-                        <div className="cell">activityid</div>
-                        <div className="cell">{activity.activity_id}</div>
-                    </div>
-
                     <div className="row">
                         <div className="cell">Activity name</div>
                         <div className="cell"> {activity.name} </div>

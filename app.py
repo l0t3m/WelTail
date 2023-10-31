@@ -145,6 +145,8 @@ def myActivities():
         return ""
     
     activities = []
+    functions.updateUserAlerts(session['user_id'])
+
     for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']}"):
         activities.append(activity)
     return activities
