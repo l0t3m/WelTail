@@ -1,33 +1,28 @@
 /***********************************************************************/
 
 .header {
-    padding: 2%;
-    padding-bottom: 5%;
-    font-size: 34pt;
+    font-size: 24pt;
     font-weight: bold;
 }
 
-.mainContainer > div {
-    justify-content: center;
-    margin-left: 20%;
-    margin-right: 20%;
+.mainContainer {
+    margin-left: 30%;
+    margin-right: 30%;
     margin-top: 10%;
+
     padding: 2%;
+    border: 0.1px solid black;
 }
 
-.actions {
-    display: flex;
-    width: 100%;
+.mainBorder {
+    border: 0.1px solid black;
+    border-radius: 10px;
 }
 
-.actions > div {
-    width: 100%;
-    text-align: center;
-    padding: 2%;
-}
+/***********************************************************************/
 
-.login {
-    border-right: 0.1px solid grey;
+.login, .signup {
+    padding-top: 2%;
 }
 
 /***********************************************************************/

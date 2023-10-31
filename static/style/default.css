@@ -2,40 +2,18 @@
 
 :root {
     --textBlack: #000000;           /* Text Color - Black */
-    --textGrey: #7a7a7a;           /* Text Color - Grey */
     --textWhite: #f2f2f2;           /* Text Color - White */
-
-    --textWhite2: #d7d7d7;
-    --textWhite3: #c5c5c5;
-    
-    --bgBlur: rgba(179,179,179,0.75);
-
-    --primary: #39A0ED ;
-    --secondary: #4C6085 ;
-
-    --background: #202124 ;
-    --surface: #303134 ;
-    --surface2: #3e3f43;
-
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16pt;
-    color: var(--textWhite2);
-    background-color: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    color: var(--textBlack);
 }
 
 .mainContainer {
-    margin-left: 1%;
-    margin-right: 1%;
-}
-
-.section {
-    background-color: var(--surface);
-    border-radius: 10px;
-    padding: 1%;
-    margin: 0.5%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .center {
@@ -48,7 +26,7 @@ body {
 a {
     font-weight: bold;
     text-decoration: none;
-    color: var(--textWhite2);
+    color: grey;
 }
 
 .padding {
@@ -62,4 +40,3 @@ a {
 }
 
 /***********************************************************************/
-
