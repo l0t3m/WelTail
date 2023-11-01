@@ -10,7 +10,7 @@ import db, functions
 #################### Variables: ####################
 
 db.setup()
-app.secret_key = "abc_123"
+app.secret_key = "_WilTail_"
 
 
 
@@ -26,14 +26,14 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template("login.html")
+        return render_template("login.html", message="")
 
     for user in db.get_TableDicts("SELECT * FROM users"):
-        if user['username'] == request.form['username'] and user['password'] == request.form['password']:
+        if user['username'].lower() == request.form['username'].lower() and user['password'] == request.form['password']:
             session['user_id'] = user['user_id']
             return redirect(f"/feed/{user['user_id']}")
 
-    return render_template("login.html")
+    return render_template("login.html", message="Incorrect username / password")
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -232,3 +232,12 @@ def test2():
         activities.append(tempd)
 
     return activities
+
+
+@app.route('/test3')
+def test3():
+    test = []
+
+    for i in functions.getUpcomingAlerts('1'):
+        test.append(functions.generateCountdown(i['nextAlert']))
+    return str(test)

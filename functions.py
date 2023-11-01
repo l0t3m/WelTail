@@ -8,8 +8,9 @@ import db, datetime, time
 
 def getUserData(username):
     for user in db.get_TableDicts("SELECT * FROM users"):
-        if user['username'] == username:
+        if user['username'].lower() == username.lower():
             return user
+
 
 def updateUserAlerts(user_id):
     '''Checks if the user activities are up to date, if not, fixes them. \n
@@ -28,25 +29,44 @@ def updateUserAlerts(user_id):
     return updatedCounter
 
 
+def getUpcomingAlerts(user_id):
+    updateUserAlerts(user_id)
+    alerts = []
+
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}'"):
+        next = generateCountdown(int(activity['nextAlert']))
+        if next <= generate_timeUntilEndOfDay():
+            alerts.append(activity)
+    
+    return alerts
+
+
 
 #################### Time / Unix Functions: ####################
 
-def generateUnixTime(minutes):
-    return 60 * minutes
-
-def generate_firstAlert(minutes):
+def generate_firstAlert(seconds):
     now = int(datetime.datetime.now().timestamp())
-    return int(now) + int(generateUnixTime(minutes))
+    return int(now) + int(seconds)
+
 
 def generate_nextAlert(oldAlert:int, intervalValue:int):
     now = int(datetime.datetime.now().timestamp())
     return now + intervalValue - ((now - oldAlert)) % int(intervalValue)
 
 
+def generate_timeUntilEndOfDay():
+    today = datetime.datetime.now()
+    start = (datetime.datetime(today.year, today.month, today.day)).timestamp()
+    end = start + 86400
+
+    now = int(datetime.datetime.now().timestamp())
+    return (int(end - now))
+
+
 
 #################### temp: ####################
 
-def generateCountdown(unixTime):
+def generateCountdown(unixTime:int):
     '''Returns the time left in seconds.'''
     now = int(datetime.datetime.now().timestamp())
     return (int(unixTime) - now)
