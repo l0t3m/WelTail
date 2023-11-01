@@ -1,6 +1,5 @@
 function arrToLowercase(arr) {
     let newArr = []
-
     arr.map((item) => newArr.push(item.toLowerCase()))
     return newArr
 }
@@ -8,20 +7,16 @@ function arrToLowercase(arr) {
 
 function ShowPage(props) {
     const [usernames, setUsernames] = React.useState([]);
-
     const [usernameState, setUsernameState] = React.useState(false);
     const [passwordState, setpasswordState] = React.useState(false);
     const [submitState, setSubmitState] = React.useState(false);
-    
     const [message, setMessage] = React.useState("")
-
 
     React.useEffect(()=>{
         axios.get('/api/allUsernames').then((response)=>{
             setUsernames(response.data);
         });
     },[]);
-
 
     const checkUsername = () => {
         setSubmitState(false)
@@ -35,12 +30,13 @@ function ShowPage(props) {
                 setMessage("Username already been taken.")
             } else {
                 setMessage("")
-                if (passwordState == false) {
-                    setUsernameState(true)
+                setUsernameState(true)
+                if (passwordState == true) {
+                    setSubmitState(true)
+                    return
+                } else {
                     checkPassword()
                 }
-                setSubmitState(true)
-                return
             }
         }
     }
@@ -54,32 +50,29 @@ function ShowPage(props) {
             setMessage("Password must contain at least 4 characters.")
         } else {
             setMessage("")
-            if (usernameState == false) {
-                setpasswordState(true)
+            setpasswordState(true)
+            if (usernameState == true) {
+                setSubmitState(true)
+                return
+            } else {
                 checkUsername()
             }
-            setSubmitState(true)
         }
     }
 
-
     return (
         <div>
-            <div>submit state = {submitState.toString()}</div>
-
             <form action="/signup" method="post">
                 <input type="text" name="username" placeholder="Username" id="myUsername" onInput={() => checkUsername()}/>
                 <input type="password" name="password" placeholder="Password" id="myPassword" onInput={() => checkPassword()}/>
 
-                <input type="submit" value="Sign Up"/>
+                {submitState == false ? <input type="submit" value="Sign Up" disabled/> : <input type="submit" value="Sign Up"/>}
 
                 <div id="display">{message}</div>
             </form>
         </div>
     )
 }
-
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<ShowPage/>);
