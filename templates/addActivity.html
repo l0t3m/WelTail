@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WelTail - Add an Activity</title>
+
+        <!-- Imports for react to start working -->
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- Axios -->
+
+        <!-- My Imports -->
+        <link rel="stylesheet" href="/static/style/default.css">
+        
+    </head>
+    <body>
+
+        <div class="mainContainer">
+            <div class="">
+                <a href="/profile">Back</a>
+            </div>
+
+            <div class="header">Add an Activity:</div>
+
+            <div class="container">
+                <form action='{{"/activity/add/{}/{}".format(user_id, pet_id)}}' method="post">
+
+                    <div class="field">
+                        <select name="type" id="type">
+                            {% if type == 'food' %}
+                            <option value="food" selected>Food</option>
+                            <option value="groom">Groom</option>
+                            <option value="exercise">Exercise</option>
+                            <option value="other">Other</option>
+                            
+                            {% elif type == 'groom' %}
+                            <option value="food">Food</option>
+                            <option value="groom" selected>Groom</option>
+                            <option value="exercise">Exercise</option>
+                            <option value="other">Other</option>
+                            
+                            {% elif type == 'exercise' %}
+                            <option value="food">Food</option>
+                            <option value="groom">Groom</option>
+                            <option value="exercise" selected>Exercise</option>
+                            <option value="other">Other</option>
+
+                            {% else %}
+                            <option value="food">Food</option>
+                            <option value="groom">Groom</option>
+                            <option value="exercise">Exercise</option>
+                            <option value="other" selected>Other</option>
+                            
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" name="type" placeholder="Activity Name"/>
+                    </div>
+
+                    <div class="field flex">
+                        <input type="radio" name="repeat" id="on" value="on"/>
+                        <div>On</div>
+                        <input type="radio" name="repeat" id="off" value="off"/>
+                        <div>Off</div>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" name="nextAlert" placeholder="nextAlert"/>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" name="repeatInterval" placeholder="repeatInterval"/>
+                    </div>
+                    
+                    <div class="submit">
+                        <input type="submit" value="Add activity"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -29,6 +29,10 @@ a {
     color: grey;
 }
 
+.flex {
+    display: flex;
+}
+
 .padding {
     padding-top: 20px;
     padding-bottom: 20px;

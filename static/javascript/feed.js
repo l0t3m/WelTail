@@ -3,12 +3,12 @@ function ShowPage(props) {
     const [activities, setActivities] = React.useState([]);
 
     React.useEffect(()=>{
-        axios.get('/myUser').then((response)=>{
+        axios.get('/api/myUserId').then((response)=>{
             setUser_id(response.data);
         });
 
         // Add in interval!
-        axios.get('/myActivities').then((response)=>{
+        axios.get('/api/myActivities').then((response)=>{
             setActivities(response.data);
         });
     },[]);

@@ -72,25 +72,86 @@
                         <div class="table">
                             <div class="row">
                                 <div class="cell">Feeding Times</div>
-                                <div class="cell">not set</div>
+
+                                <!-- add -->
+                                <div class="cell">
+                                    <a href='{{"/activity/add/{}/{}?type=food".format(user.0.user_id, pet.pet_id)}}'>Add</a>
+                                </div>
+
+                                <!-- edit -->
+                                <div class="cell">
+                                    <a href="">Edit</a>
+                                </div>
+
+                                <!-- delete -->
+                                <div class="cell">
+                                    <a href="">Delete</a>
+                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="cell">Grooming Times</div>
-                                <div class="cell">not set</div>
+
+                                <!-- add -->
+                                <div class="cell">
+                                    <a href='{{"/activity/add/{}/{}?type=groom".format(user.0.user_id, pet.pet_id)}}'>Add</a>
+                                </div>
+
+                                <!-- edit -->
+                                <div class="cell">
+                                    <a href="">Edit</a>
+                                </div>
+
+                                <!-- delete -->
+                                <div class="cell">
+                                    <a href="">Delete</a>
+                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="cell">Exercise Times</div>
-                                <div class="cell">not set</div>
+                                
+                                <!-- add -->
+                                <div class="cell">
+                                    <a href='{{"/activity/add/{}/{}?type=exercise".format(user.0.user_id, pet.pet_id)}}'>Add</a>
+                                </div>
+
+                                <!-- edit -->
+                                <div class="cell">
+                                    <a href="">Edit</a>
+                                </div>
+
+                                <!-- delete -->
+                                <div class="cell">
+                                    <a href="">Delete</a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Other Times</div>
+
+                                <!-- add -->
+                                <div class="cell">
+                                    <a href='{{"/activity/add/{}/{}?type=other".format(user.0.user_id, pet.pet_id)}}'>Add</a>
+                                </div>
+
+                                <!-- edit -->
+                                <div class="cell">
+                                    <a href="">Edit</a>
+                                </div>
+
+                                <!-- delete -->
+                                <div class="cell">
+                                    <a href="">Delete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="actions">
-                    <a href='{{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}'>delete</a>
-                    <a href='{{"/pet/edit/{}/{}".format(pet.user_id, pet.pet_id)}}'>Edit</a>
+                    <a href='{{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}'>Delete pet</a>
+                    <a href='{{"/pet/edit/{}/{}".format(pet.user_id, pet.pet_id)}}'>Edit pet</a>
                 </div>
 
                 <br>

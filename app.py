@@ -112,6 +112,29 @@ def pet_edit(user_id, pet_id):
     return redirect('/profile')
 
 
+####################
+
+
+@app.route('/activity/add/<user_id>/<pet_id>', methods=['GET','POST'])
+def activity_add(user_id, pet_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
+    
+    if request.method == 'GET':
+        return render_template("addActivity.html", user_id = user_id, pet_id = pet_id, type = request.args['type'])
+    
+    # db.query() I WAS HERE BUT I DONT HAVE A PAGE THAT LEADS TO THIS ACTION
+    return str("f")
+
+
+@app.route('/activity/delete/<user_id>/<activity_id>', methods=['GET'])
+def activity_delete(user_id, activity_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
+    
+    db.query(f"DELETE FROM activities WHERE user_id = '{user_id}' AND activity_id = '{activity_id}';")
+    return redirect('/profile')
+
 
 #################### Redirect Routes: ####################
 
@@ -130,16 +153,16 @@ def redirect_profile():
 
 
 
-#################### Test Routes: ####################
+#################### API Routes: ####################
 
-@app.route('/myUser')
-def myUser():
+@app.route('/api/myUserId')
+def myUserId():
     if session.get('user_id', "") == "":
         return ""
     return str(session['user_id'])
 
 
-@app.route('/myActivities')
+@app.route('/api/myActivities')
 def myActivities():
     if session.get('user_id', "") == "":
         return ""
@@ -151,6 +174,16 @@ def myActivities():
         activities.append(activity)
     return activities
 
+
+@app.route('/api/allUsernames')
+def viewUsernames():
+    usernames = []
+    for user in db.get_TableDicts("SELECT * FROM users"):
+        usernames.append(user['username'])
+    return usernames
+
+
+#################### Temp Routes: ####################
 
 @app.route('/users')
 def users():
