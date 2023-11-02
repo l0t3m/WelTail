@@ -6,34 +6,19 @@
 }
 
 .row {
-    width: 100%;
+    width: 80%;
     display: flex;
 }
 
 .cell {
+    text-align: left;
     width: 100%;
 }
 
 /***********************************************************************/
-
-.left, .right {
-    width: 100%;
-}
 
 .petContainer {
-    display: flex;
-
     border: 0.1px solid black;
     border-radius: 10px;
-    padding: 1%;
+    padding: 10px;
 }
-
-.left {
-    border-right: 0.1px solid black;
-}
-
-.right {
-    margin-left: 1%;
-}
-
-/***********************************************************************/

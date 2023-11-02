@@ -68,6 +68,19 @@ def profile(user_id):
     return redirect("/profile")
 
 
+@app.route('/petprofile/<user_id>/<pet_id>', methods=['GET'])
+def petProfile(user_id, pet_id):
+    if session.get('user_id', "") == "":
+        return redirect("/")
+    if session['user_id'] == int(user_id):
+        pet = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';")
+        user = db.get_TableDicts(f"SELECT * FROM users WHERE user_id = '{user_id}';")
+        
+        return render_template("petProfile.html", pet=pet, user=user, activities=functions.getPetActivities(user_id, pet_id) )
+        
+    return redirect("/profile")
+
+
 @app.route('/logout', methods=['GET'])
 def logout():
     if session.get('user_id', "") == "":
@@ -121,7 +134,7 @@ def activity_add(user_id, pet_id):
         return redirect('/')
     
     if request.method == 'GET':
-        return render_template("addActivity.html", user_id = user_id, pet_id = pet_id, type = request.args['type'])
+        return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
     
     # db.query() I WAS HERE BUT I DONT HAVE A PAGE THAT LEADS TO THIS ACTION
     return str("f")
@@ -236,8 +249,5 @@ def test2():
 
 @app.route('/test3')
 def test3():
-    test = []
-
-    for i in functions.getUpcomingAlerts('1'):
-        test.append(functions.generateCountdown(i['nextAlert']))
-    return str(test)
+    activities=functions.getPetActivities('2')
+    return str(activities)

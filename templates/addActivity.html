@@ -17,7 +17,7 @@
 
         <div class="mainContainer">
             <div class="">
-                <a href="/profile">Back</a>
+                <a href="/profile">Go back to your profile</a>
             </div>
 
             <div class="header">Add an Activity:</div>
@@ -27,31 +27,10 @@
 
                     <div class="field">
                         <select name="type" id="type">
-                            {% if type == 'food' %}
-                            <option value="food" selected>Food</option>
-                            <option value="groom">Groom</option>
-                            <option value="exercise">Exercise</option>
-                            <option value="other">Other</option>
-                            
-                            {% elif type == 'groom' %}
-                            <option value="food">Food</option>
-                            <option value="groom" selected>Groom</option>
-                            <option value="exercise">Exercise</option>
-                            <option value="other">Other</option>
-                            
-                            {% elif type == 'exercise' %}
-                            <option value="food">Food</option>
-                            <option value="groom">Groom</option>
-                            <option value="exercise" selected>Exercise</option>
-                            <option value="other">Other</option>
-
-                            {% else %}
                             <option value="food">Food</option>
                             <option value="groom">Groom</option>
                             <option value="exercise">Exercise</option>
-                            <option value="other" selected>Other</option>
-                            
-                            {% endif %}
+                            <option value="other">Other</option>
                         </select>
                     </div>
 

@@ -41,6 +41,27 @@ def getUpcomingAlerts(user_id):
     return alerts
 
 
+def getPetActivities(user_id, pet_id):
+    activities = []
+
+    updateUserAlerts(user_id)
+
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE pet_id = '{pet_id}';"):
+        newDict = {
+            "user_id": activity['user_id'],
+            "pet_id": activity['pet_id'],
+            "activity_id": activity['activity_id'],
+            "type": activity['type'],
+            "name": activity['name'],
+            "repeat": "true" if activity['repeat'] == 1 else "false",
+            "time": convert_unixToTime(activity['nextAlert'])
+        }
+
+        activities.append(newDict)
+
+    return activities
+
+
 
 #################### Time / Unix Functions: ####################
 
@@ -62,6 +83,9 @@ def generate_timeUntilEndOfDay():
     now = int(datetime.datetime.now().timestamp())
     return (int(end - now))
 
+
+def convert_unixToTime(unixVal):
+    return datetime.datetime.fromtimestamp(int(unixVal))
 
 
 #################### temp: ####################
