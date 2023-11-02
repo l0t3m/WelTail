@@ -8,7 +8,7 @@ function ShowPage(props) {
         });
 
         // Add in interval!
-        axios.get('/api/myActivities').then((response)=>{
+        axios.get('/api/myUpcomingActivities').then((response)=>{
             setActivities(response.data);
         });
     },[]);
@@ -16,7 +16,7 @@ function ShowPage(props) {
 
     return (
         <div className="rootContainer">
-            
+
             <div className="container stats">
                 <div>user_id - {user_id} </div>
                 <div>Total activities - {activities.length} </div>
@@ -46,10 +46,7 @@ function ShowPage(props) {
 
                     <div className="row">
                         <div className="cell">
-                            <a href="">Edit</a>
-                        </div>
-                        <div className="cell">
-                            <a href="">Delete</a>
+                            <a href={`/activity/done/${activity.user_id}/${activity.activity_id}`}>Mark as done</a>
                         </div>
                     </div>
                 </div>

@@ -63,7 +63,7 @@ def profile(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"), user = db.get_TableDicts(f"SELECT * FROM users WHERE user_id = '{user_id}';"))
+        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
     
     return redirect("/profile")
 
@@ -73,10 +73,7 @@ def petProfile(user_id, pet_id):
     if session.get('user_id', "") == "":
         return redirect("/")
     if session['user_id'] == int(user_id):
-        pet = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';")
-        user = db.get_TableDicts(f"SELECT * FROM users WHERE user_id = '{user_id}';")
-        
-        return render_template("petProfile.html", pet=pet, user=user, activities=functions.getPetActivities(user_id, pet_id) )
+        return render_template("petProfile.html", pet=db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';"), activities=functions.reformat_Activities(functions.getPetActivities(user_id, pet_id)) )
         
     return redirect("/profile")
 
@@ -100,7 +97,7 @@ def pet_add(user_id):
     if request.method == "GET":
         return render_template("addPet.html", user_id = user_id)
     
-    db.query(f"INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name']}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race']}')")
+    db.query(f"INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name']}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race']}');")
     return redirect('/profile')
 
 
@@ -125,9 +122,6 @@ def pet_edit(user_id, pet_id):
     return redirect('/profile')
 
 
-####################
-
-
 @app.route('/activity/add/<user_id>/<pet_id>', methods=['GET','POST'])
 def activity_add(user_id, pet_id):
     if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
@@ -136,8 +130,9 @@ def activity_add(user_id, pet_id):
     if request.method == 'GET':
         return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
     
-    # db.query() I WAS HERE BUT I DONT HAVE A PAGE THAT LEADS TO THIS ACTION
-    return str("f")
+
+    # need to catch the data and analyze it.
+    return redirect('/profile')
 
 
 @app.route('/activity/delete/<user_id>/<activity_id>', methods=['GET'])
@@ -147,6 +142,16 @@ def activity_delete(user_id, activity_id):
     
     db.query(f"DELETE FROM activities WHERE user_id = '{user_id}' AND activity_id = '{activity_id}';")
     return redirect('/profile')
+
+
+@app.route('/activity/done/<user_id>/<activity_id>', methods=['GET'])
+def activity_done(user_id, activity_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
+    
+    functions.activity_done(activity_id)
+    return redirect('/feed')
+
 
 
 #################### Redirect Routes: ####################
@@ -175,7 +180,7 @@ def myUserId():
     return str(session['user_id'])
 
 
-@app.route('/api/myActivities')
+@app.route('/api/myUpcomingActivities')
 def myActivities():
     if session.get('user_id', "") == "":
         return ""
@@ -189,6 +194,7 @@ def viewUsernames():
     for user in db.get_TableDicts("SELECT * FROM users"):
         usernames.append(user['username'])
     return usernames
+
 
 
 #################### Temp Routes: ####################
@@ -219,11 +225,6 @@ def activities():
 
 @app.route('/test')
 def test():
-    return str(functions.updateUserAlerts('1'))
-
-
-@app.route('/test2')
-def test2():
     activities = []
 
     for user in db.get_TableDicts("SELECT user_id FROM users"):
@@ -241,8 +242,3 @@ def test2():
 
     return activities
 
-
-@app.route('/test3')
-def test3():
-    activities= functions.reformat_Activities(functions.getUpcomingAlerts('1'))
-    return activities

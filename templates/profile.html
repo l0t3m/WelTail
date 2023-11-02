@@ -30,7 +30,7 @@
 
             <div class="container">
                 <div class="actions">
-                    <a href='{{"/pet/add/{}".format(user.0.user_id)}}'>Add a pet</a>
+                    <a href='{{"/pet/add/{}".format(pets.0.user_id)}}'>Add a pet</a>
                 </div>
             </div>
 
@@ -38,7 +38,6 @@
 
                 {% for pet in pets %}
                 <div class="petContainer">
-
                     
                     <div class="table">
                         <div class="row">
