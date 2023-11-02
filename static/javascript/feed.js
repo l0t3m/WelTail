@@ -15,36 +15,45 @@ function ShowPage(props) {
 
 
     return (
-        <div className="container">
-            <div>user_id - {user_id} </div>
+        <div className="rootContainer">
+            
+            <div className="container stats">
+                <div>user_id - {user_id} </div>
+                <div>Total activities - {activities.length} </div>
+            </div>
 
             {activities.map((activity) => 
-                <div className="activityContainer">
+                <div className="container activityContainer">
                     <div className="row">
                         <div className="cell">Activity name</div>
-                        <div className="cell"> {activity.name} </div>
+                        <div className="cell">{activity.name}</div>
                     </div>
 
                     <div className="row">
-                        <div className="cell">Next Alert</div>
-                        <div className="cell"> {activity.nextAlert} </div>
+                        <div className="cell">Activity type</div>
+                        <div className="cell">{activity.type}</div>
                     </div>
 
                     <div className="row">
-                        <div className="cell">Repeat</div>
-                        <div className="cell"> {activity.repeat} </div>
+                        <div className="cell">Activity repeat</div>
+                        <div className="cell">{activity.repeat}</div>
                     </div>
 
                     <div className="row">
-                        <div className="cell">Repeat Interval</div>
-                        <div className="cell"> {activity.repeatInterval} </div>
+                        <div className="cell">Activity time</div>
+                        <div className="cell">{activity.time}</div>
+                    </div>
+
+                    <div className="row">
+                        <div className="cell">
+                            <a href="">Edit</a>
+                        </div>
+                        <div className="cell">
+                            <a href="">Delete</a>
+                        </div>
                     </div>
                 </div>
             )}
-
-            
-            <div>total - {activities.length}</div>
-
         </div>
     )
 }

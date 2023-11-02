@@ -47,6 +47,26 @@ def getPetActivities(user_id, pet_id):
     updateUserAlerts(user_id)
 
     for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE pet_id = '{pet_id}';"):
+        activities.append(activity)
+    return reformat_Activities(activities)
+
+
+def getAllActivities(user_id):
+    activities = []
+
+    updateUserAlerts(user_id)
+
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}';"):
+        activities.append(activity)
+    
+    return reformat_Activities(activities)
+
+
+def reformat_Activities(activities:list):
+    '''Gets an activity list, containing dict. Returns the dicts reformatted.'''
+    newList = []
+
+    for activity in activities:
         newDict = {
             "user_id": activity['user_id'],
             "pet_id": activity['pet_id'],
@@ -57,9 +77,9 @@ def getPetActivities(user_id, pet_id):
             "time": convert_unixToTime(activity['nextAlert'])
         }
 
-        activities.append(newDict)
+        newList.append(newDict)
+    return newList
 
-    return activities
 
 
 

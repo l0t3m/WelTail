@@ -52,7 +52,7 @@ def feed(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("feed.html", activities = db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {user_id}"))
+        return render_template("feed.html")
 
     return redirect("/feed")
 
@@ -179,13 +179,8 @@ def myUserId():
 def myActivities():
     if session.get('user_id', "") == "":
         return ""
-    
-    activities = []
-    functions.updateUserAlerts(session['user_id'])
 
-    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']}"):
-        activities.append(activity)
-    return activities
+    return functions.reformat_Activities(functions.getUpcomingAlerts(session['user_id']))
 
 
 @app.route('/api/allUsernames')
@@ -249,5 +244,5 @@ def test2():
 
 @app.route('/test3')
 def test3():
-    activities=functions.getPetActivities('2')
-    return str(activities)
+    activities= functions.reformat_Activities(functions.getUpcomingAlerts('1'))
+    return activities
