@@ -1,14 +1,113 @@
-.activityContainer {
-    padding-top: 10px;
-    padding-bottom: 10px;
+/******************** Grid: ********************/
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr auto;
+}
+
+.logo {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.navbar {
+    grid-row: 1;
+    grid-column: 2/4;
+}
+
+.content {
+    grid-row: 2;
+    grid-column: 1/4;
+}
+
+
+
+/******************** General: ********************/
+
+.side {
+    width: 25%;
+}
+
+.activities {
+    width: 75%;
+}
+
+.container {
+    margin: 5px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    transition: 0.2s;
+}
+
+
+
+/******************** Navbar: ********************/
+
+.navbar, .logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navCell a {
+    font-family: Montserrat, Arial;
+    font-weight: 300;
+}
+
+.logo {
+    font-family: Pacifico, Arial;
+}
+
+
+/******************** Content - Side Menu: ********************/
+
+.statsHeader {
+    font-weight: 600;
+}
+
+
+
+/******************** Content - Activities: ********************/
+
+.contentContainer, .activityContainer {
+    display: flex;
+}
+
+.activityContainer:hover {
+    background-color: #e5e5e5;
+}
+
+
+
+/******************** Activity: ********************/
+
+.activity {
+    width: 90%;
+}
+
+.action {
+    width: 10%;
+}
+
+.action {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.secondRow {
+    padding-top: 1%;
+    font-size: 14pt;
 }
 
 .row {
     display: flex;
-    width: 50%;
-}
-
-.cell {
     width: 100%;
 }
 
+.cell {
+    text-align: center;
+    width: 100%;
+}

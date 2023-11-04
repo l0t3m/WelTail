@@ -184,7 +184,7 @@ def myUserId():
 def myActivities():
     if session.get('user_id', "") == "":
         return ""
-
+    
     return functions.reformat_Activities(functions.getUpcomingAlerts(session['user_id']))
 
 
@@ -241,4 +241,3 @@ def test():
         activities.append(tempd)
 
     return activities
-

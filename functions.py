@@ -34,12 +34,26 @@ def getUpcomingAlerts(user_id):
     updateUserAlerts(user_id)
     alerts = []
 
-    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}'"):
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}' ORDER BY nextAlert"):
         next = generateCountdown(int(activity['nextAlert']))
         if next <= generate_timeUntilEndOfDay():
             alerts.append(activity)
     
     return alerts
+
+
+# Check if needed
+# def getPetUpcomingAlerts(user_id, pet_id):
+#     '''Returns all the alerts for a specific pet for today.'''
+#     updateUserAlerts(user_id)
+#     alerts = []
+
+#     for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE pet_id = '{pet_id}' ORDER BY nextAlert;"):
+#         next = generateCountdown(int(activity['nextAlert']))
+#         if next <= generate_timeUntilEndOfDay():
+#             alerts.append(activity)
+    
+#     return alerts
 
 
 def getPetActivities(user_id, pet_id):
@@ -72,12 +86,15 @@ def reformat_Activities(activities:list):
             "user_id": activity['user_id'],
             "pet_id": activity['pet_id'],
             "activity_id": activity['activity_id'],
-            "type": activity['type'],
-            "name": activity['name'],
-            "repeat": "true" if activity['repeat'] == 1 else "false",
-            "time": convert_unixToTime(activity['nextAlert'])
-        }
 
+            "pet_name": db.get_TableDicts("SELECT name FROM pets WHERE pet_id = '1';")[0]['name'],
+            "type": activity['type'].capitalize(),
+            "name": activity['name'],
+            "repeat": "Repeating" if activity['repeat'] == 1 else "Once",
+            "hour": convert_unixToTime(activity['nextAlert']).strftime("%H"),
+            "minute": convert_unixToTime(activity['nextAlert']).strftime("%M"),
+            "repeatInterval": activity['repeatInterval']
+        }
         newList.append(newDict)
     return newList
 
