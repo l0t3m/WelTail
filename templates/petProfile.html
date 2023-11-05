@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>WelTail - My Profile</title>
+        <title>WelTail - {{pet.0.name}}'s Profile</title>
 
         <!-- Imports for react to start working -->
         <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -11,13 +11,16 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
-        <link rel="stylesheet" href="/static/style/profile.css">
+        <link rel="stylesheet" href="/static/style/petProfile.css">
+        <link rel="stylesheet" href="/static/style/navbar.css">
+        <link rel="stylesheet" href="/static/style/mainGrid.css">
     </head>
     <body>
 
-        <div class="mainContainer">
+        <div class="main">
+            <div class="logo">WelTail</div>
 
-            <div class="container navbar">
+            <div class="navbar padding">
                 <div class="navCell"><a href="/feed">Your feed</a></div>
                 <div class="navCell"><a href="/profile">Your profile</a></div>
                 <div class="navCell"><a href="/logout">Logout</a></div>
@@ -25,104 +28,83 @@
 
 
 
+            <div class="content">
 
-            <div class="container">
-                <div class="header padding">You are at your pet's profile page.</div>
-                <div class="header padding">Your pet:</div>
-            </div>
-
-            <div class="container petInfo padding">
-                <div class="table">
-                    <div class="row">
-                        <div class="cell">Name</div>
-                        <div class="cell">{{pet.0.name}}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cell">Species</div>
-                        <div class="cell">{{pet.0.species}}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cell">Gender</div>
-                        <div class="cell">{{pet.0.gender}}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cell">BirthDate</div>
-                        <div class="cell">{{pet.0.birthDate}}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cell">Race</div>
-                        <div class="cell">{{pet.0.race}}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cell">
-                            <a href='{{"/pet/delete/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Delete pet</a>
-                        </div>
-                        <div class="cell">
-                            <a href='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Edit pet</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="container">
-                <div class="header padding">Your activities:</div>
-
-                <div>
-                    <a href='{{"/activity/add/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Add activity</a>
-                </div>
-            </div>
-
-            <div class="container activities">
-
-                {% for activity in activities %}
-
-                <div class="activity padding">
-                    <div class="table">
-                        <div class="row">
-                            <div class="cell">Type</div>
-                            <div class="cell">{{activity.type}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">Name</div>
-                            <div class="cell">{{activity.name}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">Repeat</div>
-                            <div class="cell">{{activity.repeat}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">Time</div>
-                            <div class="cell">{{activity.time}}</div>
-                        </div>
-
-                        <div class="row">
-                            <!-- edit -->
-                            <div class="cell">
-                                <a href="">Edit Activity</a>
+                <div class="petContainer">
+                    <div class="pet">
+                        <div class="petTable">
+                            <div class="row">
+                                <div class="cell">Name</div>
+                                <div class="cell">{{pet.0.name}}</div>
                             </div>
-                            <!-- delete -->
-                            <div class="cell">
-                                <a href='{{"/activity/delete/{}/{}".format(pet.0.user_id, activity.activity_id)}}'>Delete Activity</a>
+        
+                            <div class="row">
+                                <div class="cell">Species</div>
+                                <div class="cell">{{pet.0.species}}</div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="cell">Gender</div>
+                                <div class="cell">{{pet.0.gender}}</div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="cell">BirthDate</div>
+                                <div class="cell">{{pet.0.birthDate}}</div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="cell">Race</div>
+                                <div class="cell">{{pet.0.race}}</div>
                             </div>
                         </div>
+
+                        <div class="actions">
+                            <div><a href='{{"/pet/delete/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Delete pet</a></div>
+                            <div><a href='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Edit pet</a></div>
+                        </div>
+
                     </div>
                 </div>
 
-                {% endfor %}
-            </div>
+                <div class="activities">
 
-            
-            
+                    {% for activity in activities %}
+                        <div class="container activityContainer">
+                            <div class="activityTable">
+                                <div class="row">
+                                    <div class="cell">Type</div>
+                                    <div class="cell">{{activity.type}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="cell">Name</div>
+                                    <div class="cell">{{activity.name}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="cell">Repeat</div>
+                                    <div class="cell">{{activity.repeat}}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="cell">Time</div>
+                                    <div class="cell">{{activity.time}}</div>
+                                </div>
+                            </div>
+
+                            <div class="actions">
+                                <div><a href="/">Edit Activity</a></div>
+                                <div><a href='{{"/activity/delete/{}/{}".format(pet.0.user_id, activity.activity_id)}}'>Delete Activity</a></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="activityContainer container add">
+                        <div><a href='{{"/activity/add/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Add activity</a></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

@@ -1,0 +1,47 @@
+/******************** General: ********************/
+
+.table {
+    width: 70%;
+}
+
+.actions {
+    width: 30%;
+}
+
+.petContainer {
+    display: flex;
+    height: auto;
+}
+
+
+
+/******************** Content: ********************/
+
+.row {
+    display: flex;
+    width: 100%;
+}
+
+.cell {
+    text-align: left;
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.pets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.petContainer {
+    width: 30%;
+}
+

@@ -1,0 +1,75 @@
+/******************** Content - Pet Container: ********************/
+
+.petTable {
+    width: 70%;
+}
+
+.actions {
+    width: 30%;
+}
+
+.petContainer {
+    display: flex;
+    height: auto;
+}
+
+.pet {
+    width: 100%;
+    display: flex;
+
+    margin: 5px;
+    padding: 1%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    transition: 0.2s;
+}
+
+.petContainer {
+    width: 100%;
+}
+
+
+
+/******************** Content - Activity Container: ********************/
+
+.activityTable {
+    width: 70%;
+}
+
+.actions {
+    width: 30%;
+}
+
+.activityContainer {
+    display: flex;
+    height: auto;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+}
+
+.cell {
+    text-align: left;
+    width: 100%;
+}
+
+.actions, .add {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.activities {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.activityContainer {
+    width: 30%;
+}
+

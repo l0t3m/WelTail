@@ -12,70 +12,67 @@
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
         <link rel="stylesheet" href="/static/style/profile.css">
+        <link rel="stylesheet" href="/static/style/navbar.css">
+        <link rel="stylesheet" href="/static/style/mainGrid.css">
     </head>
     <body>
 
-        <div class="mainContainer">
+        <div class="main">
+            <div class="logo">WelTail</div>
 
-            <div class="container navbar">
+            <div class="navbar padding">
                 <div class="navCell"><a href="/feed">Your feed</a></div>
                 <div class="navCell"><a href="/profile">Your profile</a></div>
                 <div class="navCell"><a href="/logout">Logout</a></div>
             </div>
 
-            <div class="container">
-                <div class="header padding">You are at your profile page.</div>
-                <div class="header padding">Your pets:</div>
-            </div>
 
-            <div class="container">
-                <div class="actions">
-                    <a href='{{"/pet/add/{}".format(pets.0.user_id)}}'>Add a pet</a>
-                </div>
-            </div>
-
-            <div class="container pets">
-
+            <div class="content">
+                <div class="pets">
                 {% for pet in pets %}
-                <div class="petContainer">
+                    <div class="container petContainer">
+                        <div class="table">
+                            <div class="row">
+                                <div class="cell">Name</div>
+                                <div class="cell">{{pet.name}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Species</div>
+                                <div class="cell">{{pet.species}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Gender</div>
+                                <div class="cell">{{pet.gender}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">BirthDate</div>
+                                <div class="cell">{{pet.birthDate}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cell">Race</div>
+                                <div class="cell">{{pet.race}}</div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <div><a href='{{"/petprofile/{}/{}".format(pet.user_id, pet.pet_id)}}'>View pet</a></div>
+                            <div><a href='{{"/pet/edit/{}/{}".format(pet.user_id, pet.pet_id)}}'>Edit pet</a></div>
+                            <div><a href='{{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}'>Delete pet</a></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
                     
-                    <div class="table">
-                        <div class="row">
-                            <div class="cell">Name</div>
-                            <div class="cell">{{pet.name}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">Species</div>
-                            <div class="cell">{{pet.species}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">Gender</div>
-                            <div class="cell">{{pet.gender}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">BirthDate</div>
-                            <div class="cell">{{pet.birthDate}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell">Race</div>
-                            <div class="cell">{{pet.race}}</div>
-                        </div>
+                    <div class="petContainer container actions">
+                        <div><a href='{{"/pet/add/{}".format(pets.0.user_id)}}'>Add a pet</a></div>
                     </div>
                 </div>
 
-                <div class="actions">
-                    <a href='{{"/petprofile/{}/{}".format(pet.user_id, pet.pet_id)}}'>View pet</a>
-                </div>
-
-                <br>
-                {% endfor %}
-
             </div>
         </div>
-
     </body>
 </html>
