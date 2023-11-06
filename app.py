@@ -181,6 +181,14 @@ def myUser():
     return db.get_TableDicts(f"SELECT * FROM users WHERE user_id = {session['user_id']}")[0]
 
 
+@app.route('/api/myPets')
+def myPets():
+    if session.get('user_id', "") == "":
+        return ""
+    
+    return db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = {session['user_id']}")
+
+
 @app.route('/api/myUpcomingActivities')
 def myActivities():
     if session.get('user_id', "") == "":

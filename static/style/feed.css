@@ -12,8 +12,17 @@
 
 /******************** Content - Side Menu: ********************/
 
+.sideContainer {
+    font-size: 16pt;
+}
+
 .statsHeader {
     font-weight: 600;
+}
+
+.petCheckbox {
+    padding: 1vh;
+    display: flex;
 }
 
 
