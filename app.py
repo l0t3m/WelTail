@@ -173,11 +173,12 @@ def redirect_profile():
 
 #################### API Routes: ####################
 
-@app.route('/api/myUserId')
-def myUserId():
+@app.route('/api/myUser')
+def myUser():
     if session.get('user_id', "") == "":
         return ""
-    return str(session['user_id'])
+
+    return db.get_TableDicts(f"SELECT * FROM users WHERE user_id = {session['user_id']}")[0]
 
 
 @app.route('/api/myUpcomingActivities')
@@ -194,6 +195,12 @@ def viewUsernames():
     for user in db.get_TableDicts("SELECT * FROM users"):
         usernames.append(user['username'])
     return usernames
+
+
+@app.route('/api/greetingMessage')
+def greetingMessage():
+    '''Returns a greeting message according to the current time.'''
+    return functions.generate_greetingMessage()
 
 
 

@@ -1,11 +1,16 @@
 function ShowPage(props) {
-    const [user_id, setUser_id] = React.useState("");
+    const [myUser, setMyUser] = React.useState("");
     const [activities, setActivities] = React.useState([]);
+    const [message, setMessage] = React.useState("");
 
     React.useEffect(()=>{
-        axios.get('/api/myUserId').then((response)=>{
-            setUser_id(response.data);
+        axios.get('/api/myUser').then((response)=>{
+            setMyUser(response.data);
         });
+
+        axios.get('/api/greetingMessage').then((response)=>{
+            setMessage(response.data)
+        })
 
         // Add in interval!
         axios.get('/api/myUpcomingActivities').then((response)=>{
@@ -19,14 +24,19 @@ function ShowPage(props) {
 
             <div className="side">
                 <div className="container">
+
+                    <div>{message}, {myUser.username} </div>
+
+                    <hr/>
+
                     {/* Insert pet selection here through dropdown */}
                     <div>This is the side menu / pet selection.</div>
                     
                     <hr/>
 
                     {/* Insert user's stats here */}
-                    <div className="statsHeader">Your stats:</div>
-                    <div>user_id - {user_id} </div>
+                    <div className="statsHeader">Stats:</div>
+                    <div>user_id - {myUser.user_id} </div>
                     <div>Total activities - {activities.length} </div>
                 </div>
             </div>

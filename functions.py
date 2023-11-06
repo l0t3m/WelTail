@@ -109,6 +109,18 @@ def activity_done(activity_id):
         db.query(f"UPDATE activities SET nextAlert = '{next}' WHERE activity_id = '{activity[0]['activity_id']}'")
 
 
+def generate_greetingMessage():
+    hour = datetime.datetime.now().hour
+
+    if hour >= 5 and hour <= 12:
+        return "☀️ Good morning"
+    elif hour >= 13 and hour <= 17:
+        return "🌤️ Good afternoon"
+    elif hour >= 18 and hour <= 21:
+        return "⛅ Good evening"
+    return "🌙 Good night"
+
+
 
 #################### Time / Unix Functions: ####################
 
