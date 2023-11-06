@@ -2,13 +2,43 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
 
-.navCell a {
-    font-family: Montserrat, Arial;
-    font-weight: 300;
+    background-image: linear-gradient(to top, var(--background), var(--white3));
+
+    border-bottom: 1px solid var(--white3);
+    margin-bottom: 5px;
+
+    margin-right: -2vw;
+    margin-left: -2vw;
 }
 
 .logo {
     font-family: Pacifico, Arial;
+    color: var(--primary);
+}
+
+.navCell a {
+    font-family: Montserrat, Arial;
+    font-weight: 400;
+    transition: 0.25s;
+}
+
+.navCell a:hover {
+    color: var(--blue);
+}
+
+.tabSelected a {
+    color: var(--primary);
+    font-weight: 500;
+    border-bottom: 1px solid var(--primary);
+    transition: 0.5s;
+}
+
+.tabSelected a:hover {
+    color: var(--blue);
+    border-bottom: 1px solid var(--blue);
+}
+
+.tabLogout a:hover {
+    color: red;
 }

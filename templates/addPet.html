@@ -11,6 +11,7 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
+        <script type="text/babel" src="/static/javascript/addPet.js" defer></script>
         
     </head>
     <body>
@@ -24,6 +25,9 @@
 
             <div class="container">
                 <form action='{{"/pet/add/{}".format(user_id)}}' method="post">
+                    
+
+                    
                     <div class="field">
                         <select name="species" id="species">
                             <option value="dog">Dog</option>
@@ -53,6 +57,12 @@
                     <div class="submit">
                         <input type="submit" value="Add pet"/>
                     </div>
+
+                    <div class="test">
+                        <div id="root"></div>
+                    </div>
+
+
                 </form>
             </div>
         </div>

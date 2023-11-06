@@ -5,6 +5,19 @@
 :root {
     --textBlack: #000000;           /* Text Color - Black */
     --textWhite: #f2f2f2;           /* Text Color - White */
+
+    --background: #ffffff;
+    --white: #f6f6f6;
+    --white2: #ececec;
+    --white3: #e1e1e1;
+    --white4: #d0d0d0;
+    
+    --primary: #3282B8;
+
+    --blue: #99c5e2;
+    --blue2: #3282B8;
+    --blue3: #0F4C75;
+    --blue4: #1B262C;
 }
 
 body {
@@ -47,7 +60,7 @@ a {
     margin: 5px;
     padding: 15px;
     border-radius: 10px;
-    background-color: #f2f2f2;
+    background-color: var(--white);
     transition: 0.2s;
 }
 
