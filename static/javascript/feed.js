@@ -39,18 +39,7 @@ function ShowPage(props) {
         }
 
         if (checkedArr.length == 0) {
-            activities.map((activity) => newAct.push(activity));
-        }
-
-        if (checkedArr.includes("0")) {
-            for (let i = 0; i < checkBoxInput.length; i++) {
-                if (checkBoxInput[i].checked == true) {
-                    checkBoxInput[i].checked = false;
-                }
-            }
-            checkBoxInput[0].checked = true;
-
-            activities.map((activity) => newAct.push(activity));
+            activities.map((activity) => newAct.push(activity))
         } else {
             activities.map((activity) => checkedArr.includes(String(activity.pet_id)) ? newAct.push(activity) : null);
         }
@@ -70,39 +59,24 @@ function ShowPage(props) {
 
                     <hr/>
 
-                    <div>
-                        <div>Choose a pet to view:</div>
+                    <div  className="sideHeader">Choose specific pet/s to view:</div>
 
+                    {myPets.map((pet) =>
                         <div className="petCheckbox">
                             <div>
-                                <input type="checkbox" id="checkBoxInput" value={0} onClick={() => updateFilter()}/>
-                                <span class="checkmark"></span>
+                                <input type="checkbox" id="checkBoxInput" value={pet.pet_id} onClick={() => updateFilter()}/>
                             </div>
-                            <div>All pets</div>
+                            <div>{pet.name}</div>
                         </div>
-
-                        {myPets.map((pet) =>
-                            <div className="petCheckbox">
-                                <div>
-                                    <input type="checkbox" id="checkBoxInput" value={pet.pet_id} onClick={() => updateFilter()}/>
-                                    <span class="checkmark"></span>
-                                </div>
-                                <div>{pet.name}</div>
-                            </div>
-                        )}
-                    </div>
+                    )}
 
                     <hr/>
 
-                    <div className="statsHeader">Stats:</div>
+                    <div className="sideHeader">Stats:</div>
                     <div>user_id - {myUser.user_id} </div>
                     <div>total pets - {myPets.length}</div>
-                    <div>Total activities - {activities.length} </div>
-                    <div>Total activities shown - {activitiesFiltered.length} </div>
                 </div>
             </div>
-
-
 
             <div className="activities">
                 {activitiesFiltered.map((activity) => 
