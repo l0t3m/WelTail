@@ -11,60 +11,13 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
+        <link rel="stylesheet" href="/static/style/addPet.css">
         <script type="text/babel" src="/static/javascript/addPet.js" defer></script>
         
     </head>
     <body>
-
-        <div class="mainContainer">
-            <div class="">
-                <a href="/profile">Back</a>
-            </div>
-
-            <div class="header">Add a Pet:</div>
-
-            <div class="container">
-                <form action='{{"/pet/add/{}".format(user_id)}}' method="post">
-                    
-
-                    
-                    <div class="field">
-                        <select name="species" id="species">
-                            <option value="dog">Dog</option>
-                            <option value="cat">Cat</option>
-                        </select>
-                    </div>
-
-                    <div class="field">
-                        <input type="text" name="name" placeholder="Name"/>
-                    </div>
-                    
-                    <div class="field">
-                        <select name="gender" id="gender">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    
-                    <div class="field">
-                        <input type="date" name="birthDate" placeholder="Birth Date"/>
-                    </div>
-                    
-                    <div class="field">
-                        <input type="text" name="race" placeholder="Race"/>
-                    </div>
-                    
-                    <div class="submit">
-                        <input type="submit" value="Add pet"/>
-                    </div>
-
-                    <div class="test">
-                        <div id="root"></div>
-                    </div>
-
-
-                </form>
-            </div>
+        <div class="main">
+            <div id="root" class="root"></div>
         </div>
     </body>
 </html>
