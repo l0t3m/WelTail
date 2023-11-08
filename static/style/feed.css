@@ -52,7 +52,16 @@
 .action {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    transition: 0.25s;
+}
+
+.done:hover {
+    color: rgb(0, 150, 0);
+}
+
+.view:hover {
+    color: rgb(0, 90, 150);
 }
 
 .secondRow {
@@ -68,4 +77,11 @@
 .cell {
     text-align: center;
     width: 100%;
+}
+
+.separator {
+    padding-right: 1%;
+    border-left: 1px solid black;
+    height: inherit;
+    width: 1%;
 }

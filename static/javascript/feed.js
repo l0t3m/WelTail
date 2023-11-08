@@ -43,11 +43,9 @@ function ShowPage(props) {
         } else {
             activities.map((activity) => checkedArr.includes(String(activity.pet_id)) ? newAct.push(activity) : null);
         }
-
         setActivitiesFiltered(newAct);
         return;
     }
-
 
     return (
         <div className="contentContainer">
@@ -93,8 +91,14 @@ function ShowPage(props) {
                             </div>
                         </div>
 
+                        <div className="separator"></div>
+
                         <div className="action">
-                            <a href={`/activity/done/${activity.user_id}/${activity.activity_id}`}>Done</a>
+                            <a href={`/activity/done/${activity.user_id}/${activity.activity_id}`} className="done">Done</a>
+                        </div>
+
+                        <div className="action">
+                            <a href={`/petprofile/${activity.user_id}/${activity.pet_id}`} className="view">View</a>
                         </div>
                     </div>
                 )}
