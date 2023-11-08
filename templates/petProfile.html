@@ -3,12 +3,6 @@
     <head>
         <title>WelTail - {{pet.0.name}}'s Profile</title>
 
-        <!-- Imports for react to start working -->
-        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-        <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- Axios -->
-
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
         <link rel="stylesheet" href="/static/style/petProfile.css">
@@ -62,6 +56,7 @@
                         <div class="actions">
                             <div><a href='{{"/pet/delete/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Delete pet</a></div>
                             <div><a href='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Edit pet</a></div>
+                            <div><a href='{{"/activity/add/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}' class="add">Add activity</a></div>
                         </div>
 
                     </div>
@@ -86,6 +81,10 @@
                             <div class="separator"></div>
 
                             <div class="actions">
+                                <div><a href='{{"/activity/done/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="done">Done</a></div>
+                            </div>
+
+                            <div class="actions">
                                 <div><a href="/" class="edit">Edit</a></div>
                             </div>
 
@@ -94,10 +93,6 @@
                             </div>
                         </div>
                     {% endfor %}
-
-                    <div class="activityContainer container add">
-                        <div><a href='{{"/activity/add/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Add activity</a></div>
-                    </div>
                 </div>
             </div>
         </div>

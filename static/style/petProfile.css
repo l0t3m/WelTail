@@ -47,7 +47,7 @@
 }
 
 .actions {
-    width: 20%;
+    width: 15%;
 }
 
 .actions a {
@@ -82,7 +82,7 @@
 }
 
 .activityContainer {
-    width: 50%;
+    width: 60%;
 }
 
 .separator {
@@ -109,6 +109,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+.done:hover {
+    color: rgb(0, 150, 0);
 }
 
 .delete:hover {
