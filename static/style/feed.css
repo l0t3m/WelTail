@@ -53,6 +53,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
+}
+
+.action a {
     transition: 0.25s;
 }
 

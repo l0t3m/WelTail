@@ -1,3 +1,11 @@
+/******************** General: ********************/
+
+.activityContainer:hover {
+    background-color: #e5e5e5;
+}
+
+
+
 /******************** Content - Pet Container: ********************/
 
 .petTable {
@@ -32,12 +40,18 @@
 
 /******************** Content - Activity Container: ********************/
 
+/********** Layout: **********/
+
 .activityTable {
-    width: 70%;
+    width: 80%;
 }
 
 .actions {
-    width: 30%;
+    width: 20%;
+}
+
+.actions a {
+    transition: 0.25s;
 }
 
 .activityContainer {
@@ -50,10 +64,44 @@
     width: 100%;
 }
 
+.secondRow {
+    padding-top: 1%;
+    font-size: 14pt;
+}
+
 .cell {
-    text-align: left;
+    text-align: center;
     width: 100%;
 }
+
+.activities {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.activityContainer {
+    width: 50%;
+}
+
+.separator {
+    border-left: 1px solid black;
+    height: inherit;
+    width: 1%;
+}
+
+.activityContainer:target {
+    animation-name: onTarget;
+    animation-iteration-count: 1;
+    animation-duration: 4s;
+}
+
+@keyframes onTarget {
+    50% { background-color: var(--white3); }
+}
+
+/********** Actions: **********/
 
 .actions, .add {
     text-align: center;
@@ -63,13 +111,10 @@
     flex-direction: column;
 }
 
-.activities {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.delete:hover {
+    color: red;
 }
 
-.activityContainer {
-    width: 40%;
+.edit:hover {
+    color: rgb(0, 90, 150);
 }
-

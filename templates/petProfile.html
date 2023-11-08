@@ -70,32 +70,27 @@
                 <div class="activities">
 
                     {% for activity in activities %}
-                        <div class="container activityContainer">
+                        <div class="container activityContainer" id={{activity.activity_id}}>
                             <div class="activityTable">
                                 <div class="row">
-                                    <div class="cell">Type</div>
-                                    <div class="cell">{{activity.type}}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="cell">Name</div>
                                     <div class="cell">{{activity.name}}</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="cell">Repeat</div>
+                                <div class="row secondRow">
+                                    <div class="cell">{{activity.type}}</div>
                                     <div class="cell">{{activity.repeat}}</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="cell">Time</div>
-                                    <div class="cell">{{activity.time}}</div>
+                                    <div class="cell">{{activity.hour}}:{{activity.minute}} ({{activity.repeatInterval}})</div>
                                 </div>
                             </div>
 
+                            <div class="separator"></div>
+
                             <div class="actions">
-                                <div><a href="/">Edit Activity</a></div>
-                                <div><a href='{{"/activity/delete/{}/{}".format(pet.0.user_id, activity.activity_id)}}'>Delete Activity</a></div>
+                                <div><a href="/" class="edit">Edit</a></div>
+                            </div>
+
+                            <div class="actions">
+                                <div><a href='{{"/activity/delete/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="delete">Delete</a></div>
                             </div>
                         </div>
                     {% endfor %}

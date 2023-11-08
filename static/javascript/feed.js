@@ -98,7 +98,7 @@ function ShowPage(props) {
                         </div>
 
                         <div className="action">
-                            <a href={`/petprofile/${activity.user_id}/${activity.pet_id}`} className="view">View</a>
+                            <a href={`/petprofile/${activity.user_id}/${activity.pet_id}#${activity.activity_id}`} className="view">View</a>
                         </div>
                     </div>
                 )}
