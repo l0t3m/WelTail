@@ -75,8 +75,3 @@ def setup_TestData():
     query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'other', '12 hours', 0, '{functions.generate_firstAlert(43200)}', '43200');")
     query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 1', 1, '{functions.generate_firstAlert(600)}', '600');")
     query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 2', 1, '{functions.generate_firstAlert(600)}', '600');")
-    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 3', 1, '{functions.generate_firstAlert(600)}', '600');")
-    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 4', 1, '{functions.generate_firstAlert(600)}', '600');")
-    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 5', 1, '{functions.generate_firstAlert(600)}', '600');")
-    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 6', 1, '{functions.generate_firstAlert(600)}', '600');")
-    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'testing', 'test 7', 1, '{functions.generate_firstAlert(600)}', '600');")

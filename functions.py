@@ -6,8 +6,22 @@ import db, datetime, time
 
 #################### Main Functions: ####################
 
-def addActivity(user_id, pet_id, type, name, nextAlert, repeat, repeatType, repeatAmount):
-    pass
+def addActivity(user_id, pet_id, type, name, nextAlert:str, repeat, repeatType, repeatAmount):
+    repeat = "1" if repeat == "on" else "0"
+
+    if repeatType == "hours":
+        repeatInterval = int(repeatAmount) * 3600
+    elif repeatType == "days":
+        repeatInterval = int(repeatAmount) * 86400
+    elif repeatType == "weeks":
+        repeatInterval = int(repeatAmount) * 604800
+    else:
+        repeatInterval = int(repeatAmount) * 2629743
+    
+    year, month, day = nextAlert[:-6].split("-")
+    hour, minute = nextAlert[-5:].split(":")
+    nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
+    db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {repeat}, '{nextAlert}', '{repeatInterval}');")
 
 
 

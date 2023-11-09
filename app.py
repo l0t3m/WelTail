@@ -130,7 +130,6 @@ def activity_add(user_id, pet_id):
     if request.method == 'GET':
         return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
 
-
     functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
     return redirect(f'/petprofile/{user_id}/{pet_id}')
 

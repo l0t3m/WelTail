@@ -25,17 +25,17 @@
                 <form action='{{"/activity/add/{}/{}".format(user_id, pet_id)}}' method="post">
 
                     <div class="field">
-                        <div>type</div>
-                        <input type="text" name="type" placeholder="Activity category"/>
+                        <div>Activity Name</div>
+                        <input type="text" name="name" placeholder="Name"/>
+                    </div>
+
+                    <div class="field">
+                        <div>Category name</div>
+                        <input type="text" name="type" placeholder="name"/>
                     </div>
     
                     <div class="field">
-                        <div>name</div>
-                        <input type="text" name="name" placeholder="Activity Name"/>
-                    </div>
-    
-                    <div class="field">
-                        <div>nextAlert</div>
+                        <div>Date</div>
                         <input type="datetime-local" name="nextAlert"/>
                     </div>
 
