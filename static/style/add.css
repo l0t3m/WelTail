@@ -1,5 +1,5 @@
 .root {
-    height: 70vh;
+    padding-top: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,16 +8,16 @@
 .rootContainer {
     font-size: 16pt;
     padding: 2%;
-    width: 40vh;
+    width: 60vh;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-around;
 }
 
 .field, .submit {
-    padding: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     margin: 1%;
 }
 
@@ -25,4 +25,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: block;
 }

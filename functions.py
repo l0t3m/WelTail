@@ -4,6 +4,13 @@ import db, datetime, time
 
 
 
+#################### Main Functions: ####################
+
+def addActivity(user_id, pet_id, type, name, nextAlert, repeat, repeatType, repeatAmount):
+    pass
+
+
+
 #################### General Functions: ####################
 
 def getUserData(username):

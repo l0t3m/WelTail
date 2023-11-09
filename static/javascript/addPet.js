@@ -1,12 +1,7 @@
 function ShowPage(props) {
     const [myUser, setMyUser] = React.useState("");
-    // const [dogBreeds, setDogBreeds] = React.useState({});
 
     React.useEffect(()=>{
-        // axios.get('https://dog.ceo/api/breeds/list/all').then((response)=>{
-        //     setDogBreeds(response.data);
-        // });
-
         axios.get('/api/myUser').then((response)=>{
             setMyUser(response.data);
         });

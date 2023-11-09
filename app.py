@@ -119,7 +119,7 @@ def pet_edit(user_id, pet_id):
         return render_template('editPet.html', pet = db.get_TableDicts(f"SELECT * FROM pets WHERE pet_id = '{pet_id}';"))
 
     db.query(f"UPDATE pets SET species='{request.form['species']}', name='{request.form['name']}', gender='{request.form['gender']}', birthDate='{request.form['birthDate']}', race='{request.form['species']}' WHERE pet_id='{pet_id}'  ")
-    return redirect('/profile')
+    return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
 @app.route('/activity/add/<user_id>/<pet_id>', methods=['GET','POST'])
@@ -129,10 +129,10 @@ def activity_add(user_id, pet_id):
     
     if request.method == 'GET':
         return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
-    
 
-    # need to catch the data and analyze it.
-    return redirect('/profile')
+
+    functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+    return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
 @app.route('/activity/delete/<user_id>/<activity_id>', methods=['GET'])
