@@ -107,6 +107,7 @@ def pet_delete(user_id, pet_id):
         return redirect('/')
 
     db.query(f"DELETE FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';")
+    db.query(f"DELETE FROM activities WHERE pet_id = {pet_id};")
     return redirect('/profile')
 
 
@@ -188,8 +189,16 @@ def myPets():
     return db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = {session['user_id']}")
 
 
-@app.route('/api/myUpcomingActivities')
+@app.route('/api/myActivities')
 def myActivities():
+    if session.get('user_id', "") == "":
+        return ""
+    
+    return functions.reformat_Activities(db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']}"))
+
+
+@app.route('/api/myUpcomingActivities')
+def myUpcomingActivities():
     if session.get('user_id', "") == "":
         return ""
     

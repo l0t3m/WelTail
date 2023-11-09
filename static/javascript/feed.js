@@ -12,18 +12,18 @@ function ShowPage(props) {
         });
 
         axios.get('/api/myPets').then((response)=>{
-            setMyPets(response.data)
+            setMyPets(response.data);
         });
 
         // Add in interval!
         axios.get('/api/greetingMessage').then((response)=>{
-            setMessage(response.data)
+            setMessage(response.data);
         });
 
         // Add in interval!
         axios.get('/api/myUpcomingActivities').then((response)=>{
             setActivities(response.data);
-            setActivitiesFiltered(response.data)
+            setActivitiesFiltered(response.data);
         });
     },[]);
 
@@ -73,6 +73,7 @@ function ShowPage(props) {
                     <div className="sideHeader">Stats:</div>
                     <div>user_id - {myUser.user_id} </div>
                     <div>total pets - {myPets.length}</div>
+                    <div>total activities - {activities.length}</div>
                 </div>
             </div>
 
