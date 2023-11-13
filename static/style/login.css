@@ -1,0 +1,155 @@
+body {
+    height: auto;
+    background-image: linear-gradient(to bottom ,var(--blue2), white);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+
+.main {
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
+
+    font-family: Montserrat, Arial;
+    font-weight: 400;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    background-color: white;
+
+    border-radius: 10px;
+    padding: 2%;
+
+    margin-top: 20vh;
+    margin-left: 25vw;
+    margin-right: 25vw;
+
+    background-image: url("/static/images/dogAndCat2.avif");
+    background-repeat: no-repeat;
+    background-size: 25%;
+    background-position: bottom right;
+}
+
+
+.logo {
+    /* border: 5px solid red; */
+    grid-row: 1;
+
+    font-size: 24pt;
+    font-family: Pacifico, Arial;
+    color: var(--primary);
+}
+
+img {
+    width: 24pt;
+}
+
+.title {
+    grid-row: 2;
+
+    font-size: 24pt;
+    font-weight: 500;
+}
+
+.inputs {
+    grid-row: 3;
+}
+
+.message {
+    grid-row: 4;
+}
+
+.redirect {
+    grid-row: 5;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputs div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.inputs input[type="text"], .inputs input[type="password"] {
+    padding: 1%;
+    margin: 2%;
+
+    border: 1px solid lightgray;
+    padding: 12px;
+    border-radius: 10px;
+
+    transition: 0.5s;
+}
+
+.inputs input[type="text"]:focus, .inputs input[type="password"]:focus {
+    border: 0;
+    outline: none;
+    border: 1px solid gray;
+    background-color: var(--white);
+}
+
+.inputs input[type="text"]:hover, .inputs input[type="password"]:hover {
+    background-color: var(--white);
+}
+
+.inputs input {
+    width: 30%;
+}
+
+.inputs input[type="submit"] {
+    padding: 1%;
+    margin: 2%;
+
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+    background-image: linear-gradient(to right, rgb(152, 196, 226, 0.7), rgb(28, 112, 169, 0.7));
+    transition: all 0.7s ease;
+
+    font-weight: 600;
+    color: white;
+}
+
+.inputs input[type="submit"]:hover {
+    border: 0;
+    outline: none;
+    border: 1px solid rgb(137, 182, 212);
+
+    background-image: linear-gradient(to right, rgb(152, 196, 226, 1), rgb(28, 112, 169, 1));
+    transform: scale(1.075)
+}
+
+
+.redirect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14pt;
+    padding-top: 10px;
+}
+
+.redirect a {
+    font-weight: 500;
+    transition: 0.25s;
+} 
+
+.redirect a:hover {
+    color: var(--blue);
+}
+
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16pt;
+    font-weight: 700;
+}

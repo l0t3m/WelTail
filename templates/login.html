@@ -5,28 +5,30 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
+        <link rel="stylesheet" href="/static/style/login.css">
         
     </head>
     <body>
 
         <div class="main">
-            <div><a href="/">Go back</a></div>
+            <div class="logo"><img src="/static/images/bigPaw.png"/> WelTail</div>
 
-            <div class="header">Log In</div>
+            <div class="title">Log In</div>
 
-            <form action="/login" method="post">
-                <input type="text" name="username" placeholder="Username"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <input type="submit" value="Log In"/>
-            </form>
+            <div class="inputs">
+                <form action="/login" method="post">
+                    <div><input type="text" name="username" placeholder="Username"/></div>
+                    <div><input type="password" name="password" placeholder="Password"/></div>
+                    <div><input type="submit" value="Log In"/></div>
+                </form>
+            </div>
 
             <div class="message">
                 {{message}}
             </div>
 
-            <div>
-                <div>Don't have an account yet?</div>
-                <div><a href="/signup">Sign up</a></div>
+            <div class="redirect">
+                <div>Don't have an account yet? <a href="/signup">Sign up</a></div>
             </div>
         </div>
 
