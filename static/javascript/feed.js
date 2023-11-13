@@ -3,8 +3,10 @@ function ShowPage(props) {
     const [myPets, setMyPets] = React.useState([]);
 
     const [activities, setActivities] = React.useState([]);
+    const [todayActivities, setTodayActivities] = React.useState([]);
     const [message, setMessage] = React.useState("");
-    const [activitiesFiltered, setActivitiesFiltered] = React.useState([]);
+    const [actFiltered, setActFiltered] = React.useState([]);
+
 
     React.useEffect(()=>{
         axios.get('/api/myUser').then((response)=>{
@@ -19,51 +21,57 @@ function ShowPage(props) {
             setMessage(response.data);
         });
 
-        axios.get('/api/myUpcomingActivities').then((response)=>{
+        axios.get('/api/myActivities').then((response)=>{
             setActivities(response.data);
-            setActivitiesFiltered(response.data);
+            setActFiltered(response.data);
         });
 
-
+        axios.get('/api/myUpcomingActivities').then((response)=>{
+            setTodayActivities(response.data);
+        });
 
         setInterval(() => {
-            axios.get('/api/myUpcomingActivities').then((response)=>{
+            axios.get('/api/myActivities').then((response)=>{
                 setActivities(response.data);
             });
-        }, 10000);
-        
+            axios.get('/api/myUpcomingActivities').then((response)=>{
+                setTodayActivities(response.data);
+            });
+        }, 30000);
     },[]);
 
-
-    const updateFilter = () => {
-        let checkedArr = [];
-        let newAct = [];
-
-        for (let i = 0; i < checkBoxInput.length; i++) {
-            if (checkBoxInput[i].checked == true) {
-                checkedArr.push(checkBoxInput[i].value);
+    const updateActivities = () => {
+        let newActs = [];
+        let rate = rateSelect.selectedOptions[0].value
+        let pets = [];
+        for (let i = 0; i < checkbox.length; i++) {
+            if (checkbox[i].checked == true) {
+                pets.push(checkbox[i].value)
             }
         }
 
-        if (checkedArr.length == 0) {
-            activities.map((activity) => newAct.push(activity))
+        if (pets.length == 0) {
+            if (rate == 0) {
+                activities.map((activity) => newActs.push(activity))
+            } else {
+                todayActivities.map((activity) => newActs.push(activity))
+            }
         } else {
-            activities.map((activity) => checkedArr.includes(String(activity.pet_id)) ? newAct.push(activity) : null);
+            if (rate == 0) {
+                for (let act of activities) {
+                    pets.includes(String(act["pet_id"])) ? newActs.push(act) : null;
+                }
+            } else {
+                for (let act of todayActivities) {
+                    pets.includes(String(act["pet_id"])) ? newActs.push(act) : null;
+                }
+            }
         }
-        setActivitiesFiltered(newAct);
-        return;
+        setActFiltered(newActs)
     }
-
-    const updateRate = () => {
-        let rate = rateSelect.selected
-    }
-
-
-
 
     return (
         <div className="contentContainer">
-
             <div className="side">
                 <div className="container sideContainer">
 
@@ -72,11 +80,10 @@ function ShowPage(props) {
                     <hr/>
 
                     <div className="sideHeader">Choose a specific pet/s to view:</div>
-
                     {myPets.map((pet) =>
                         <div className="petCheckbox">
                             <div>
-                                <input type="checkbox" id="checkBoxInput" value={pet.pet_id} onClick={() => updateFilter()}/>
+                                <input type="checkbox" id="checkbox" value={pet.pet_id} onClick={() => updateActivities()}/>
                             </div>
                             <div>{pet.name}</div>
                         </div>
@@ -84,12 +91,10 @@ function ShowPage(props) {
 
                     <hr/>
 
-                    <div className="sideHeader">Select a specific time to view:</div>
-
-                    <select name="rateSelect" id="rateSelect">
-                        <option value="1" selected>Today</option>
-                        <option value="2">Tomorrow</option>
-                        <option value="0">All</option>
+                    <div className="sideHeader">Select a time range to view:</div>
+                    <select name="rateSelect" id="rateSelect" onChange={() => updateActivities()}>
+                        <option value={0} selected>All</option>
+                        <option value={1}>Today</option>
                     </select>
 
                     <hr/>
@@ -102,7 +107,7 @@ function ShowPage(props) {
             </div>
 
             <div className="activities">
-                {activitiesFiltered.map((activity) => 
+                {actFiltered.map((activity) => 
                     <div className="container activityContainer">
                         <div className="activity padding">
                             <div className="row">
@@ -131,8 +136,6 @@ function ShowPage(props) {
         </div>
     )
 }
-
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<ShowPage/>);
