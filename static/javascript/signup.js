@@ -61,14 +61,14 @@ function ShowPage(props) {
     }
 
     return (
-        <div>
+        <div className="inputsContainer">
             <form action="/signup" method="post">
-                <input type="text" name="username" placeholder="Username" id="myUsername" onInput={() => checkUsername()}/>
-                <input type="password" name="password" placeholder="Password" id="myPassword" onInput={() => checkPassword()}/>
+                <div><input type="text" name="username" placeholder="Username" id="myUsername" onInput={() => checkUsername()}/></div>
+                <div><input type="password" name="password" placeholder="Password" id="myPassword" onInput={() => checkPassword()}/></div>
 
-                {submitState == false ? <input type="submit" value="Sign Up" disabled/> : <input type="submit" value="Sign Up"/>}
+                <div>{submitState == false ? <input type="submit" value="Sign Up" disabled/> : <input type="submit" value="Sign Up"/>}</div>
 
-                <div id="display">{message}</div>
+                <div id="display" className="message">{message}</div>
             </form>
         </div>
     )

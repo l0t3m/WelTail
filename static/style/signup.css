@@ -7,7 +7,7 @@ body {
 
 .main {
     display: grid;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
 
     font-family: Montserrat, Arial;
     font-weight: 400;
@@ -47,12 +47,8 @@ img {
     grid-row: 3;
 }
 
-.message {
-    grid-row: 4;
-}
-
 .redirect {
-    grid-row: 5;
+    grid-row: 4;
 }
 
 .title {
@@ -61,7 +57,36 @@ img {
     align-items: center;
 }
 
-.inputs div {
+.redirect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14pt;
+    padding-top: 10px;
+}
+
+.redirect a {
+    font-weight: 500;
+    transition: 0.25s;
+} 
+
+.redirect a:hover {
+    color: var(--blue);
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16pt;
+    font-weight: 700;
+}
+
+.inputs input {
+    width: 30%;
+}
+
+.inputsContainer div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,11 +113,23 @@ img {
     background-color: var(--white);
 }
 
-.inputs input {
-    width: 30%;
+.inputs input[type="submit"]:disabled {
+    padding: 1%;
+    margin: 2%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    transition: all 0.7s ease;
+    font-weight: 600;
 }
 
-.inputs input[type="submit"] {
+.inputs input[type="submit"]:disabled:hover {
+    border: 0;
+    outline: none;
+    border: 1px solid lightgray;
+    transform: scale(1.075)
+}
+
+.inputs input[type="submit"]:enabled {
     padding: 1%;
     margin: 2%;
     border: 1px solid lightgray;
@@ -103,35 +140,10 @@ img {
     color: white;
 }
 
-.inputs input[type="submit"]:hover {
+.inputs input[type="submit"]:enabled:hover {
     border: 0;
     outline: none;
     border: 1px solid rgb(137, 182, 212);
     background-image: linear-gradient(to right, rgb(152, 196, 226, 1), rgb(28, 112, 169, 1));
     transform: scale(1.075)
-}
-
-.redirect {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14pt;
-    padding-top: 10px;
-}
-
-.redirect a {
-    font-weight: 500;
-    transition: 0.25s;
-} 
-
-.redirect a:hover {
-    color: var(--blue);
-}
-
-.message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16pt;
-    font-weight: 700;
 }
