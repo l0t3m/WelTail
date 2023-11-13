@@ -28,13 +28,13 @@
                     <div class="container petContainer">
                         <div class="table">
                             <div class="row">
-                                <div class="cell">Name</div>
-                                <div class="cell">{{pet.name}}</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="cell">Species</div>
-                                <div class="cell">{{pet.species}}</div>
+                                <div class="cell">
+                                    {% if pet.species == "cat" %}
+                                        <img src="/static/images/cat.png"/> {{pet.name}}
+                                    {% else %}
+                                        <img src="/static/images/dog.png"/> {{pet.name}}
+                                    {% endif %}
+                                </div>
                             </div>
 
                             <div class="row">
@@ -54,15 +54,15 @@
                         </div>
 
                         <div class="actions">
-                            <div><a href='{{"/petprofile/{}/{}".format(pet.user_id, pet.pet_id)}}'>View pet</a></div>
-                            <div><a href='{{"/pet/edit/{}/{}".format(pet.user_id, pet.pet_id)}}'>Edit pet</a></div>
-                            <div><a href='{{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}'>Delete pet</a></div>
+                            <div><a href='{{"/petprofile/{}/{}".format(pet.user_id, pet.pet_id)}}'><div>View pet</div></a></div>
+                            <div><a href='{{"/pet/edit/{}/{}".format(pet.user_id, pet.pet_id)}}'><div>Edit pet</div></a></div>
+                            <div><a href='{{"/pet/delete/{}/{}".format(pet.user_id, pet.pet_id)}}'><div>Delete pet</div></a></div>
                         </div>
                     </div>
                     {% endfor %}
 
                     
-                    <div class="petContainer container actions">
+                    <div class="petContainer container add">
                         <div><a href='{{"/pet/add/{}".format(pets.0.user_id)}}'>Add a pet</a></div>
                     </div>
                 </div>

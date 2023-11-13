@@ -23,17 +23,9 @@
 }
 
 .cell {
-    text-align: left;
+    text-align: center;
     width: 100%;
 }
-
-.actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
 
 .pets {
     display: flex;
@@ -41,7 +33,88 @@
     justify-content: center;
 }
 
-.petContainer {
-    width: 30%;
+.container {
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    background-color: var(--white);
 }
 
+.petContainer {
+    margin: 2% 2%;
+    width: 40%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
+    height: 20%;
+}
+
+.table {
+    height: 20vh;
+    border-radius: 10px 0 0 10px;
+}
+
+.petContainer {
+    background-image: url(/static/images/background.jpg);
+    background-size: 100%;
+    background-position: 20% 0%;
+    background-repeat: no-repeat;
+}
+
+
+.table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.row:first-child .cell {
+    font-weight: 300;
+    font-size: 26pt;
+}
+
+img {
+    position: relative;
+    top: 2px;
+    width: 26pt;
+}
+
+.actions {
+    height: 20vh;
+    border-radius: 0 10px 10px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.actions > div {
+    width: 80%;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    padding: 1%;
+    font-weight: 600;
+
+    background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
+    border-radius: 10px;
+    border: 3px solid transparent;
+
+    transition: 0.5s;
+}
+
+.actions > div:hover {
+    border-radius: 10px;
+    background: linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
+}
+
+.actions a {
+    color: black;
+}
+
+.add {
+    height: 15vh;
+    background-color: lightblue;
+    border-radius: 10px;
+}
