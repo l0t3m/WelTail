@@ -15,16 +15,23 @@ function ShowPage(props) {
             setMyPets(response.data);
         });
 
-        // Add in interval!
         axios.get('/api/greetingMessage').then((response)=>{
             setMessage(response.data);
         });
 
-        // Add in interval!
         axios.get('/api/myUpcomingActivities').then((response)=>{
             setActivities(response.data);
             setActivitiesFiltered(response.data);
         });
+
+
+
+        setInterval(() => {
+            axios.get('/api/myUpcomingActivities').then((response)=>{
+                setActivities(response.data);
+            });
+        }, 10000);
+        
     },[]);
 
 
@@ -47,6 +54,13 @@ function ShowPage(props) {
         return;
     }
 
+    const updateRate = () => {
+        let rate = rateSelect.selected
+    }
+
+
+
+
     return (
         <div className="contentContainer">
 
@@ -57,7 +71,7 @@ function ShowPage(props) {
 
                     <hr/>
 
-                    <div  className="sideHeader">Choose specific pet/s to view:</div>
+                    <div className="sideHeader">Choose a specific pet/s to view:</div>
 
                     {myPets.map((pet) =>
                         <div className="petCheckbox">
@@ -67,6 +81,16 @@ function ShowPage(props) {
                             <div>{pet.name}</div>
                         </div>
                     )}
+
+                    <hr/>
+
+                    <div className="sideHeader">Select a specific time to view:</div>
+
+                    <select name="rateSelect" id="rateSelect">
+                        <option value="1" selected>Today</option>
+                        <option value="2">Tomorrow</option>
+                        <option value="0">All</option>
+                    </select>
 
                     <hr/>
 
