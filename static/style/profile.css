@@ -114,7 +114,13 @@ img {
 }
 
 .add {
-    height: 15vh;
+    height: 20vh;
     background-color: lightblue;
     border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    font-weight: 700;
 }

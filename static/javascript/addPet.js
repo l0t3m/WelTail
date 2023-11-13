@@ -17,10 +17,10 @@ function ShowPage(props) {
             <form action={`/pet/add/${myUser.user_id}`} method="post">
 
                 <div className="field flex">
-                    <input type="radio" name="gender" value="dog"/>
+                    <input type="radio" name="species" value="dog"/>
                     <div>Dog</div>
 
-                    <input type="radio" name="gender" value="cat"/>
+                    <input type="radio" name="species" value="cat"/>
                     <div>Cat</div>
                 </div>
 
