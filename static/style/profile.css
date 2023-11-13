@@ -43,9 +43,10 @@
 .petContainer {
     margin: 2% 2%;
     width: 40%;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     background-color: white;
     height: 20%;
+
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 }
 
 .table {
@@ -92,7 +93,6 @@ img {
 .actions > div {
     width: 80%;
     text-align: center;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     padding: 1%;
     font-weight: 600;
 
@@ -115,7 +115,6 @@ img {
 
 .add {
     height: 20vh;
-    background-color: lightblue;
     border-radius: 10px;
 
     display: flex;
@@ -123,4 +122,8 @@ img {
     justify-content: space-around;
     flex-direction: column;
     font-weight: 700;
+}
+
+.add a {
+    color: black;
 }
