@@ -74,7 +74,7 @@
     font-size: 26pt;
 }
 
-img {
+.cell > img {
     position: relative;
     top: 2px;
     width: 26pt;
@@ -114,13 +114,12 @@ img {
 }
 
 .add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 20vh;
     border-radius: 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
     font-weight: 700;
 }
 

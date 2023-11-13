@@ -89,3 +89,7 @@
     height: inherit;
     width: 1%;
 }
+
+.hidden {
+    display: none;
+}

@@ -63,7 +63,7 @@ def profile(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("profile.html", pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
+        return render_template("profile.html", user_id=user_id, pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
     
     return redirect("/profile")
 
@@ -73,7 +73,7 @@ def petProfile(user_id, pet_id):
     if session.get('user_id', "") == "":
         return redirect("/")
     if session['user_id'] == int(user_id):
-        return render_template("petProfile.html", pet=db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';"), activities=functions.reformat_Activities(functions.getPetActivities(user_id, pet_id)) )
+        return render_template("petProfile.html", user_id=user_id, pet=db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';"), activities=functions.reformat_Activities(functions.getPetActivities(user_id, pet_id)) )
         
     return redirect("/profile")
 

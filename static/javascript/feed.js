@@ -79,25 +79,27 @@ function ShowPage(props) {
 
                     <hr/>
 
-                    <div className="sideHeader">Choose a specific pet/s to view:</div>
-                    {myPets.map((pet) =>
-                        <div className="petCheckbox">
-                            <div>
-                                <input type="checkbox" id="checkbox" value={pet.pet_id} onClick={() => updateActivities()}/>
+                    <div className={myPets.length == 0 ? "hidden" : null}>
+                        <div className="sideHeader">Choose a specific pet/s to view:</div>
+                        {myPets.map((pet) =>
+                            <div className="petCheckbox">
+                                <div>
+                                    <input type="checkbox" id="checkbox" value={pet.pet_id} onClick={() => updateActivities()}/>
+                                </div>
+                                <div>{pet.name}</div>
                             </div>
-                            <div>{pet.name}</div>
-                        </div>
-                    )}
+                        )}
 
-                    <hr/>
+                        <hr/>
 
-                    <div className="sideHeader">Select a time range to view:</div>
-                    <select name="rateSelect" id="rateSelect" onChange={() => updateActivities()}>
-                        <option value={0} selected>All</option>
-                        <option value={1}>Today</option>
-                    </select>
-
-                    <hr/>
+                        <div className="sideHeader">Select a time range to view:</div>
+                        <select name="rateSelect" id="rateSelect" onChange={() => updateActivities()}>
+                            <option value={0} selected>All</option>
+                            <option value={1}>Today</option>
+                        </select>
+                    
+                        <hr/>
+                    </div>
 
                     <div className="sideHeader">Stats:</div>
                     <div>user_id - {myUser.user_id} </div>
