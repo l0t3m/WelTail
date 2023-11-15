@@ -59,10 +59,10 @@ def updateUserAlerts(user_id):
         if int(activity['nextAlert']) < int(time.time()):
             if int(activity['repeat']) == 0:
                 db.query(f"DELETE FROM activities WHERE activity_id = {activity['activity_id']}")
-
-            next = generate_nextAlert(int(activity['nextAlert']), int(activity['repeatInterval']), int(datetime.datetime.now().timestamp()))
-            db.query(f"UPDATE activities SET nextAlert = '{next}' WHERE activity_id = '{activity['activity_id']}'")
-            updatedCounter += 1
+            else:
+                next = generate_nextAlert(int(activity['nextAlert']), int(activity['repeatInterval']), int(datetime.datetime.now().timestamp()))
+                db.query(f"UPDATE activities SET nextAlert = '{next}' WHERE activity_id = '{activity['activity_id']}'")
+                updatedCounter += 1
             
     return updatedCounter
 
@@ -115,13 +115,13 @@ def generate_greetingMessage():
     return "🌙 Good night"
 
 
-def addActivity(user_id:int, pet_id:int, type:str, name:str, nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
+def addActivity(user_id:int, pet_id:int, type:str, name:str, nextAlert:str, repeat:str="off", repeatType:str="hours", repeatAmount:str=0):
     newData = reformat_activity(nextAlert, repeat, repeatType,repeatAmount)
     db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
 
 
 def updateActivity(activity_id:int, type:str, name:str, nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
-    newData = reformat_activity(nextAlert, repeat, repeatType,repeatAmount)
+    newData = reformat_activity(nextAlert, repeat, repeatType, repeatAmount)
     db.query(f"UPDATE activities SET type='{type}', name='{name}', repeat='{newData[0]}', nextAlert='{newData[1]}', repeatInterval={newData[2]} WHERE activity_id = {activity_id};")
 
 
@@ -130,19 +130,21 @@ def reformat_activity(nextAlert:str, repeat:str, repeatType:str, repeatAmount:st
     Created for the addActivity and editActivity endpoint.'''
     repeat = "1" if repeat == "on" else "0"
 
-    if repeatType == "hours":
-        repeatInterval = int(repeatAmount) * 3600
-    elif repeatType == "days":
-        repeatInterval = int(repeatAmount) * 86400
-    elif repeatType == "weeks":
-        repeatInterval = int(repeatAmount) * 604800
-    else:
-        repeatInterval = int(repeatAmount) * 2629743
-    
-    year, month, day = nextAlert[:-6].split("-")
-    hour, minute = nextAlert[-5:].split(":")
-    nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
-    return [nextAlert, repeat, repeatInterval]
+    if repeat == "1":
+        if repeatType == "hours":
+            repeatInterval = int(repeatAmount) * 3600
+        elif repeatType == "days":
+            repeatInterval = int(repeatAmount) * 86400
+        elif repeatType == "weeks":
+            repeatInterval = int(repeatAmount) * 604800
+        else:
+            repeatInterval = int(repeatAmount) * 2629743
+        
+        year, month, day = nextAlert[:-6].split("-")
+        hour, minute = nextAlert[-5:].split(":")
+        nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
+        return [repeat, nextAlert, repeatInterval]
+    return ["0", "0", "0"]
 
 
 def deformat_activity(activity:dict):
@@ -151,18 +153,23 @@ def deformat_activity(activity:dict):
     activity.update({'nextAlert':str(convert_unixToTime(activity['nextAlert'])).replace(" ", "T")})
 
     rInterval = int(activity['repeatInterval'])
-    if rInterval < 86400:
+    
+    try:
+        if rInterval < 86400:
+            rType = "hours"
+            rAmount = rInterval / 3600
+        elif rInterval < 604800:
+            rType = "days"
+            rAmount = rInterval / 86400
+        elif rInterval < 2629743:
+            rType = "weeks"
+            rAmount = rInterval / 604800
+        else:
+            rType = "months"
+            rAmount = rInterval / 2629743
+    except:
         rType = "hours"
-        rAmount = rInterval / 3600
-    elif rInterval < 604800:
-        rType = "days"
-        rAmount = rInterval / 86400
-    elif rInterval < 2629743:
-        rType = "weeks"
-        rAmount = rInterval / 604800
-    else:
-        rType = "months"
-        rAmount = rInterval / 2629743
+        rAmount = 0
     
     activity.update({"repeatType" : rType})
     activity.update({"repeatAmount" : int(rAmount)})
