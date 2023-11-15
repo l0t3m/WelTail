@@ -17,7 +17,6 @@ def getPetActivities(user_id, pet_id):
     '''Returns all the activities for a specific pet.'''
     updateUserAlerts(user_id)
     activities = []
-
     for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE pet_id = '{pet_id}';"):
         activities.append(activity)
     return activities
@@ -27,10 +26,8 @@ def getAllActivities(user_id):
     '''Returns all the activities for a specific user.'''
     updateUserAlerts(user_id)
     activities = []
-
     for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}';"):
         activities.append(activity)
-    
     return activities
 
 
@@ -38,12 +35,10 @@ def getUpcomingAlerts(user_id):
     '''Returns all of today's alerts for a specific user.'''
     updateUserAlerts(user_id)
     alerts = []
-
     for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}' ORDER BY nextAlert;"):
         next = generateCountdown(int(activity['nextAlert']))
         if next <= generate_timeUntilEndOfDay():
             alerts.append(activity)
-    
     return alerts
 
 
@@ -69,7 +64,6 @@ def updateUserAlerts(user_id):
 
 def activity_done(activity_id):
     activity = db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = '{activity_id}';")
-    
     if activity[0]['repeat'] == 0:
         db.query(f"DELETE FROM activities WHERE activity_id = '{activity_id}';")
     else:
@@ -81,8 +75,9 @@ def reformat_activities(activities:list):
     '''Gets an activity list containing a dict. Returns the dict reformatted.\n
     Created for the petProfile endpoint.'''
     newList = []
-
     for activity in activities:
+        nextAlert = convert_unixToTime(activity['nextAlert'])
+
         newDict = {
             "user_id": activity['user_id'],
             "pet_id": activity['pet_id'],
@@ -92,10 +87,11 @@ def reformat_activities(activities:list):
             "type": activity['type'].capitalize(),
             "name": activity['name'],
             "repeat": "Repeating" if activity['repeat'] == 1 else "Once",
-            
-            "weekday": convert_unixToTime(activity['nextAlert']).strftime("%A"),
-            "hour": convert_unixToTime(activity['nextAlert']).strftime("%H"),
-            "minute": convert_unixToTime(activity['nextAlert']).strftime("%M"),
+
+            "date": f"{nextAlert.strftime('%d')}/{nextAlert.strftime('%m')}/{nextAlert.strftime('%Y')}",
+            "weekday": nextAlert.strftime("%A"),
+            "hour": nextAlert.strftime("%H"),
+            "minute": nextAlert.strftime("%M"),
             "repeatInterval": activity['repeatInterval']
         }
         newList.append(newDict)
@@ -105,7 +101,6 @@ def reformat_activities(activities:list):
 def generate_greetingMessage():
     '''Generates a message based on the current time.'''
     hour = datetime.datetime.now().hour
-
     if hour >= 5 and hour <= 12:
         return "☀️ Good morning"
     elif hour >= 13 and hour <= 17:
@@ -128,8 +123,8 @@ def updateActivity(activity_id:int, type:str, name:str, nextAlert:str, repeat:st
 def reformat_activity(nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
     '''Gets parameters directly from html's format. Returns them reformatted, ready for DB.\n
     Created for the addActivity and editActivity endpoint.'''
+    repeatInterval = 0
     repeat = "1" if repeat == "on" else "0"
-
     if repeat == "1":
         if repeatType == "hours":
             repeatInterval = int(repeatAmount) * 3600
@@ -139,21 +134,17 @@ def reformat_activity(nextAlert:str, repeat:str, repeatType:str, repeatAmount:st
             repeatInterval = int(repeatAmount) * 604800
         else:
             repeatInterval = int(repeatAmount) * 2629743
-        
-        year, month, day = nextAlert[:-6].split("-")
-        hour, minute = nextAlert[-5:].split(":")
-        nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
-        return [repeat, nextAlert, repeatInterval]
-    return ["0", "0", "0"]
+    year, month, day = nextAlert[:-6].split("-")
+    hour, minute = nextAlert[-5:].split(":")
+    nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
+    return [repeat, nextAlert, repeatInterval]
 
 
 def deformat_activity(activity:dict):
     '''Gets an activity. Converts the data into a new format.\n
     Created for the activity_edit endpoint.'''
     activity.update({'nextAlert':str(convert_unixToTime(activity['nextAlert'])).replace(" ", "T")})
-
     rInterval = int(activity['repeatInterval'])
-    
     try:
         if rInterval < 86400:
             rType = "hours"
@@ -170,7 +161,6 @@ def deformat_activity(activity:dict):
     except:
         rType = "hours"
         rAmount = 0
-    
     activity.update({"repeatType" : rType})
     activity.update({"repeatAmount" : int(rAmount)})
     return activity
@@ -195,7 +185,6 @@ def generate_timeUntilEndOfDay():
     today = datetime.datetime.now()
     start = (datetime.datetime(today.year, today.month, today.day)).timestamp()
     end = start + 86400
-
     now = int(datetime.datetime.now().timestamp())
     return (int(end - now))
 

@@ -118,6 +118,7 @@ function ShowPage(props) {
 
                             <div className="row secondRow">
                                 <div className="cell">{activity.type}</div>
+                                <div className="cell">{activity.date}</div>
                                 <div className="cell">{activity.weekday}, {activity.hour}:{activity.minute}</div>
                                 <div className="cell">{activity.repeat}</div>
                             </div>

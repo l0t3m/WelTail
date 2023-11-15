@@ -134,8 +134,7 @@ def activity_add(user_id, pet_id):
     if request.form['repeat'] == "on":
         functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
     else:
-        functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'])
-    
+        functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'])
     return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
