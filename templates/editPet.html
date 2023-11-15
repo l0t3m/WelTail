@@ -17,17 +17,19 @@
             <div class="header">Edit Pet:</div>
 
             <div class="container">
-                <form action="" method="post">
+                <form action='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}' method="post">
                     <div class="field">
-                        <select name="species" id="species">
-                            {% if pet.0.species == 'dog' %}
-                                <option value="dog" selected>Dog</option>
-                                <option value="cat">Cat</option>
-                            {% else %}
-                                <option value="dog">Dog</option>
-                                <option value="cat" selected>Cat</option>
-                            {% endif %}
-                        </select>
+                        {% if pet.0.species == 'dog' %}
+                            <input type="radio" name="species" value="dog" checked>
+                            <div>Dog</div>
+                            <input type="radio" name="species" value="cat">
+                            <div>Cat</div>
+                        {% else %}
+                            <input type="radio" name="species" value="dog">
+                            <div>Dog</div>
+                            <input type="radio" name="species" value="cat" checked>
+                            <div>Cat</div>
+                        {% endif %}
                     </div>
 
                     <div class="field">
@@ -35,15 +37,17 @@
                     </div>
                     
                     <div class="field">
-                        <select name="gender" id="gender">
-                            {% if pet.0.gender == 'male' %}
-                                <option value="male" selected>Male</option>
-                                <option value="female">Female</option>
-                            {% else %}
-                                <option value="male">Male</option>
-                                <option value="female" selected>Female</option>
-                            {% endif %}
-                        </select>
+                        {% if pet.0.gender == 'male' %}
+                            <input type="radio" name="gender" value="male" checked>
+                            <div>Male</div>
+                            <input type="radio" name="gender" value="female">
+                            <div>Female</div>
+                        {% else %}
+                            <input type="radio" name="gender" value="male">
+                            <div>Male</div>
+                            <input type="radio" name="gender" value="female" checked>
+                            <div>Female</div>
+                        {% endif %}
                     </div>
                     
                     <div class="field">

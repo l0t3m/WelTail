@@ -12,7 +12,7 @@ function ShowPage(props) {
     return (
         <div className="container rootContainer">
 
-            <div className="header">Add a pet</div>
+            <div className="header">Add a new pet</div>
 
             <form action={`/pet/add/${myUser.user_id}`} method="post">
 
