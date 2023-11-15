@@ -7,6 +7,7 @@ import db, datetime, time
 #################### Main Functions: ####################
 
 def getUserData(username):
+    '''Gets an username, returns the actual user.'''
     for user in db.get_TableDicts("SELECT * FROM users"):
         if user['username'].lower() == username.lower():
             return user
@@ -34,7 +35,7 @@ def getAllActivities(user_id):
 
 
 def getUpcomingAlerts(user_id):
-    '''Returns all the alerts for today.'''
+    '''Returns all of today's alerts for a specific user.'''
     updateUserAlerts(user_id)
     alerts = []
 
@@ -50,7 +51,7 @@ def getUpcomingAlerts(user_id):
 #################### General Functions: ####################
 
 def updateUserAlerts(user_id):
-    '''Checks if the user activities are up to date, if not, fixes them. \n
+    '''Checks if the user activities are up to date, if not, updates them.\n
     Returns the amount of activities fixed.'''
     updatedCounter = 0
 
@@ -77,7 +78,8 @@ def activity_done(activity_id):
 
 
 def reformat_Activities(activities:list):
-    '''Gets an activity list, containing dict. Returns the dicts reformatted.'''
+    '''Gets an activity list containing a dict. Returns the dict reformatted.\n
+    Created for the petProfile endpoint.'''
     newList = []
 
     for activity in activities:
@@ -99,6 +101,7 @@ def reformat_Activities(activities:list):
 
 
 def generate_greetingMessage():
+    '''Generates a message based on the current time.'''
     hour = datetime.datetime.now().hour
 
     if hour >= 5 and hour <= 12:
@@ -110,7 +113,8 @@ def generate_greetingMessage():
     return "🌙 Good night"
 
 
-def addActivity(user_id, pet_id, type, name, nextAlert:str, repeat:str, repeatType:str, repeatAmount):
+def addActivity(user_id:int, pet_id:int, type:str, name:str, nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
+    '''Gets an activity, reformats it and inserting to DB.'''
     repeat = "1" if repeat == "on" else "0"
 
     if repeatType == "hours":
@@ -129,12 +133,11 @@ def addActivity(user_id, pet_id, type, name, nextAlert:str, repeat:str, repeatTy
 
 
 def deformat_Activity(activity:dict):
-    '''Gets an activity.\n Converts the data into new format.'''
-    # "repeatInterval": "21600",
+    '''Gets an activity. Converts the data into a new format.\n
+    Created for the activity_edit endpoint.'''
     activity.update({'nextAlert':str(convert_unixToTime(activity['nextAlert'])).replace(" ", "T")})
 
     rInterval = int(activity['repeatInterval'])
-    
     if rInterval < 86400:
         rType = "hours"
         rAmount = rInterval / 3600
@@ -150,22 +153,24 @@ def deformat_Activity(activity:dict):
     
     activity.update({"repeatType" : rType})
     activity.update({"repeatAmount" : int(rAmount)})
-    
     return activity
 
 
 #################### Time / Unix Functions: ####################
 
-def generate_firstAlert(seconds):
+def generate_firstAlert(seconds:int=0):
+    '''Generates alert using the current time plus seconds given.'''
     now = int(datetime.datetime.now().timestamp())
     return int(now) + int(seconds)
 
 
 def generate_nextAlert(oldAlert:int, intervalValue:int, unixTime:int):
+    '''Generates next alert using the old alert.'''
     return unixTime + intervalValue - ((unixTime - oldAlert)) % int(intervalValue)
 
 
 def generate_timeUntilEndOfDay():
+    '''Checks how many seconds until the end of the current day.'''
     today = datetime.datetime.now()
     start = (datetime.datetime(today.year, today.month, today.day)).timestamp()
     end = start + 86400
@@ -175,10 +180,11 @@ def generate_timeUntilEndOfDay():
 
 
 def convert_unixToTime(unixVal):
+    '''Gets a unix value and turns it into a date.'''
     return datetime.datetime.fromtimestamp(int(unixVal))
 
 
 def generateCountdown(unixTime:int):
-    '''Returns the time left in seconds.'''
+    '''Checks how much time is left until the unix time given.'''
     now = int(datetime.datetime.now().timestamp())
     return (int(unixTime) - now)
