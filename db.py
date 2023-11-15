@@ -69,6 +69,6 @@ def setup_TestData():
     query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('2', 'dog', 'Lady', 'female', '2000-01-01', 'Malinois');")
 
     query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '3', 'Exercise', 'Walk Koda, 12 hours', 1, '{functions.generate_firstAlert(600)}', '43200');")
-    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', 'Food', 'Feed Hatol, 6 hours', 1, '{functions.generate_firstAlert(600)}', '3600');")
+    query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '1', 'Food', 'Feed Hatol, 6 hours', 1, '{functions.generate_firstAlert(600)}', '21600');")
     query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'Food', 'Feed Mini, 1 day', 1, '{functions.generate_firstAlert(600)}', '86400');")
     query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ('1', '2', 'Treat', 'Give treat to Mini, 4 days', 0, '{functions.generate_firstAlert(600)}', '345600');")

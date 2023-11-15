@@ -39,7 +39,7 @@ def getUpcomingAlerts(user_id):
     updateUserAlerts(user_id)
     alerts = []
 
-    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}' ORDER BY nextAlert"):
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}' ORDER BY nextAlert;"):
         next = generateCountdown(int(activity['nextAlert']))
         if next <= generate_timeUntilEndOfDay():
             alerts.append(activity)
@@ -77,7 +77,7 @@ def activity_done(activity_id):
         db.query(f"UPDATE activities SET nextAlert = '{next}' WHERE activity_id = '{activity[0]['activity_id']}'")
 
 
-def reformat_Activities(activities:list):
+def reformat_activities(activities:list):
     '''Gets an activity list containing a dict. Returns the dict reformatted.\n
     Created for the petProfile endpoint.'''
     newList = []
@@ -92,6 +92,8 @@ def reformat_Activities(activities:list):
             "type": activity['type'].capitalize(),
             "name": activity['name'],
             "repeat": "Repeating" if activity['repeat'] == 1 else "Once",
+            
+            "weekday": convert_unixToTime(activity['nextAlert']).strftime("%A"),
             "hour": convert_unixToTime(activity['nextAlert']).strftime("%H"),
             "minute": convert_unixToTime(activity['nextAlert']).strftime("%M"),
             "repeatInterval": activity['repeatInterval']
@@ -114,7 +116,18 @@ def generate_greetingMessage():
 
 
 def addActivity(user_id:int, pet_id:int, type:str, name:str, nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
-    '''Gets an activity, reformats it and inserting to DB.'''
+    newData = reformat_activity(nextAlert, repeat, repeatType,repeatAmount)
+    db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
+
+
+def updateActivity(activity_id:int, type:str, name:str, nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
+    newData = reformat_activity(nextAlert, repeat, repeatType,repeatAmount)
+    db.query(f"UPDATE activities SET type='{type}', name='{name}', repeat='{newData[0]}', nextAlert='{newData[1]}', repeatInterval={newData[2]} WHERE activity_id = {activity_id};")
+
+
+def reformat_activity(nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
+    '''Gets parameters directly from html's format. Returns them reformatted, ready for DB.\n
+    Created for the addActivity and editActivity endpoint.'''
     repeat = "1" if repeat == "on" else "0"
 
     if repeatType == "hours":
@@ -129,10 +142,10 @@ def addActivity(user_id:int, pet_id:int, type:str, name:str, nextAlert:str, repe
     year, month, day = nextAlert[:-6].split("-")
     hour, minute = nextAlert[-5:].split(":")
     nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
-    db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {repeat}, '{nextAlert}', '{repeatInterval}');")
+    return [nextAlert, repeat, repeatInterval]
 
 
-def deformat_Activity(activity:dict):
+def deformat_activity(activity:dict):
     '''Gets an activity. Converts the data into a new format.\n
     Created for the activity_edit endpoint.'''
     activity.update({'nextAlert':str(convert_unixToTime(activity['nextAlert'])).replace(" ", "T")})
@@ -156,12 +169,13 @@ def deformat_Activity(activity:dict):
     return activity
 
 
+
 #################### Time / Unix Functions: ####################
 
 def generate_firstAlert(seconds:int=0):
     '''Generates alert using the current time plus seconds given.'''
     now = int(datetime.datetime.now().timestamp())
-    return int(now) + int(seconds)
+    return (int(now) - (int(now) % 60)) + int(seconds)
 
 
 def generate_nextAlert(oldAlert:int, intervalValue:int, unixTime:int):

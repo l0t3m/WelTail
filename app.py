@@ -73,7 +73,7 @@ def petProfile(user_id, pet_id):
     if session.get('user_id', "") == "":
         return redirect("/")
     if session['user_id'] == int(user_id):
-        return render_template("petProfile.html", user_id=user_id, pet=db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';"), activities=functions.reformat_Activities(functions.getPetActivities(user_id, pet_id)) )
+        return render_template("petProfile.html", user_id=user_id, pet=db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';"), activities=functions.reformat_activities(functions.getPetActivities(user_id, pet_id)) )
         
     return redirect("/profile")
 
@@ -132,6 +132,7 @@ def activity_add(user_id, pet_id):
         return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
 
     functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+    
     return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
@@ -159,13 +160,13 @@ def activity_edit(user_id, activity_id):
         return redirect('/')
     
     if request.method == 'GET':
-        session['activity'] = functions.deformat_Activity(db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = {activity_id};")[0])
+        session['activity'] = functions.deformat_activity(db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = {activity_id};")[0])
         return render_template('editActivity.html', activity=session['activity'])
 
-    # method == post ?
+    functions.updateActivity(session['activity']['activity_id'], request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
 
     session.pop('activity', default=None)
-    return request.form['nextAlert']
+    return redirect("/feed")
 
 
 
@@ -208,16 +209,14 @@ def myPets():
 def myActivities():
     if session.get('user_id', "") == "":
         return ""
-    
-    return functions.reformat_Activities(db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']}"))
+    return functions.reformat_activities(db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']} ORDER BY nextAlert;"))
 
 
 @app.route('/api/myUpcomingActivities')
 def myUpcomingActivities():
     if session.get('user_id', "") == "":
         return ""
-    
-    return functions.reformat_Activities(functions.getUpcomingAlerts(session['user_id']))
+    return functions.reformat_activities(functions.getUpcomingAlerts(session['user_id']))
 
 
 @app.route('/api/getTargetedActivity')

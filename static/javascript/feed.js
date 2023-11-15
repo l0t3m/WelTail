@@ -113,13 +113,13 @@ function ShowPage(props) {
                     <div className="container activityContainer">
                         <div className="activity padding">
                             <div className="row">
-                                <div className="cell">{activity.name}</div>
+                                <div className="cell">{activity.name} - {activity.pet_name}</div>
                             </div>
 
                             <div className="row secondRow">
-                                <div className="cell">{activity.pet_name}</div>
                                 <div className="cell">{activity.type}</div>
-                                <div className="cell">{activity.hour}:{activity.minute}, {activity.repeat} ({activity.repeatInterval})</div>
+                                <div className="cell">{activity.weekday}, {activity.hour}:{activity.minute}</div>
+                                <div className="cell">{activity.repeat} ({activity.repeatInterval})</div>
                             </div>
                         </div>
 
