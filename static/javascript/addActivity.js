@@ -4,7 +4,7 @@ function ShowPage(props) {
             <div className="field flex">
                 <div>Repeat this activity?</div>
 
-                <input type="radio" name="repeat" value="off" onChange={() => display.className = "hidden"} checked/>
+                <input type="radio" name="repeat" value="off" onChange={() => display.className = "hidden"}/>
                 <div>Off</div>
                 <input type="radio" name="repeat" value="on" onChange={() => display.className = "shown"}/>
                 <div>On</div>

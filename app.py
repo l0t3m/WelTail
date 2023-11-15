@@ -159,10 +159,13 @@ def activity_edit(user_id, activity_id):
         return redirect('/')
     
     if request.method == 'GET':
-        return render_template('editActivity.html', activity = db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = {activity_id};"))
+        session['activity'] = functions.deformat_Activity(db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = {activity_id};")[0])
+        return render_template('editActivity.html', activity=session['activity'])
 
     # method == post ?
-    return "post."
+
+    session.pop('activity', default=None)
+    return request.form['nextAlert']
 
 
 
@@ -215,6 +218,17 @@ def myUpcomingActivities():
         return ""
     
     return functions.reformat_Activities(functions.getUpcomingAlerts(session['user_id']))
+
+
+@app.route('/api/getTargetedActivity')
+def getTargetedActivity():
+    '''Returns the last activity targeted. Used in Edit Activity.'''
+    if session.get('user_id', "") == "":
+        return ""
+    try:
+        return session['activity']
+    except:
+        return []
 
 
 @app.route('/api/allUsernames')

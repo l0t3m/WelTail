@@ -66,24 +66,6 @@ def updateUserAlerts(user_id):
     return updatedCounter
 
 
-def addActivity(user_id, pet_id, type, name, nextAlert:str, repeat:str, repeatType:str, repeatAmount):
-    repeat = "1" if repeat == "on" else "0"
-
-    if repeatType == "hours":
-        repeatInterval = int(repeatAmount) * 3600
-    elif repeatType == "days":
-        repeatInterval = int(repeatAmount) * 86400
-    elif repeatType == "weeks":
-        repeatInterval = int(repeatAmount) * 604800
-    else:
-        repeatInterval = int(repeatAmount) * 2629743
-    
-    year, month, day = nextAlert[:-6].split("-")
-    hour, minute = nextAlert[-5:].split(":")
-    nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
-    db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {repeat}, '{nextAlert}', '{repeatInterval}');")
-
-
 def activity_done(activity_id):
     activity = db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = '{activity_id}';")
     
@@ -127,6 +109,49 @@ def generate_greetingMessage():
         return "⛅ Good evening"
     return "🌙 Good night"
 
+
+def addActivity(user_id, pet_id, type, name, nextAlert:str, repeat:str, repeatType:str, repeatAmount):
+    repeat = "1" if repeat == "on" else "0"
+
+    if repeatType == "hours":
+        repeatInterval = int(repeatAmount) * 3600
+    elif repeatType == "days":
+        repeatInterval = int(repeatAmount) * 86400
+    elif repeatType == "weeks":
+        repeatInterval = int(repeatAmount) * 604800
+    else:
+        repeatInterval = int(repeatAmount) * 2629743
+    
+    year, month, day = nextAlert[:-6].split("-")
+    hour, minute = nextAlert[-5:].split(":")
+    nextAlert = int((datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))).timestamp())
+    db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {repeat}, '{nextAlert}', '{repeatInterval}');")
+
+
+def deformat_Activity(activity:dict):
+    '''Gets an activity.\n Converts the data into new format.'''
+    # "repeatInterval": "21600",
+    activity.update({'nextAlert':str(convert_unixToTime(activity['nextAlert'])).replace(" ", "T")})
+
+    rInterval = int(activity['repeatInterval'])
+    
+    if rInterval < 86400:
+        rType = "hours"
+        rAmount = rInterval / 3600
+    elif rInterval < 604800:
+        rType = "days"
+        rAmount = rInterval / 86400
+    elif rInterval < 2629743:
+        rType = "weeks"
+        rAmount = rInterval / 604800
+    else:
+        rType = "months"
+        rAmount = rInterval / 2629743
+    
+    activity.update({"repeatType" : rType})
+    activity.update({"repeatAmount" : int(rAmount)})
+    
+    return activity
 
 
 #################### Time / Unix Functions: ####################

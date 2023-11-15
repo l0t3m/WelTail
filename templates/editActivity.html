@@ -19,37 +19,29 @@
         <div class="main root">
 
             <div class="container rootContainer">
-                <!-- activity.0.user_id -->
-
-                <div>{{activity.0.name}}</div>
-
                 <div class="header">Edit activity</div>
 
-                <form action='{{"/activity/edit/{}/{}".format(activity.0.user_id, activity.0.activity_id)}}' method="post">
+                <form action='{{"/activity/edit/{}/{}".format(activity.user_id, activity.activity_id)}}' method="post">
 
                     <div class="field">
                         <div>Activity Name</div>
-                        <input type="text" name="name" placeholder="Name" value='{{activity.0.name}}'>
+                        <input type="text" name="name" placeholder="Name" value='{{activity.name}}'>
                     </div>
 
                     <div class="field">
                         <div>Category name</div>
-                        <input type="text" name="type" placeholder="Name" value='{{activity.0.type}}'>
-                        <!--  -->
+                        <input type="text" name="type" placeholder="Name" value='{{activity.type}}'>
                     </div>
     
                     <div class="field">
                         <div>Date</div>
-                        <input type="datetime-local" name="nextAlert">
-                        <!--  -->
+                        <input type="datetime-local" name="nextAlert" value='{{activity.nextAlert}}'>
                     </div>
 
                     <div id="root"></div>
-                    <!--  -->
                     
                     <div class="submit">
-                        <input type="submit" value="Add activity">
-                        <!--  -->
+                        <input type="submit" value="Edit activity">
                     </div>
                 </form>
             </div>
