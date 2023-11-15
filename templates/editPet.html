@@ -5,20 +5,17 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
-        
+        <!-- <link rel="stylesheet" href="/static/style/addEdit.css"> -->
     </head>
     <body>
 
         <div class="main">
-            <div class="">
-                <a href="/profile">Back</a>
-            </div>
-
-            <div class="header">Edit Pet:</div>
+            <div class="header">Edit Pet</div>
 
             <div class="container">
                 <form action='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}' method="post">
                     <div class="field">
+                        <div>Type of pet</div>
                         {% if pet.0.species == 'dog' %}
                             <input type="radio" name="species" value="dog" checked>
                             <div>Dog</div>
@@ -33,10 +30,12 @@
                     </div>
 
                     <div class="field">
+                        <div>Name</div>
                         <input type="text" name="name" placeholder="Name" value="{{pet.0.name}}"/>
                     </div>
                     
                     <div class="field">
+                        <div>Gender</div>
                         {% if pet.0.gender == 'male' %}
                             <input type="radio" name="gender" value="male" checked>
                             <div>Male</div>
@@ -51,10 +50,12 @@
                     </div>
                     
                     <div class="field">
+                        <div>Date of birth</div>
                         <input type="date" name="birthDate" placeholder="Birth Date" value="{{pet.0.birthDate}}"/>
                     </div>
                     
                     <div class="field">
+                        <div>Race</div>
                         <input type="text" name="race" placeholder="Race" value="{{pet.0.race}}"/>
                     </div>
                     

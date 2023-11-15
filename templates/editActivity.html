@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>WelTail - Add an Activity</title>
+        <title>WelTail - Edit Activity</title>
 
         <!-- React Imports -->
         <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -12,37 +12,44 @@
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
         <link rel="stylesheet" href="/static/style/addEdit.css">
-        <script type="text/babel" src="/static/javascript/addActivity.js" defer></script>
-        
+        <script type="text/babel" src="/static/javascript/editActivity.js" defer></script>
     </head>
     <body>
 
         <div class="main root">
+
             <div class="container rootContainer">
+                <!-- activity.0.user_id -->
 
-                <div class="header">Add an activity</div>
+                <div>{{activity.0.name}}</div>
 
-                <form action='{{"/activity/add/{}/{}".format(user_id, pet_id)}}' method="post">
+                <div class="header">Edit activity</div>
+
+                <form action='{{"/activity/edit/{}/{}".format(activity.0.user_id, activity.0.activity_id)}}' method="post">
 
                     <div class="field">
                         <div>Activity Name</div>
-                        <input type="text" name="name" placeholder="Name"/>
+                        <input type="text" name="name" placeholder="Name" value='{{activity.0.name}}'>
                     </div>
 
                     <div class="field">
                         <div>Category name</div>
-                        <input type="text" name="type" placeholder="Name"/>
+                        <input type="text" name="type" placeholder="Name" value='{{activity.0.type}}'>
+                        <!--  -->
                     </div>
     
                     <div class="field">
                         <div>Date</div>
-                        <input type="datetime-local" name="nextAlert"/>
+                        <input type="datetime-local" name="nextAlert">
+                        <!--  -->
                     </div>
 
                     <div id="root"></div>
+                    <!--  -->
                     
                     <div class="submit">
-                        <input type="submit" value="Add activity"/>
+                        <input type="submit" value="Add activity">
+                        <!--  -->
                     </div>
                 </form>
             </div>

@@ -119,7 +119,7 @@ def pet_edit(user_id, pet_id):
     if request.method == 'GET':
         return render_template('editPet.html', pet = db.get_TableDicts(f"SELECT * FROM pets WHERE pet_id = '{pet_id}';"))
 
-    db.query(f"UPDATE pets SET species='{request.form['species']}', name='{request.form['name']}', gender='{request.form['gender']}', birthDate='{request.form['birthDate']}', race='{request.form['race']}' WHERE pet_id='{pet_id}'  ")
+    db.query(f"UPDATE pets SET species='{request.form['species']}', name='{request.form['name']}', gender='{request.form['gender']}', birthDate='{request.form['birthDate']}', race='{request.form['race']}' WHERE pet_id='{pet_id}';")
     return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
@@ -151,6 +151,18 @@ def activity_done(user_id, activity_id):
     
     functions.activity_done(activity_id)
     return redirect('/feed')
+
+
+@app.route('/activity/edit/<user_id>/<activity_id>', methods=['GET', 'POST'])
+def activity_edit(user_id, activity_id):
+    if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
+        return redirect('/')
+    
+    if request.method == 'GET':
+        return render_template('editActivity.html', activity = db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = {activity_id};"))
+
+    # method == post ?
+    return "post."
 
 
 
