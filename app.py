@@ -41,7 +41,7 @@ def signup():
     if request.method == 'GET':
         return render_template("signup.html")
     
-    db.query(f"INSERT INTO users (username, password) VALUES ('{request.form['username']}', '{request.form['password']}');")
+    db.query(f"INSERT INTO users (username, fullname, password) VALUES ('{request.form['username']}','{request.form['fullname']}', '{request.form['password']}');")
     session['user_id'] = functions.getUserData(request.form['username'])['user_id']
     return redirect(f"/feed/{session['user_id']}")
 
@@ -63,7 +63,7 @@ def profile(user_id):
         return redirect("/")
     
     if session['user_id'] == int(user_id):
-        return render_template("profile.html", user_id=user_id, pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
+        return render_template("profile.html", user=db.get_TableDicts(f"SELECT * FROM users WHERE user_id = {session['user_id']}")[0], pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
     
     return redirect("/profile")
 

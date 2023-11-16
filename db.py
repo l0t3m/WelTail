@@ -47,7 +47,7 @@ def get_TableDicts(sql="SELECT * FROM users", filename="weltail.db"):
 
 def setup(filename="weltail.db"):
     if not os.path.exists('weltail.db'):
-        query("""CREATE TABLE IF NOT EXISTS "users" ("user_id" INTEGER PRIMARY KEY,"username" TEXT,"password" TEXT);""", filename)
+        query("""CREATE TABLE IF NOT EXISTS "users" ("user_id" INTEGER PRIMARY KEY,"username" TEXT, "fullname" TEXT, "password" TEXT);""", filename)
         query("""CREATE TABLE IF NOT EXISTS "pets" 
               ("user_id" INTEGER, "pet_id" INTEGER PRIMARY KEY, "species" TEXT, "name" TEXT, "gender" TEXT, "birthDate" TEXT, "race" TEXT, 
               FOREIGN KEY ("user_id") REFERENCES users ("user_id"));""", filename)
@@ -60,8 +60,8 @@ def setup(filename="weltail.db"):
 
 
 def setup_TestData():
-    query("INSERT INTO users (username, password) VALUES ('lotem', '1212')")
-    query("INSERT INTO users (username, password) VALUES ('tohar', '5555')")
+    query("INSERT INTO users (username, fullname, password) VALUES ('lotem', 'lotem', '1212')")
+    query("INSERT INTO users (username, fullname, password) VALUES ('tohar', 'tohar', '5555')")
 
     query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('1', 'cat', 'Haaaaatol', 'male', '2000-01-01', 'Scottish');")
     query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('1', 'cat', 'Mini Hatol', 'male', '2000-01-01', 'Turkish');")

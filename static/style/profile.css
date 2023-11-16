@@ -15,7 +15,7 @@
 
 
 
-/******************** Content: ********************/
+/******************** Content - Pets: ********************/
 
 .row {
     display: flex;
@@ -60,7 +60,6 @@
     background-position: 20% 0%;
     background-repeat: no-repeat;
 }
-
 
 .table {
     display: flex;
@@ -125,4 +124,34 @@
 
 .add a {
     color: black;
+}
+
+
+
+/******************** Content - User: ********************/
+
+.user {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.userContainer {
+    padding: 1%;
+    margin: 2% 2%;
+    width: 80%;
+    background-color: var(--white2);
+    height: 20%;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+    background-image: url(/static/images/backgroundBlue.jpg);
+    background-size: 100%;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.user {
+    background: url(/static/images/left_dog.jpg), url(/static/images/right_cat.jpg);
+    background-position: 0% 50%, 100% 50%;
+    background-size: 8%;
+    background-repeat: no-repeat;
 }

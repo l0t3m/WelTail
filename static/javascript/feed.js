@@ -75,7 +75,7 @@ function ShowPage(props) {
             <div className="side">
                 <div className="container sideContainer">
 
-                    <div>{message}, {myUser.username} </div>
+                    <div>{message}, {myUser.fullname} </div>
 
                     <hr/>
 
@@ -89,7 +89,6 @@ function ShowPage(props) {
                                 <div>{pet.name}</div>
                             </div>
                         )}
-
                         <hr/>
 
                         <div className="sideHeader">Select a time range to view:</div>
@@ -112,7 +111,7 @@ function ShowPage(props) {
             
 
             <div className="activities">
-                {actFiltered.length == 0 ? <FirstActivity/> : null}
+                {actFiltered.length == 0 ? <FirstActivity activities={activities.length}/> : null}
 
                 {actFiltered.map((activity) => 
                     <div className="container activityContainer">
@@ -151,7 +150,9 @@ function FirstActivity(props) {
         <div className="container activityContainer">
             <div className="activity padding">
                 <div className="row">
-                    <div className="cell">There are no activities assigned.</div>
+                    {props.activities > 0 ? 
+                    <div className="cell">There are no activities assigned for today.</div> : 
+                    <div className="cell">There are no activities assigned.</div>}
                 </div>
 
                 <div className="row secondRow">

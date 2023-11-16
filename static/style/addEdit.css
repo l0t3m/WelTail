@@ -85,7 +85,7 @@ input[type="submit"] {
     padding: 2%;
     border: 0;
     border-radius: 10px;
-    background-image: linear-gradient(to right, rgb(152, 196, 226, 0.7), rgb(28, 112, 169, 0.7));
+    background-image: linear-gradient(to right, rgb(160, 209, 241), rgb(32, 131, 197));
     font-weight: 600;
     font-size: 14pt;
     color: white;
@@ -93,7 +93,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-image: linear-gradient(to right, rgb(152, 196, 226, 1), rgb(28, 112, 169, 1));
+    background-image: linear-gradient(to right, rgb(155, 206, 240), rgb(37, 139, 207));
     transform: scale(1.075)
 }
 

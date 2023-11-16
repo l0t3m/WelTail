@@ -4,6 +4,7 @@
         <title>WelTail - My Profile</title>
 
         <!-- My Imports -->
+        <link rel="shortcut icon" href="/static/images/profile.png" type="image/x-icon">
         <link rel="stylesheet" href="/static/style/default.css">
         <link rel="stylesheet" href="/static/style/profile.css">
         <link rel="stylesheet" href="/static/style/navbar.css">
@@ -23,8 +24,25 @@
             </div>
 
             <div class="content">
+                <div class="user">
+                    <div class="container userContainer bg">
+                        <div class="userTable">
+                            <div class="row">
+                                <div class="cell">Your info:</div>
+                            </div>
+                            <div class="row">
+                                <div class="cell">Username</div>
+                                <div class="cell">{{user.username}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="cell">Full Name</div>
+                                <div class="cell">{{user.fullname}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="pets">
-                
                     {% if pets.length != 0 %}
                         {% for pet in pets %}
                             <div class="container petContainer">
@@ -65,13 +83,9 @@
                     {% endif %}
 
                     <div class="petContainer container add">
-                        <div><a href='{{"/pet/add/{}".format(user_id)}}'><div>Add a new pet</div></a></div>
+                        <div><a href='{{"/pet/add/{}".format(user.user_id)}}'><div>Add a new pet</div></a></div>
                     </div>
-
                 </div>
-
-                    
-                
             </div>
         </div>
     </body>
