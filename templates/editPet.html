@@ -5,7 +5,7 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
-        <link rel="stylesheet" href="/static/style/addPet.css">
+        <link rel="stylesheet" href="/static/style/addEdit.css">
     </head>
     <body>
         <div class="root">
@@ -16,17 +16,13 @@
                     <div class="field">
                         <div class="fieldHead">Type of pet</div>
     
-                        <div class="flex">
+                        <div class="flex species">
                             {% if pet.0.species == 'dog' %}
-                                <input type="radio" name="species" value="dog" checked>
-                                <div>Dog</div>
-                                <input type="radio" name="species" value="cat">
-                                <div>Cat</div>
+                                <div><input type="radio" name="species" value="dog" checked>Dog</div>
+                                <div><input type="radio" name="species" value="cat">Cat</div>
                             {% else %}
-                                <input type="radio" name="species" value="dog">
-                                <div>Dog</div>
-                                <input type="radio" name="species" value="cat" checked>
-                                <div>Cat</div>
+                                <div><input type="radio" name="species" value="dog">Dog</div>
+                                <div><input type="radio" name="species" value="cat" checked>Cat</div>
                             {% endif %}
                         </div>
                     </div>
@@ -39,17 +35,13 @@
                     <div class="field">
                         <div class="fieldHead">Gender</div>
     
-                        <div class="flex">
+                        <div class="flex gender">
                             {% if pet.0.gender == 'male' %}
-                                <input type="radio" name="gender" value="male" checked>
-                                <div>Male</div>
-                                <input type="radio" name="gender" value="female">
-                                <div>Female</div>
+                                <div><input type="radio" name="gender" value="male" checked>Male</div>
+                                <div><input type="radio" name="gender" value="female">Female</div>
                             {% else %}
-                                <input type="radio" name="gender" value="male">
-                                <div>Male</div>
-                                <input type="radio" name="gender" value="female" checked>
-                                <div>Female</div>
+                                <div><input type="radio" name="gender" value="male">Male</div>
+                                <div><input type="radio" name="gender" value="female" checked>Female</div>
                             {% endif %}
                         </div>
                     </div>

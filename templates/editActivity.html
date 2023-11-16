@@ -16,25 +16,25 @@
     </head>
     <body>
 
-        <div class="main root">
+        <div class="root">
 
             <div class="container rootContainer">
-                <div class="header">Edit activity</div>
+                <div class="header pageHead">Edit activity</div>
 
                 <form action='{{"/activity/edit/{}/{}".format(activity.user_id, activity.activity_id)}}' method="post">
 
                     <div class="field">
-                        <div>Activity Name</div>
+                        <div class="fieldHead">Activity Name</div>
                         <input type="text" name="name" placeholder="Name" value='{{activity.name}}'>
                     </div>
 
                     <div class="field">
-                        <div>Category name</div>
+                        <div class="fieldHead">Category name</div>
                         <input type="text" name="type" placeholder="Name" value='{{activity.type}}'>
                     </div>
     
                     <div class="field">
-                        <div>Date</div>
+                        <div class="fieldHead">Date</div>
                         <input type="datetime-local" name="nextAlert" value='{{activity.nextAlert}}'>
                     </div>
 

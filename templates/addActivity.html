@@ -17,31 +17,31 @@
     </head>
     <body>
 
-        <div class="main root">
+        <div class="root">
             <div class="container rootContainer">
 
-                <div class="header">Add an activity</div>
+                <div class="header pageHead">Add an activity</div>
 
                 <form action='{{"/activity/add/{}/{}".format(user_id, pet_id)}}' method="post">
 
                     <div class="field">
-                        <div>Activity Name</div>
+                        <div class="fieldHead">Activity Name</div>
                         <input type="text" name="name" placeholder="Name"/>
                     </div>
 
                     <div class="field">
-                        <div>Category name</div>
+                        <div class="fieldHead">Category name</div>
                         <input type="text" name="type" placeholder="Name"/>
                     </div>
     
                     <div class="field">
-                        <div>Date</div>
+                        <div class="fieldHead">Date</div>
                         <input type="datetime-local" name="nextAlert"/>
                     </div>
 
                     <div id="root"></div>
                     
-                    <div class="submit">
+                    <div class="submit flexCenter">
                         <input type="submit" value="Add activity"/>
                     </div>
                 </form>

@@ -1,18 +1,18 @@
 function ShowPage(props) {
     return (
         <div>
-            <div className="field flex">
-                <div>Repeat this activity?</div>
+            <div className="field">
+                <div className="fieldHead">Repeat this activity?</div>
 
-                <input type="radio" name="repeat" value="off" onChange={() => display.className = "hidden"}/>
-                <div>Off</div>
-                <input type="radio" name="repeat" value="on" onChange={() => display.className = "shown"}/>
-                <div>On</div>
+                <div className="flex">
+                    <div><input type="radio" name="repeat" value="off" onChange={() => display.className = "hidden"}/>Off</div>
+                    <div><input type="radio" name="repeat" value="on" onChange={() => display.className = "shown"}/>On</div>
+                </div>
             </div>
 
             <div id="display" className="hidden">
                 <div className="field">
-                    <div>Repeat type</div>
+                    <div className="fieldHead">Repeat type</div>
 
                     <input type="number" name="repeatAmount" min="1" placeholder="Number"/>
 
