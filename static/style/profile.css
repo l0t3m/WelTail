@@ -97,7 +97,7 @@
     font-weight: 600;
 
     background: linear-gradient(white, white) padding-box,
-              linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
+                linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
     border-radius: 10px;
     border: 3px solid transparent;
 

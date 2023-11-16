@@ -22,7 +22,6 @@
 }
 
 .pet {
-    
     width: 100%;
     display: flex;
 
@@ -42,6 +41,7 @@
     background-size: 100%;
     background-position: 0% 20%;
     background-repeat: no-repeat;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 }
 
 .headRow {
@@ -69,7 +69,7 @@
     padding: 1%;
     font-weight: 600;
     background: linear-gradient(white, white) padding-box,
-              linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
+                linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
     border-radius: 10px;
     border: 3px solid transparent;
     width: 80%;
@@ -165,4 +165,13 @@
 
 .edit:hover {
     color: rgb(0, 90, 150);
+}
+
+.newActivity {
+    font-weight: 400;
+}
+
+.newActivity:hover {
+    color: green;
+    border-bottom: 1px solid green;
 }

@@ -57,42 +57,63 @@
                             <div><a href='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}'>Edit pet</a></div>
                             <div><a href='{{"/activity/add/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}' class="add">Add activity</a></div>
                         </div>
-
                     </div>
                 </div>
 
-                <div class="activities">
-                    {% for activity in activities %}
-                        <div class="container activityContainer" id={{activity.activity_id}}>
+                {% if activities == 0 %}
+                    <!-- If the user doesn't own any activities: -->
+                    <div class="activities">
+                        <div class="container activityContainer">
                             <div class="activityTable">
                                 <div class="row">
-                                    <div class="cell">{{activity.name}}</div>
-                                </div>
-
-                                <div class="row secondRow">
-                                    <div class="cell">{{activity.type}}</div>
-                                    <div class="cell">{{activity.date}}</div>
-                                    <div class="cell">{{activity.weekday}}, {{activity.hour}}:{{activity.minute}}</div>
-                                    <div class="cell">{{activity.repeat}}</div>
+                                    <div class="cell">{{pet.0.name}} doesn't have any activities assigned yet.</div>
                                 </div>
                             </div>
 
-                            <div class="separator"></div>
-
                             <div class="actions">
-                                <div><a href='{{"/activity/done/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="done">Done</a></div>
-                            </div>
-
-                            <div class="actions">
-                                <div><a href='{{"/activity/edit/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="edit">Edit</a></div>
-                            </div>
-
-                            <div class="actions">
-                                <div><a href='{{"/activity/delete/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="delete">Delete</a></div>
+                                <div><a href='{{"/activity/add/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}' class="newActivity">Add activity</a></div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                
+                {% else %}
+                    <div class="activities">
+                        {% for activity in activities %}
+                            <div class="container activityContainer" id={{activity.activity_id}}>
+                                <div class="activityTable">
+                                    <div class="row">
+                                        <div class="cell">{{activity.name}}</div>
+                                    </div>
+
+                                    <div class="row secondRow">
+                                        <div class="cell">{{activity.type}}</div>
+                                        <div class="cell">{{activity.date}}</div>
+                                        <div class="cell">{{activity.weekday}}, {{activity.hour}}:{{activity.minute}}</div>
+                                        <div class="cell">{{activity.repeat}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="separator"></div>
+
+                                <div class="actions">
+                                    <div><a href='{{"/activity/done/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="done">Done</a></div>
+                                </div>
+
+                                <div class="actions">
+                                    <div><a href='{{"/activity/edit/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="edit">Edit</a></div>
+                                </div>
+
+                                <div class="actions">
+                                    <div><a href='{{"/activity/delete/{}/{}".format(pet.0.user_id, activity.activity_id)}}' class="delete">Delete</a></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+                
+                
             </div>
         </div>
     </body>

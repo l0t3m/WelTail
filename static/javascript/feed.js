@@ -105,10 +105,15 @@ function ShowPage(props) {
                     <div>user_id - {myUser.user_id} </div>
                     <div>total pets - {myPets.length}</div>
                     <div>total activities - {activities.length}</div>
+                    <div>actFiltered - {actFiltered.length}</div>
                 </div>
             </div>
 
+            
+
             <div className="activities">
+                {actFiltered.length == 0 ? <FirstActivity/> : null}
+
                 {actFiltered.map((activity) => 
                     <div className="container activityContainer">
                         <div className="activity padding">
@@ -139,6 +144,30 @@ function ShowPage(props) {
         </div>
     )
 }
+
+
+function FirstActivity(props) {
+    return (
+        <div className="container activityContainer">
+            <div className="activity padding">
+                <div className="row">
+                    <div className="cell">There are no activities assigned.</div>
+                </div>
+
+                <div className="row secondRow">
+                    <div className="cell">To assign new activities, choose one of your pets and add activity.</div>
+                </div>
+            </div>
+
+            <div className="separator"></div>
+
+            <div className="action">
+                <a href={`/profile`} className="done">View pets</a>
+            </div>
+        </div>)
+}
+
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<ShowPage/>);
