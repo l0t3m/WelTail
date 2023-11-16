@@ -26,17 +26,17 @@
 
                     <div class="field">
                         <div class="fieldHead">Activity Name</div>
-                        <input type="text" name="name" placeholder="Name" value='{{activity.name}}'>
+                        <input type="text" name="name" placeholder="Activity Name" value='{{activity.name}}' required min="3">
                     </div>
 
                     <div class="field">
                         <div class="fieldHead">Category name</div>
-                        <input type="text" name="type" placeholder="Name" value='{{activity.type}}'>
+                        <input type="text" name="type" placeholder="Category Name" value='{{activity.type}}' required min="3">
                     </div>
     
                     <div class="field">
                         <div class="fieldHead">Date</div>
-                        <input type="datetime-local" name="nextAlert" value='{{activity.nextAlert}}'>
+                        <input type="datetime-local" name="nextAlert" value='{{activity.nextAlert}}' required>
                     </div>
 
                     <div id="root"></div>

@@ -12,15 +12,15 @@ function ShowPage(props) {
             <div className="field">
                 <div className="fieldHead">Repeat this activity?</div>
                 <div className="flex">
-                    <div><input type="radio" name="repeat" value="off" id="repeatOff" onChange={() => display.className = "hidden"}/>Off</div>
-                    <div><input type="radio" name="repeat" value="on" id="repeatOn" onChange={() => display.className = "shown"}/>On</div>
+                    <div><input type="radio" name="repeat" value="off" id="repeatOff" onChange={() => display.className = "hidden"} required/>Off</div>
+                    <div><input type="radio" name="repeat" value="on" id="repeatOn" onChange={() => display.className = "shown"} required/>On</div>
                 </div>                
             </div>
 
             <div id="display" className="hidden">
                 <div className="field">
                     <div className="fieldHead">Repeat type</div>
-                    <input type="number" name="repeatAmount" min="1" placeholder={activity.repeatAmount}/>
+                    <input type="number" name="repeatAmount" placeholder={activity.repeatAmount} required min="1"/>
                     <select name="repeatType" id="repeatType">
                         <option value="hours" id="sHours">Hour/s</option>
                         <option value="days" id="sDays">Day/s</option>

@@ -63,9 +63,9 @@ function ShowPage(props) {
     return (
         <div className="inputsContainer">
             <form action="/signup" method="post">
-                <div><input type="text" name="fullname" placeholder="Full Name" id="myname"/></div>
-                <div><input type="text" name="username" placeholder="Username" id="myUsername" onInput={() => checkUsername()}/></div>
-                <div><input type="password" name="password" placeholder="Password" id="myPassword" onInput={() => checkPassword()}/></div>
+                <div><input type="text" name="fullname" placeholder="Full Name" id="myname" required minlength="3"/></div>
+                <div><input type="text" name="username" placeholder="Username" id="myUsername" onInput={() => checkUsername()} required minlength="3" /></div>
+                <div><input type="password" name="password" placeholder="Password" id="myPassword" onInput={() => checkPassword()} required minlength="4" /></div>
 
                 <div>{submitState == false ? <input type="submit" value="Sign Up" disabled/> : <input type="submit" value="Sign Up"/>}</div>
 

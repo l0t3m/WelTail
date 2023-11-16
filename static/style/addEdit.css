@@ -79,9 +79,7 @@ input[type="text"]:hover, input[type="date"]:hover, input[type="datetime-local"]
 }
 
 input[type="submit"] {
-    background-color: lightblue;
     width: 40%;
-
     padding: 2%;
     border: 0;
     border-radius: 10px;
@@ -95,6 +93,10 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-image: linear-gradient(to right, rgb(155, 206, 240), rgb(37, 139, 207));
     transform: scale(1.075)
+}
+
+input[type="number"]::placeholder {
+    color: rgb(150, 150, 150);
 }
 
 select {
