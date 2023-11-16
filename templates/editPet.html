@@ -5,61 +5,66 @@
 
         <!-- My Imports -->
         <link rel="stylesheet" href="/static/style/default.css">
-        <!-- <link rel="stylesheet" href="/static/style/addEdit.css"> -->
+        <link rel="stylesheet" href="/static/style/addPet.css">
     </head>
     <body>
-
-        <div class="main">
-            <div class="header">Edit Pet</div>
-
-            <div class="container">
+        <div class="root">
+            <div class="container rootContainer">
+                <div class="header pageHead">Edit Pet</div>
+    
                 <form action='{{"/pet/edit/{}/{}".format(pet.0.user_id, pet.0.pet_id)}}' method="post">
                     <div class="field">
-                        <div>Type of pet</div>
-                        {% if pet.0.species == 'dog' %}
-                            <input type="radio" name="species" value="dog" checked>
-                            <div>Dog</div>
-                            <input type="radio" name="species" value="cat">
-                            <div>Cat</div>
-                        {% else %}
-                            <input type="radio" name="species" value="dog">
-                            <div>Dog</div>
-                            <input type="radio" name="species" value="cat" checked>
-                            <div>Cat</div>
-                        {% endif %}
+                        <div class="fieldHead">Type of pet</div>
+    
+                        <div class="flex">
+                            {% if pet.0.species == 'dog' %}
+                                <input type="radio" name="species" value="dog" checked>
+                                <div>Dog</div>
+                                <input type="radio" name="species" value="cat">
+                                <div>Cat</div>
+                            {% else %}
+                                <input type="radio" name="species" value="dog">
+                                <div>Dog</div>
+                                <input type="radio" name="species" value="cat" checked>
+                                <div>Cat</div>
+                            {% endif %}
+                        </div>
                     </div>
-
+    
                     <div class="field">
-                        <div>Name</div>
+                        <div class="fieldHead">Name</div>
                         <input type="text" name="name" placeholder="Name" value="{{pet.0.name}}"/>
                     </div>
                     
                     <div class="field">
-                        <div>Gender</div>
-                        {% if pet.0.gender == 'male' %}
-                            <input type="radio" name="gender" value="male" checked>
-                            <div>Male</div>
-                            <input type="radio" name="gender" value="female">
-                            <div>Female</div>
-                        {% else %}
-                            <input type="radio" name="gender" value="male">
-                            <div>Male</div>
-                            <input type="radio" name="gender" value="female" checked>
-                            <div>Female</div>
-                        {% endif %}
+                        <div class="fieldHead">Gender</div>
+    
+                        <div class="flex">
+                            {% if pet.0.gender == 'male' %}
+                                <input type="radio" name="gender" value="male" checked>
+                                <div>Male</div>
+                                <input type="radio" name="gender" value="female">
+                                <div>Female</div>
+                            {% else %}
+                                <input type="radio" name="gender" value="male">
+                                <div>Male</div>
+                                <input type="radio" name="gender" value="female" checked>
+                                <div>Female</div>
+                            {% endif %}
+                        </div>
                     </div>
                     
                     <div class="field">
-                        <div>Date of birth</div>
+                        <div class="fieldHead">Date of birth</div>
                         <input type="date" name="birthDate" placeholder="Birth Date" value="{{pet.0.birthDate}}"/>
                     </div>
                     
                     <div class="field">
-                        <div>Race</div>
+                        <div class="fieldHead">Race</div>
                         <input type="text" name="race" placeholder="Race" value="{{pet.0.race}}"/>
                     </div>
                     
-                    <div class="submit">
+                    <div class="submit flexCenter">
                         <input type="submit" value="Done"/>
                     </div>
                 </form>

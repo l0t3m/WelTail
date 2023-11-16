@@ -12,41 +12,40 @@ function ShowPage(props) {
     return (
         <div className="container rootContainer">
 
-            <div className="header">Add a new pet</div>
+            <div className="header pageHead">Add a new pet</div>
 
             <form action={`/pet/add/${myUser.user_id}`} method="post">
 
-                <div className="field flex">
-                    <div>Type of pet</div>
+                <div className="field">
+                    <div className="fieldHead">Type of pet</div>
 
-                    <input type="radio" name="species" value="dog"/>
-                    <div>Dog</div>
-
-                    <input type="radio" name="species" value="cat"/>
-                    <div>Cat</div>
+                    <div className="flex species">
+                        <div><input type="radio" name="species" value="dog"/>Dog</div>
+                        <div><input type="radio" name="species" value="cat"/>Cat</div>
+                    </div>
                 </div>
 
                 <div className="field">
-                    <div>Name</div>
+                    <div className="fieldHead">Name</div>
                     <input type="text" name="name" placeholder="Name"/>
                 </div>
 
-                <div className="field flex">
-                    <div>Gender</div>
-                    <input type="radio" name="gender" value="male"/>
-                    <div>Male</div>
+                <div className="field">
+                    <div className="fieldHead">Gender</div>
 
-                    <input type="radio" name="gender" value="female"/>
-                    <div>Female</div>
+                    <div className="flex gender">
+                        <div><input type="radio" name="gender" value="male"/>Male</div>
+                        <div><input type="radio" name="gender" value="female"/>Female</div>
+                    </div>
                 </div>
 
                 <div className="field">
-                    <div>Date of birth</div>
+                    <div className="fieldHead">Date of birth</div>
                     <input type="date" name="birthDate" placeholder="Birth Date"/>
                 </div>
 
                 <div className="field">
-                    <div>Race</div>
+                    <div className="fieldHead">Race</div>
                     <input type="text" name="race" placeholder="Race"/>
                 </div>
 
