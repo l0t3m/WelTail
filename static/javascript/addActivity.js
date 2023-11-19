@@ -14,7 +14,7 @@ function ShowPage(props) {
                 <div className="field">
                     <div className="fieldHead">Repeat type</div>
 
-                    <input type="number" name="repeatAmount" placeholder="Number" required min="1"/>
+                    <input type="number" name="repeatAmount" placeholder="Number" defaultValue="1" min="1" required/>
 
                     <select name="repeatType" id="repeatType">
                         <option value="hours">Hour/s</option>

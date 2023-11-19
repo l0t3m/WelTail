@@ -1,3 +1,5 @@
+/***********************************************************************/
+
 body {
     height: auto;
     background-image: linear-gradient(to bottom ,var(--blue2), white);
@@ -8,7 +10,6 @@ body {
 .main {
     display: grid;
     grid-template-rows: auto auto auto auto;
-
     font-family: Montserrat, Arial;
     font-weight: 400;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
@@ -134,7 +135,7 @@ img {
     margin: 2%;
     border: 1px solid lightgray;
     border-radius: 10px;
-    background-image: linear-gradient(to right, rgb(152, 196, 226, 0.7), rgb(28, 112, 169, 0.7));
+    background-image: linear-gradient(to right, rgb(160, 209, 241), rgb(32, 131, 197));
     transition: all 0.7s ease;
     font-weight: 600;
     color: white;
@@ -144,6 +145,8 @@ img {
     border: 0;
     outline: none;
     border: 1px solid rgb(137, 182, 212);
-    background-image: linear-gradient(to right, rgb(152, 196, 226, 1), rgb(28, 112, 169, 1));
+    background-image: linear-gradient(to right, rgb(155, 206, 240), rgb(37, 139, 207));
     transform: scale(1.075)
 }
+
+/***********************************************************************/

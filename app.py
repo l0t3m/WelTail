@@ -32,7 +32,6 @@ def login():
         if user['username'].lower() == request.form['username'].lower() and user['password'] == request.form['password']:
             session['user_id'] = user['user_id']
             return redirect(f"/feed/{user['user_id']}")
-
     return render_template("login.html", message="Incorrect username / password")
 
 
@@ -125,9 +124,11 @@ def activity_add(user_id, pet_id):
         return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
 
     if request.form['repeat'] == "on":
-        functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+        newData = functions.reformat_activity(request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+        db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{request.form['type']}', '{request.form['name']}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
     else:
-        functions.addActivity(user_id, pet_id, request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'])
+        newData = functions.reformat_activity(request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+        db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{request.form['type']}', '{request.form['name']}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
     return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
@@ -156,7 +157,8 @@ def activity_edit(user_id, activity_id):
         session['activity'] = functions.deformat_activity(db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = {activity_id};")[0])
         return render_template('editActivity.html', activity=session['activity'])
 
-    functions.updateActivity(session['activity']['activity_id'], request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+    newData = functions.reformat_activity(request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
+    db.query(f"UPDATE activities SET type='{request.form['type']}', name='{request.form['name']}', repeat='{newData[0]}', nextAlert='{newData[1]}', repeatInterval={newData[2]} WHERE activity_id = {session['activity']['activity_id']};")
     session.pop('activity', default=None)
     return redirect("/feed")
 
@@ -164,14 +166,14 @@ def activity_edit(user_id, activity_id):
 
 #################### Redirect Routes: ####################
 
-@app.route('/feed')
+@app.route('/feed', methods=['GET'])
 def redirect_feed():
     if session.get('user_id', "") == "":
         return redirect("/")
     return redirect(f"/feed/{session['user_id']}")
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET'])
 def redirect_profile():
     if session.get('user_id', "") == "":
         return redirect("/")
@@ -181,35 +183,35 @@ def redirect_profile():
 
 #################### API Routes: ####################
 
-@app.route('/api/myUser')
+@app.route('/api/myUser', methods=['GET'])
 def myUser():
     if session.get('user_id', "") == "":
         return ""
     return db.get_TableDicts(f"SELECT * FROM users WHERE user_id = {session['user_id']}")[0]
 
 
-@app.route('/api/myPets')
+@app.route('/api/myPets', methods=['GET'])
 def myPets():
     if session.get('user_id', "") == "":
         return ""
     return db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = {session['user_id']}")
 
 
-@app.route('/api/myActivities')
+@app.route('/api/myActivities', methods=['GET'])
 def myActivities():
     if session.get('user_id', "") == "":
         return ""
     return functions.reformat_activities(db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {session['user_id']} ORDER BY nextAlert;"))
 
 
-@app.route('/api/myUpcomingActivities')
+@app.route('/api/myUpcomingActivities', methods=['GET'])
 def myUpcomingActivities():
     if session.get('user_id', "") == "":
         return ""
     return functions.reformat_activities(functions.getUpcomingAlerts(session['user_id']))
 
 
-@app.route('/api/getTargetedActivity')
+@app.route('/api/getTargetedActivity', methods=['GET'])
 def getTargetedActivity():
     '''Returns the last activity targeted. Used in Edit Activity.'''
     if session.get('user_id', "") == "":
@@ -220,7 +222,7 @@ def getTargetedActivity():
         return []
 
 
-@app.route('/api/allUsernames')
+@app.route('/api/allUsernames', methods=['GET'])
 def viewUsernames():
     usernames = []
     for user in db.get_TableDicts("SELECT * FROM users"):
@@ -228,34 +230,7 @@ def viewUsernames():
     return usernames
 
 
-@app.route('/api/greetingMessage')
+@app.route('/api/greetingMessage', methods=['GET'])
 def greetingMessage():
     '''Returns a greeting message according to the current time.'''
     return functions.generate_greetingMessage()
-
-
-
-#################### Temp Routes: ####################
-
-@app.route('/users')
-def users():
-    users = []
-    for user in db.get_TableDicts("SELECT * FROM users"):
-        users.append(user)
-    return users
-
-
-@app.route('/pets')
-def pets():
-    pets = []
-    for pet in db.get_TableDicts("SELECT * FROM pets"):
-        pets.append(pet)
-    return pets
-
-
-@app.route('/activities')
-def activities():
-    activities = []
-    for activity in db.get_TableDicts("SELECT * FROM activities"):
-        activities.append(activity)
-    return activities

@@ -30,7 +30,7 @@
     
                     <div class="field">
                         <div class="fieldHead">Name</div>
-                        <input type="text" name="name" placeholder="Name" value="{{pet.0.name}}"/>
+                        <input type="text" name="name" placeholder="Name" value="{{pet.0.name}}" required minlength="3"/>
                     </div>
                     
                     <div class="field">
@@ -49,12 +49,12 @@
                     
                     <div class="field">
                         <div class="fieldHead">Date of birth</div>
-                        <input type="date" name="birthDate" placeholder="Birth Date" value="{{pet.0.birthDate}}"/>
+                        <input type="date" name="birthDate" placeholder="Birth Date" value="{{pet.0.birthDate}}" required/>
                     </div>
                     
                     <div class="field">
                         <div class="fieldHead">Race</div>
-                        <input type="text" name="race" placeholder="Race" value="{{pet.0.race}}"/>
+                        <input type="text" name="race" placeholder="Race" value="{{pet.0.race}}" required minlength="3"/>
                     </div>
                     
                     <div class="submit flexCenter">

@@ -6,15 +6,12 @@
 :root {
     --textBlack: #000000;           /* Text Color - Black */
     --textWhite: #f2f2f2;           /* Text Color - White */
-
     --background: #ffffff;
     --white: #f6f6f6;
     --white2: #ececec;
     --white3: #e1e1e1;
     --white4: #d0d0d0;
-    
     --primary: #3b9ad8;
-
     --blue: #94c4e4;
     --blue2: #3b9ad8;
     --blue3: #146499;

@@ -32,7 +32,7 @@ def getAllActivities(user_id:int=0):
     return activities
 
 
-def getUpcomingAlerts(user_id):
+def getUpcomingAlerts(user_id:int=0):
     '''Returns all of today's alerts for a specific user.'''
     updateUserAlerts(user_id)
     alerts = []
@@ -43,10 +43,7 @@ def getUpcomingAlerts(user_id):
     return alerts
 
 
-
-#################### General Functions: ####################
-
-def updateUserAlerts(user_id):
+def updateUserAlerts(user_id:int=0):
     '''Checks if the user activities are up to date, if not, updates them.\n
     Returns the amount of activities fixed.'''
     updatedCounter = 0
@@ -63,16 +60,21 @@ def updateUserAlerts(user_id):
     return updatedCounter
 
 
-def activity_done(activity_id):
+def activity_done(activity_id:int=0):
+    '''Marks an activity as done.'''
     activity = db.get_TableDicts(f"SELECT * FROM activities WHERE activity_id = '{activity_id}';")
-    if activity[0]['repeat'] == 0:
-        db.query(f"DELETE FROM activities WHERE activity_id = '{activity_id}';")
-    else:
-        next = generate_nextAlert(int(activity[0]['nextAlert']), int(activity[0]['repeatInterval']), int(activity[0]['nextAlert']))
-        db.query(f"UPDATE activities SET nextAlert = '{next}' WHERE activity_id = '{activity[0]['activity_id']}'")
+    if len(activity) != 0:
+        if activity[0]['repeat'] == 0:
+            db.query(f"DELETE FROM activities WHERE activity_id = '{activity_id}';")
+        else:
+            next = generate_nextAlert(int(activity[0]['nextAlert']), int(activity[0]['repeatInterval']), int(activity[0]['nextAlert']))
+            db.query(f"UPDATE activities SET nextAlert = '{next}' WHERE activity_id = '{activity[0]['activity_id']}'")
 
 
-def reformat_activities(activities:list):
+
+#################### Formatting Functions: ####################
+
+def reformat_activities(activities:list=[]):
     '''Gets an activity list containing a dict. Returns the dict reformatted.\n
     Created for the petProfile endpoint.'''
     newList = []
@@ -97,28 +99,6 @@ def reformat_activities(activities:list):
         }
         newList.append(newDict)
     return newList
-
-
-def generate_greetingMessage():
-    '''Generates a message based on the current time.'''
-    hour = datetime.datetime.now().hour
-    if hour >= 5 and hour <= 12:
-        return "☀️ Good morning"
-    elif hour >= 13 and hour <= 17:
-        return "🌤️ Good afternoon"
-    elif hour >= 18 and hour <= 21:
-        return "⛅ Good evening"
-    return "🌙 Good night"
-
-
-def addActivity(user_id:int, pet_id:int, type:str, name:str, nextAlert:str, repeat:str="off", repeatType:str="hours", repeatAmount:str=0):
-    newData = reformat_activity(nextAlert, repeat, repeatType,repeatAmount)
-    db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{type}', '{name}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
-
-
-def updateActivity(activity_id:int, type:str, name:str, nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
-    newData = reformat_activity(nextAlert, repeat, repeatType, repeatAmount)
-    db.query(f"UPDATE activities SET type='{type}', name='{name}', repeat='{newData[0]}', nextAlert='{newData[1]}', repeatInterval={newData[2]} WHERE activity_id = {activity_id};")
 
 
 def reformat_activity(nextAlert:str, repeat:str, repeatType:str, repeatAmount:str=0):
@@ -169,6 +149,18 @@ def deformat_activity(activity:dict):
 
 
 #################### Time / Unix Functions: ####################
+
+def generate_greetingMessage():
+    '''Generates a message based on the current time.'''
+    hour = datetime.datetime.now().hour
+    if hour >= 5 and hour <= 12:
+        return "☀️ Good morning"
+    elif hour >= 13 and hour <= 17:
+        return "🌤️ Good afternoon"
+    elif hour >= 18 and hour <= 21:
+        return "⛅ Good evening"
+    return "🌙 Good night"
+
 
 def generate_firstAlert(seconds:int=0):
     '''Generates alert using the current time plus seconds given.'''

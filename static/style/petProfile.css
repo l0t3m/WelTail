@@ -1,10 +1,8 @@
-/******************** General: ********************/
+/***********************************************************************/
 
 .activityContainer:hover {
     background-color: #e5e5e5;
 }
-
-
 
 /******************** Content - Pet Container: ********************/
 
@@ -24,7 +22,6 @@
 .pet {
     width: 100%;
     display: flex;
-
     margin: 5px;
     padding: 1%;
     border-radius: 10px;
@@ -80,11 +77,7 @@
     background: linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
 }
 
-
-
 /******************** Content - Activity Container: ********************/
-
-/********** Layout: **********/
 
 .activityTable {
     width: 80%;
@@ -145,8 +138,6 @@
     50% { background-color: var(--white3); }
 }
 
-/********** Actions: **********/
-
 .actions, .add {
     text-align: center;
     display: flex;
@@ -175,3 +166,5 @@
     color: green;
     border-bottom: 1px solid green;
 }
+
+/***********************************************************************/

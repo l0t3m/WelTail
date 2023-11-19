@@ -1,6 +1,7 @@
 import functions, db
 
 def setup_TestData(filename:str="weltail.db"):
+    '''Creates a default data to test with.'''
     db.query("INSERT INTO users (username, fullname, password) VALUES ('lotem', 'lotem', '1212')", filename)
 
     db.query("INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('1', 'cat', 'Hatol', 'male', '2019-10-10', 'Scottish Straight');", filename)

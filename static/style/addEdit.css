@@ -19,7 +19,6 @@ body {
     padding: 2%;
     width: 65vh;
     background-color: white;
-
     display: flex;
     flex-direction: column;
     justify-content: space-around;

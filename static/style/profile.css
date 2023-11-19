@@ -1,4 +1,4 @@
-/******************** General: ********************/
+/***********************************************************************/
 
 .table {
     width: 70%;
@@ -12,8 +12,6 @@
     display: flex;
     height: auto;
 }
-
-
 
 /******************** Content - Pets: ********************/
 
@@ -45,7 +43,6 @@
     width: 40%;
     background-color: white;
     height: 20%;
-
     box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 }
 
@@ -94,7 +91,6 @@
     text-align: center;
     padding: 1%;
     font-weight: 600;
-
     background: linear-gradient(white, white) padding-box,
                 linear-gradient(to right, rgb(249, 141, 159), var(--blue)) border-box;
     border-radius: 10px;
@@ -116,7 +112,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     height: 20vh;
     border-radius: 10px;
     font-weight: 700;
@@ -125,8 +120,6 @@
 .add a {
     color: black;
 }
-
-
 
 /******************** Content - User: ********************/
 
@@ -155,3 +148,5 @@
     background-size: 8%;
     background-repeat: no-repeat;
 }
+
+/***********************************************************************/

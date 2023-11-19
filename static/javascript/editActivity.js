@@ -1,9 +1,9 @@
 function ShowPage(props) {
-    const [activity, setActivity] = React.useState([])
+    const [activity, setActivity] = React.useState([]);
 
     React.useEffect(()=>{
         axios.get('/api/getTargetedActivity').then((response)=>{
-            setActivity(response.data)
+            setActivity(response.data);
         });
     },[]);
 

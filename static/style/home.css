@@ -1,23 +1,21 @@
+/***********************************************************************/
+
 body {
     height: auto;
-    
     background-image: linear-gradient(to bottom ,var(--blue2), white);
     background-size: 100%;
     background-repeat: no-repeat;
 }
 
-
 .main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
-
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
     background-color: white;
 
     border-radius: 10px;
     padding: 2%;
-
     margin-top: 25vh;
     margin-left: 25vw;
     margin-right: 25vw;
@@ -31,7 +29,6 @@ body {
 .logo {
     grid-row: 1;
     grid-column: 1/3;
-
     font-size: 42pt;
     font-family: Pacifico, Arial;
     color: var(--primary);
@@ -74,3 +71,5 @@ a {
 a:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px, rgba(17, 17, 26, 0.1) 0px 0px 16px;
 }
+
+/***********************************************************************/

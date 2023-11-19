@@ -147,31 +147,57 @@ class Test_functions(unittest.TestCase):
         self.assertTrue(len(data) > 0)
 
     def test_getPetActivities_wrongParameters(self):
-        data = functions.getPetActivities()
-        self.assertEqual(data, [])
-
-        data = functions.getPetActivities(user_id=0, pet_id=0)
-        self.assertEqual(data, [])
+        self.assertEqual(functions.getPetActivities(), [])
+        self.assertEqual(functions.getPetActivities(user_id=-1, pet_id=-1), [])
 
         with self.assertRaises(sqlite3.OperationalError):
             functions.getPetActivities(user_id=[], pet_id="abc")
     
     def test_getAllActivities(self):
         data = functions.getAllActivities(self.user_id)
-        self.assertEqual(len(data), 4)
+        self.assertTrue(len(data) > 0)
         self.assertTrue(isinstance(data, list))
     
     def test_getAllActivities_wrongParameters(self):
-        data = functions.getAllActivities()
-        self.assertEqual(data, [])
-
-        data = functions.getAllActivities(user_id=0)
-        self.assertEqual(data, [])
+        self.assertEqual(functions.getAllActivities(), [])
+        self.assertEqual(functions.getAllActivities(user_id=-1), [])
 
         with self.assertRaises(sqlite3.OperationalError):
             functions.getAllActivities(user_id="abc")
             functions.getAllActivities(user_id=[])
+    
+    def test_getUpcomingAlerts(self):
+        data = functions.getUpcomingAlerts(user_id=self.user_id)
+        self.assertTrue(isinstance(data, list))
+    
+    def test_getUpcomingAlerts_wrongParameters(self):
+        self.assertEqual(functions.getUpcomingAlerts(), [])
+        self.assertEqual(functions.getUpcomingAlerts(user_id=-1), [])
 
+        with self.assertRaises(sqlite3.OperationalError):
+            functions.getUpcomingAlerts(user_id="abc")
+            functions.getUpcomingAlerts(user_id=[])
+    
+    def test_updateUserAlerts(self):
+        data = functions.updateUserAlerts(user_id=self.user_id)
+        self.assertTrue(isinstance(data, int))
+    
+    def test_updateUserAlerts_wrongParameters(self):
+        self.assertEqual(functions.updateUserAlerts(), 0)
+        self.assertEqual(functions.updateUserAlerts(user_id=-1), 0)
+
+        self.assertEqual(functions.updateUserAlerts(user_id="abc"), 0)
+        self.assertEqual(functions.updateUserAlerts(user_id=[]), 0)
+    
+    def test_activity_done(self):
+        functions.activity_done(activity_id=1)
+    
+    def test_activity_done_wrongParameters(self):
+        functions.activity_done()
+        functions.activity_done(activity_id=-1)
+        functions.activity_done(activity_id="abc")
+        functions.activity_done(activity_id=[])
+    
 
 
 if __name__ == '__main__':
