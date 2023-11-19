@@ -6,11 +6,12 @@ import db, datetime, time
 
 #################### Main Functions: ####################
 
-def getUserData(username):
+def getUserData(username:str=""):
     '''Gets an username, returns the actual user.'''
-    for user in db.get_TableDicts("SELECT * FROM users"):
-        if user['username'].lower() == username.lower():
-            return user
+    if type(username) == str:
+        for user in db.get_TableDicts("SELECT * FROM users"):
+            if user['username'].lower() == username.lower():
+                return user
 
 
 def getPetActivities(user_id, pet_id):

@@ -113,7 +113,38 @@ class Test_functions(unittest.TestCase):
             os.remove(self.fileName)
     
     def test_getUserData(self):
-        pass
+        expected = {'user_id': 1, 'username': 'lotem', 'fullname': 'lotem', 'password': '1212'}
+        data = functions.getUserData(username=self.username)
+
+        self.assertEqual(len(data), len(expected))
+        self.assertTrue(isinstance(data, dict))
+        self.assertEqual(data, expected)
+    
+    def test_getUserData_testingParameters(self):
+        expected = {'user_id': 1, 'username': 'lotem', 'fullname': 'lotem', 'password': '1212'}
+        usernames = ["LOTEM", "Lotem", "loTEM"]
+
+        for username in usernames:
+            data = functions.getUserData(username=username)
+            self.assertEqual(len(data), 4)
+            self.assertTrue(isinstance(data, dict))
+            self.assertEqual(data, expected)
+
+    def test_getUserData_wrongParameters(self):
+        expected = None
+        usernames = [" ", "---", "1234", "!", "_test_", "newUser", 1234, [], {}]
+
+        for username in usernames:
+            data = functions.getUserData(username=username)
+            self.assertEqual(data, expected)
+
+
+
+    def test_getPetActivities(self):
+        data = functions.getPetActivities(user_id=self.user_id, pet_id=self.pet_id)
+        self.assertEqual(len(data), 1)
+        self.assertTrue(isinstance(data, list))
+
 
 
 if __name__ == '__main__':
