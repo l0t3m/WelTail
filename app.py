@@ -40,7 +40,6 @@ def login():
 def signup():
     if request.method == 'GET':
         return render_template("signup.html")
-    
     db.query(f"INSERT INTO users (username, fullname, password) VALUES ('{request.form['username']}','{request.form['fullname']}', '{request.form['password']}');")
     session['user_id'] = functions.getUserData(request.form['username'])['user_id']
     return redirect(f"/feed/{session['user_id']}")
@@ -50,10 +49,8 @@ def signup():
 def feed(user_id):
     if session.get('user_id', "") == "":
         return redirect("/")
-    
     if session['user_id'] == int(user_id):
         return render_template("feed.html")
-
     return redirect("/feed")
 
 
@@ -61,10 +58,8 @@ def feed(user_id):
 def profile(user_id):
     if session.get('user_id', "") == "":
         return redirect("/")
-    
     if session['user_id'] == int(user_id):
         return render_template("profile.html", user=db.get_TableDicts(f"SELECT * FROM users WHERE user_id = {session['user_id']}")[0], pets = db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}';"))
-    
     return redirect("/profile")
 
 
@@ -75,7 +70,6 @@ def petProfile(user_id, pet_id):
     if session['user_id'] == int(user_id):
         activities=functions.reformat_activities(functions.getPetActivities(user_id, pet_id))
         return render_template("petProfile.html", user_id=user_id, pet=db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';"), activities = 0 if len(activities) == 0 else activities)
-        
     return redirect("/profile")
 
 
@@ -106,7 +100,6 @@ def pet_add(user_id):
 def pet_delete(user_id, pet_id):
     if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
         return redirect('/')
-
     db.query(f"DELETE FROM pets WHERE user_id = '{user_id}' AND pet_id = '{pet_id}';")
     db.query(f"DELETE FROM activities WHERE pet_id = {pet_id};")
     return redirect('/profile')
@@ -128,7 +121,6 @@ def pet_edit(user_id, pet_id):
 def activity_add(user_id, pet_id):
     if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
         return redirect('/')
-    
     if request.method == 'GET':
         return render_template("addActivity.html", user_id = user_id, pet_id = pet_id)
 
@@ -143,7 +135,6 @@ def activity_add(user_id, pet_id):
 def activity_delete(user_id, activity_id):
     if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
         return redirect('/')
-    
     db.query(f"DELETE FROM activities WHERE user_id = '{user_id}' AND activity_id = '{activity_id}';")
     return redirect('/profile')
 
@@ -152,7 +143,6 @@ def activity_delete(user_id, activity_id):
 def activity_done(user_id, activity_id):
     if session.get('user_id', "") == "" or int(user_id) != session['user_id']:
         return redirect('/')
-    
     functions.activity_done(activity_id)
     return redirect('/feed')
 
@@ -167,7 +157,6 @@ def activity_edit(user_id, activity_id):
         return render_template('editActivity.html', activity=session['activity'])
 
     functions.updateActivity(session['activity']['activity_id'], request.form['type'], request.form['name'], request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
-
     session.pop('activity', default=None)
     return redirect("/feed")
 
@@ -196,7 +185,6 @@ def redirect_profile():
 def myUser():
     if session.get('user_id', "") == "":
         return ""
-
     return db.get_TableDicts(f"SELECT * FROM users WHERE user_id = {session['user_id']}")[0]
 
 
@@ -204,7 +192,6 @@ def myUser():
 def myPets():
     if session.get('user_id', "") == "":
         return ""
-    
     return db.get_TableDicts(f"SELECT * FROM pets WHERE user_id = {session['user_id']}")
 
 
@@ -272,24 +259,3 @@ def activities():
     for activity in db.get_TableDicts("SELECT * FROM activities"):
         activities.append(activity)
     return activities
-
-
-@app.route('/test')
-def test():
-    activities = []
-
-    for user in db.get_TableDicts("SELECT user_id FROM users"):
-        functions.updateUserAlerts(user['user_id'])
-
-    for activity in db.get_TableDicts("SELECT * FROM activities"):
-        secondsLeft = functions.generateCountdown(int(activity['nextAlert']))
-
-        tempd = {
-            "NAME" : activity['name'],
-            "seconds left" : secondsLeft,
-            "minutes left" : secondsLeft // 60 if secondsLeft > 60 else "less than a minute",
-        }
-        activities.append(tempd)
-
-    return activities
-

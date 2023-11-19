@@ -14,20 +14,20 @@ def getUserData(username:str=""):
                 return user
 
 
-def getPetActivities(user_id, pet_id):
+def getPetActivities(user_id:int=0, pet_id:int=0):
     '''Returns all the activities for a specific pet.'''
     updateUserAlerts(user_id)
     activities = []
-    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE pet_id = '{pet_id}';"):
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE pet_id = {pet_id};"):
         activities.append(activity)
     return activities
 
 
-def getAllActivities(user_id):
+def getAllActivities(user_id:int=0):
     '''Returns all the activities for a specific user.'''
     updateUserAlerts(user_id)
     activities = []
-    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}';"):
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {user_id};"):
         activities.append(activity)
     return activities
 
@@ -36,7 +36,7 @@ def getUpcomingAlerts(user_id):
     '''Returns all of today's alerts for a specific user.'''
     updateUserAlerts(user_id)
     alerts = []
-    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = '{user_id}' ORDER BY nextAlert;"):
+    for activity in db.get_TableDicts(f"SELECT * FROM activities WHERE user_id = {user_id} ORDER BY nextAlert;"):
         next = generateCountdown(int(activity['nextAlert']))
         if next <= generate_timeUntilEndOfDay():
             alerts.append(activity)
