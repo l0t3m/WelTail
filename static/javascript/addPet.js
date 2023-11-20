@@ -10,12 +10,9 @@ function ShowPage(props) {
     return (
         <div className="container rootContainer">
             <div className="header pageHead">Add a new pet</div>
-
             <form action={`/pet/add/${myUser.user_id}`} method="post">
-
                 <div className="field">
                     <div className="fieldHead">Type of pet</div>
-
                     <div className="flex species">
                         <div><input type="radio" name="species" value="dog" required/>Dog</div>
                         <div><input type="radio" name="species" value="cat" required/>Cat</div>
@@ -29,7 +26,6 @@ function ShowPage(props) {
 
                 <div className="field">
                     <div className="fieldHead">Gender</div>
-
                     <div className="flex gender">
                         <div><input type="radio" name="gender" value="male" required/>Male</div>
                         <div><input type="radio" name="gender" value="female" required/>Female</div>

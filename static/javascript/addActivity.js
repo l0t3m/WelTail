@@ -23,7 +23,6 @@ function ShowPage(props) {
                         <option value="months">Month/s</option>
                     </select>
                 </div>
-                
             </div>
         </div>
     )

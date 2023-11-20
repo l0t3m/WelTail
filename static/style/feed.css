@@ -86,4 +86,24 @@
     display: none;
 }
 
+
+.sideRow {
+    display: flex;
+    width: 100%;
+    font-size: 12pt;
+}
+
+.sideRow > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sideRow:first-child {
+    font-weight: 700;
+    font-size: 16pt;
+}
+
 /***********************************************************************/

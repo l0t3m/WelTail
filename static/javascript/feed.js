@@ -24,6 +24,12 @@ function ShowPage(props) {
             setTodayActivities(response.data);
         });
         setInterval(() => {
+            axios.get('/api/myPets').then((response)=>{
+                setMyPets(response.data);
+            });
+            axios.get('/api/greetingMessage').then((response)=>{
+                setMessage(response.data);
+            });
             axios.get('/api/myActivities').then((response)=>{
                 setActivities(response.data);
             });
@@ -86,11 +92,20 @@ function ShowPage(props) {
                         </select>
                         <hr/>
                     </div>
-                    <div className="sideHeader">Stats:</div>
-                    <div>user_id - {myUser.user_id} </div>
-                    <div>total pets - {myPets.length}</div>
-                    <div>total activities - {activities.length}</div>
-                    <div>actFiltered - {actFiltered.length}</div>
+                    
+                    <div className="sideTable">
+                        <div className="sideRow">
+                            <div>{myPets.length}</div>
+                            <div>{activities.length}</div>
+                            <div>{actFiltered.length}</div>
+                        </div>
+                        <div className="sideRow">
+                            <div>Pets</div>
+                            <div>Activities</div>
+                            <div>Activities Shown</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

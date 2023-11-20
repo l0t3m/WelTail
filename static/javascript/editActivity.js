@@ -29,7 +29,6 @@ function ShowPage(props) {
                 <div className="field">
                     <div className="fieldHead">Repeat type</div>
                     <input type="number" name="repeatAmount" id="AmountInp" placeholder="Number" defaultValue={activity.repeatAmount} required min="1"/>
-
                     <select name="repeatType" id="repeatType">
                         <option value="hours" id="sHours" selected={activity.repeatType == "hours" && "true"}>Hour/s</option>
                         <option value="days" id="sDays" selected={activity.repeatType == "days" && "true"}>Day/s</option>
