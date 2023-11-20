@@ -9,7 +9,7 @@ import db, functions
 
 #################### Variables: ####################
 
-db.setup()
+db.setup(filename="weltail.db", testData=True)
 app.secret_key = "_WilTail_"
 
 
@@ -91,7 +91,7 @@ def pet_add(user_id):
     if request.method == "GET":
         return render_template("addPet.html", user_id = user_id)
     
-    db.query(f"INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name']}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race']}');")
+    db.query(f"INSERT INTO pets (user_id, species, name, gender, birthDate, race) VALUES ('{user_id}', '{request.form['species']}', '{request.form['name'].capitalize()}', '{request.form['gender']}', '{request.form['birthDate']}', '{request.form['race'].capitalize()}');")
     return redirect('/profile')
 
 
@@ -125,10 +125,10 @@ def activity_add(user_id, pet_id):
 
     if request.form['repeat'] == "on":
         newData = functions.reformat_activity(request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
-        db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{request.form['type']}', '{request.form['name']}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
+        db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{request.form['type']}', '{request.form['name'].capitalize()}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
     else:
         newData = functions.reformat_activity(request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
-        db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{request.form['type']}', '{request.form['name']}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
+        db.query(f"INSERT INTO activities (user_id, pet_id, type, name, repeat, nextAlert, repeatInterval) VALUES ({user_id}, {pet_id}, '{request.form['type']}', '{request.form['name'].capitalize()}', {newData[0]}, '{newData[1]}', '{newData[2]}');")
     return redirect(f'/petprofile/{user_id}/{pet_id}')
 
 
@@ -158,7 +158,7 @@ def activity_edit(user_id, activity_id):
         return render_template('editActivity.html', activity=session['activity'])
 
     newData = functions.reformat_activity(request.form['nextAlert'], request.form['repeat'], request.form['repeatType'], request.form['repeatAmount'])
-    db.query(f"UPDATE activities SET type='{request.form['type']}', name='{request.form['name']}', repeat='{newData[0]}', nextAlert='{newData[1]}', repeatInterval={newData[2]} WHERE activity_id = {session['activity']['activity_id']};")
+    db.query(f"UPDATE activities SET type='{request.form['type'].capitalize()}', name='{request.form['name'].capitalize()}', repeat='{newData[0]}', nextAlert='{newData[1]}', repeatInterval={newData[2]} WHERE activity_id = {session['activity']['activity_id']};")
     session.pop('activity', default=None)
     return redirect("/feed")
 

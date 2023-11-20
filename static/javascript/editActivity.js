@@ -11,34 +11,32 @@ function ShowPage(props) {
         <div>
             <div className="field">
                 <div className="fieldHead">Repeat this activity?</div>
-                <div className="flex">
-                    <div><input type="radio" name="repeat" value="off" id="repeatOff" onChange={() => display.className = "hidden"} required/>Off</div>
-                    <div><input type="radio" name="repeat" value="on" id="repeatOn" onChange={() => display.className = "shown"} required/>On</div>
+                <div className="flex" id="inputs">
+                    {activity.repeat == 0 ?
+                        <>
+                            <div><input type="radio" name="repeat" value="off" id="repeatOff" required defaultChecked="true" onChange={() => {display.className = "hidden"; AmountInp.value=1}}/>Off</div> {/* checked */}
+                            <div><input type="radio" name="repeat" value="on" id="repeatOn" required onChange={() => display.className = "shown"}/>On</div>
+                        </>:
+                        <>
+                            <div><input type="radio" name="repeat" value="off" id="repeatOff" required onChange={() => {display.className = "hidden"; AmountInp.value=1}}/>Off</div>
+                            <div><input type="radio" name="repeat" value="on" id="repeatOn" required defaultChecked="true" onChange={() => display.className = "shown"}/>On</div> {/* checked */}
+                        </>
+                    }
                 </div>                
             </div>
-
-            <div id="display" className="hidden">
+            
+            <div id="display" className={activity.repeat == 1 ? "shown":"hidden"}>
                 <div className="field">
                     <div className="fieldHead">Repeat type</div>
-                    <input type="number" name="repeatAmount" placeholder={activity.repeatAmount} required min="1"/>
+                    <input type="number" name="repeatAmount" id="AmountInp" placeholder="Number" defaultValue={activity.repeatAmount} required min="1"/>
+
                     <select name="repeatType" id="repeatType">
-                        <option value="hours" id="sHours">Hour/s</option>
-                        <option value="days" id="sDays">Day/s</option>
-                        <option value="weeks" id="sWeeks">Week/s</option>
-                        <option value="months" id="sMonths">Month/s</option>
+                        <option value="hours" id="sHours" selected={activity.repeatType == "hours" && "true"}>Hour/s</option>
+                        <option value="days" id="sDays" selected={activity.repeatType == "days" && "true"}>Day/s</option>
+                        <option value="weeks" id="sWeeks" selected={activity.repeatType == "weeks" && "true"}>Week/s</option>
+                        <option value="months" id="sMonths" selected={activity.repeatType == "months" && "true"}>Month/s</option>
                     </select>
                 </div>
-            </div>
-
-            <div className="hidden">
-                {activity.repeat == 1 ? (repeatOn.checked = true) : null}
-                {activity.repeat == 0 ? (repeatOff.checked = true) : null}
-                {activity.repeat == 1 ? (display.className = "shown") : null}
-
-                {activity.repeatType == "hours" ? (sHours.selected = true) : null}
-                {activity.repeatType == "days" ? (sDays.selected = true) : null}
-                {activity.repeatType == "weeks" ? (sWeeks.selected = true) : null}
-                {activity.repeatType == "months" ? (sMonths.selected = true) : null}
             </div>
         </div>
     )
