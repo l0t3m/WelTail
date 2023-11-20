@@ -34,7 +34,7 @@ function ShowPage(props) {
 
                 <div className="field">
                     <div className="fieldHead">Date of birth</div>
-                    <input type="date" name="birthDate" placeholder="Birth Date" required/>
+                    <input type="date" name="birthDate" placeholder="Birth Date" required max={new Date().toISOString().split("T")[0]}/>
                 </div>
 
                 <div className="field">

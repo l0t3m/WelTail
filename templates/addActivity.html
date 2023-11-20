@@ -15,14 +15,17 @@
         <link rel="stylesheet" href="/static/style/addEdit.css">
         <script type="text/babel" src="/static/javascript/addActivity.js" defer></script>
         
+        <script>
+            function test() {
+                let minDate = document.getElementById("minDate");
+                minDate.min = new Date().toISOString().slice(0, -8)
+            }
+        </script>
     </head>
-    <body>
-
+    <body onload="test();" >
         <div class="root">
             <div class="container rootContainer">
-
                 <div class="header pageHead">Add an activity</div>
-
                 <form action='{{"/activity/add/{}/{}".format(user_id, pet_id)}}' method="post">
 
                     <div class="field">
@@ -34,14 +37,14 @@
                         <div class="fieldHead">Category name</div>
                         <input type="text" name="type" placeholder="Category Name" required minlength="3"/>
                     </div>
-    
+
                     <div class="field">
                         <div class="fieldHead">Date</div>
-                        <input type="datetime-local" name="nextAlert" required/>
+                        <input type="datetime-local" name="nextAlert" id="minDate" required/>
                     </div>
 
                     <div id="root"></div>
-                    
+
                     <div class="submit flexCenter">
                         <input type="submit" value="Add activity"/>
                     </div>
