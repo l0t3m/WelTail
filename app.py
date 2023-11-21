@@ -10,7 +10,7 @@ import db, functions
 #################### Variables: ####################
 
 db.setup(filename="weltail.db", testData=True)
-app.secret_key = "_WilTail_"
+app.secret_key = "_WelTail_"
 
 
 
